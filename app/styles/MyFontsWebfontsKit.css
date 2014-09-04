@@ -1,0 +1,40 @@
+/* @license
+ * MyFonts Webfont Build ID 2558035, 2013-05-16T17:29:48-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: ITC Souvenir Std Light by ITC
+ * URL: http://www.myfonts.com/fonts/itc/souvenir/std-light/
+ * Copyright: Copyright &#x00A9; 1985, 1987, 1994, 2001 Adobe Systems Incorporated.  All Rights Reserved.
+ * 
+ * Webfont: ITC Souvenir Std Medium by ITC
+ * URL: http://www.myfonts.com/fonts/itc/souvenir/std-medium/
+ * Copyright: Copyright &#x00A9; 1989, 1990, 2001 Adobe Systems Incorporated.  All Rights Reserved.
+ * 
+ * Webfont: ITC Souvenir Std Bold by ITC
+ * URL: http://www.myfonts.com/fonts/itc/souvenir/std-bold/
+ * Copyright: Copyright &#x00A9; 1989, 1990, 2001 Adobe Systems Incorporated.  All Rights Reserved.
+ * 
+ * 
+ * License: http://www.myfonts.com/viewlicense?type=web&buildid=2558035
+ * 
+ * © 2013 MyFonts Inc
+*/
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/270853");
+
+  
+@font-face {font-family: 'SouvenirStd-Light';src: url('webfonts/270853_0_0.eot');src: url('webfonts/270853_0_0.eot?#iefix') format('embedded-opentype'),url('webfonts/270853_0_0.woff') format('woff'),url('webfonts/270853_0_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'SouvenirStd-Medium';src: url('webfonts/270853_1_0.eot');src: url('webfonts/270853_1_0.eot?#iefix') format('embedded-opentype'),url('webfonts/270853_1_0.woff') format('woff'),url('webfonts/270853_1_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'SouvenirStd-Bold';src: url('webfonts/270853_2_0.eot');src: url('webfonts/270853_2_0.eot?#iefix') format('embedded-opentype'),url('webfonts/270853_2_0.woff') format('woff'),url('webfonts/270853_2_0.ttf') format('truetype');}
+ 

@@ -4,7 +4,7 @@ html, body {
     min-height: 675px;
     margin: 0px;
 }
-$base-font: 'Montserrat', sans-serif;
+$base-font: 'SouvenirStd-Light', sans-serif;
 
 body {
     background: #fafafa;
@@ -39,9 +39,11 @@ $nav-height: 40px;
     z-index: 2;
 
     h1 {
+        font-family: SouvenirStd-Medium;
+        font-weight: normal;
+        font-style: normal;
         font-size: 26px;
         margin: 0px;
-        font-weight: 400;
     }
 }
 .nav-dropdown {
