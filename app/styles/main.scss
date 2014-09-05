@@ -114,3 +114,26 @@ a {
 hr {
   clear: both;
 }
+
+/* kyle stuff */
+html, body, body > div {
+  width: 100%;
+  height: 100%;
+}
+.annotation {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: white;
+
+  .header {
+    background: black;
+    color: white;
+  }
+
+  &.pin {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+}
