@@ -1,9 +1,16 @@
 {
   "name": "shotbyshot",
-  "private": true,
+  "version": "0.0.0",
   "dependencies": {
-    "modernizr": "~2.6.2",
-    "jquery": "~1.11.0"
+    "modernizr": "2.8.x",
+    "angular": "1.2.x",
+    "angular-animate": "1.2.x",
+    "angular-cookies": "1.2.x",
+    "angular-touch": "1.2.x",
+    "angular-sanitize": "1.2.x",
+    "angular-ui-router": "0.2.x"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "angular-mocks": "1.2.x"
+  }
 }

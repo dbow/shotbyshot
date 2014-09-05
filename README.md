@@ -37,7 +37,7 @@
 3. Begin webserver with livereload using Gulp:
 
     ```sh
-    $ gulp watch
+    $ gulp serve
     ```
 
 4. Get to work!
@@ -50,5 +50,5 @@
 1. Installed node and npm.
 2. Installed yeoman: ```npm install -g yo```
 3. Installed gulp: ```npm install -g gulp```
-4. Installed gulp-based yeoman generator: ```npm install -g generator-gulp-webapp```
-5. Ran ```yo gulp-webapp``` and selected SASS and Modernizr.
+4. Installed gulp-based angular yeoman generator: ```npm install -g generator-gulp-angular```
+5. Ran ```yo angular```.
