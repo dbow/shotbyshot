@@ -13,7 +13,7 @@
         <div class="slides">
             <div ng-repeat="annotation in shot.annotations">
                 <div class="annotation-author">{{ annotation.author.name }}</div>
-                <div class="annotation-content">{{ annotation.content }}</div>
+                <div class="annotation-content" ng-bind-html="annotation.content"></div>
             </div>
         </div>
     </div>
