@@ -1,0 +1,20 @@
+<div class="container">
+    <div ng-include="'partials/nav.html'"></div>
+
+    <div class="content">
+
+        <div class="shot-background"></div>
+
+        <video class="shot-video" controls>
+            <source ng-src="{{ shot.videoUrl }}" type="video/mp4">
+            Your browser does not support the <code>video</code> element.
+        </video>
+
+        <div class="slides">
+            <div ng-repeat="annotation in shot.annotations">
+                <div class="annotation-author">{{ annotation.author.name }}</div>
+                <div class="annotation-content">{{ annotation.content }}</div>
+            </div>
+        </div>
+    </div>
+</div>

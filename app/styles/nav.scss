@@ -1,0 +1,100 @@
+@import 'variables';
+
+.top-nav {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: $nav-height;
+  color: #FFF;
+  z-index: 2;
+}
+
+.top-nav-menu {
+  position: absolute;
+  left: 30px;
+  top: 10px;
+  transform: rotate(90deg);
+  color: #DDD;
+  background-color: rgba(255, 255, 255, 0);
+  font-size: 20px;
+  padding: 5px;
+  border: none;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  &:hover {
+    color: #FFF;
+  }
+}
+
+.top-nav-current-slide {
+  position: absolute;
+  left: 50%;
+  width: 200px;
+  margin-left: -100px;
+  top: 18px;
+  font-size: 20px;
+}
+
+.top-nav-shot {
+  position: absolute;
+  right: 30px;
+  top: 10px;
+  text-decoration: none;
+  text-align: center;
+}
+
+@mixin top-nav-shot-arrow() {
+  display: block;
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+}
+
+.top-nav-shot-up {
+  @include top-nav-shot-arrow();
+}
+.top-nav-shot-down {
+  @include top-nav-shot-arrow();
+  transform: rotate(180deg);
+}
+
+.top-nav-shot-current {
+  border: 2px solid white;
+  padding: 6px;
+}
+
+
+.side-nav {
+  position: fixed;
+  right: 50px;
+  top: 40%;
+  z-index: 2;
+}
+
+.side-nav-circles {
+  padding: 0px;
+}
+
+.side-nav-circle {
+  height: 10px;
+  width: 10px;
+  list-style: none;
+  background-color: #D8D8D8;
+  margin: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: white;
+  }
+}
+

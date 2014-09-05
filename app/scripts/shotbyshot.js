@@ -7,6 +7,12 @@ angular.module('shotbyshot', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize',
         url: '/',
         templateUrl: 'partials/main.html',
         controller: 'MainCtrl'
+      })
+      .state('shot', {
+        url: '/shot/:shot',
+        templateUrl: 'partials/shot.html',
+        controller: 'ShotCtrl',
+        controllerAs: 'shot'
       });
 
     $urlRouterProvider.otherwise('/');
