@@ -37,7 +37,8 @@
     "gulp-plumber": "^0.6.3",
     "protractor": "^1.0.0",
     "uglify-save-license": "^0.4.1",
-    "gulp-ruby-sass": "^0.4.3"
+    "gulp-ruby-sass": "^0.4.3",
+    "proxy-middleware": "0.5.1"
   },
   "engines": {
     "node": ">=0.10.0"

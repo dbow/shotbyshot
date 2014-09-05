@@ -3,32 +3,24 @@
 var gulp = require('gulp');
 
 var browserSync = require('browser-sync');
-var httpProxy = require('http-proxy');
+var url = require('url');
+var proxy = require('proxy-middleware');
 
-/* This configuration allow you to configure browser sync to proxy your backend */
-var proxyTarget = 'http://server/context/'; // The location of your backend
-var proxyApiPrefix = 'api'; // The element in the URL which differentiate between API request and static file request
-
-var proxy = httpProxy.createProxyServer({
-  target: proxyTarget
-});
-
-function proxyMiddleware(req, res, next) {
-  if (req.url.indexOf(proxyApiPrefix) !== -1) {
-    proxy.web(req, res);
-  } else {
-    next();
-  }
-}
+// Use proxy-middleware instead of http-proxy because http-proxy was causing
+// an issue with the dreamhost server and I couldn't figure it out :/
+// Probably something with specific headers. proxy-middleware just works though.
+var proxyOptions = url.parse('http://www.memory.lossur.es/wp/');
+proxyOptions.route = '/api';
 
 function browserSyncInit(baseDir, files, browser) {
   browser = browser === undefined ? 'default' : browser;
 
   browserSync.instance = browserSync.init(files, {
     startPath: '/index.html',
+    port: 8080,
     server: {
       baseDir: baseDir,
-      middleware: proxyMiddleware
+      middleware: proxy(proxyOptions)
     },
     browser: browser
   });
