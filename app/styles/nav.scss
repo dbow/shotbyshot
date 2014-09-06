@@ -39,10 +39,25 @@
   position: absolute;
   left: 50%;
   width: 200px;
+  height: 100%;
   margin-left: -100px;
-  top: 18px;
   font-size: 20px;
+  line-height: $nav-height;
+  overflow: hidden;
 }
+  .top-nav-author {
+    position: absolute;
+    transition: transform 1s, opacity 1s;
+
+    &.up {
+      transform: translate3d(0, -$nav-height, 0);
+      opacity: 0;
+    }
+    &.down {
+      transform: translate3d(0, $nav-height, 0);
+      opacity: 0;
+    }
+  }
 
 .top-nav-shot {
   position: absolute;

@@ -58,10 +58,7 @@ html, body, body > div {
   height: 100%;
 }
 .annotation {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background: white;
+  background: transparent;
 
   .header {
     background: black;

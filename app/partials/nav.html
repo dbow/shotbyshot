@@ -2,7 +2,7 @@
     <button class="top-nav-menu">|||</button>
     <div class="top-nav-current-slide">
         <!-- TODO(dbow): ng-repeat for each slide with nav= and show current slide's nav -->
-        <div>{{ shot.annotations[0].author.name }}</div>
+        <div class="top-nav-author down" ng-repeat="annotation in shot.annotations">{{ annotation.author.name }}</div>
     </div>
     <div class="top-nav-shot">
         <a ui-sref="shot({ shot: shot.next })" class="top-nav-shot-up">^</a>

@@ -12,6 +12,8 @@ function Annotation() {
       image: ''
     };
 
+    console.log('annotation data', data);
+
     // Store content.
     this.content = data.content || '';
 
