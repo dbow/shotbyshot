@@ -48,10 +48,16 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-    <!-- build:js({app,.tmp}) scripts/main.js -->
-    <script src="scripts/shotbyshot.js"></script>
-    <script src="scripts/main/main-ctrl.js"></script>
-    <script src="scripts/main/shot-ctrl.js"></script>
+    <!-- build:js({app,.tmp}) -->
+    <script src="scripts/app.js"></script>
+    <!-- controllers -->
+    <script src="scripts/controllers/main-ctrl.js"></script>
+    <script src="scripts/controllers/shot-ctrl.js"></script>
+    <!-- services-->
+    <script src="scripts/services/annotations-service.js"></script>
+    <script src="scripts/services/annotation-factory.js"></script>
+    <!-- directives -->
+    <script src="scripts/directives/slide-directive.js"></script>
     <!-- inject:partials -->
     <!-- endinject -->
     <!-- endbuild -->

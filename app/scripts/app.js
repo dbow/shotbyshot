@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('shotbyshot', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ui.router'])
+angular
+  .module('shotbyshot',
+          ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ui.router'])
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('home', {
