@@ -1,6 +1,7 @@
 'use strict';
 
-function ShotService($rootScope, $http, $filter, $stateParams, $q) {
+function ShotService($rootScope, $http, $filter, $stateParams, $q,
+                     AnnotationsService) {
   var self = this;
 
   var current = parseInt($stateParams.shot, 10);
@@ -63,7 +64,7 @@ function ShotService($rootScope, $http, $filter, $stateParams, $q) {
         method: 'GET',
         url: url
       }).success(function(data) {
-        self.cache[id] = data.posts;
+        self.cache[id] = AnnotationsService.parse(data.posts);
         deferred.resolve(self.cache[id]);
       }).error(function() {
         deferred.reject('Error fetching shot ' + id);
