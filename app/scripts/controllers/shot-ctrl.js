@@ -22,10 +22,10 @@ var Scroller = {
     this.height = window.innerHeight;
     this.navHeight = 80;
 
-    window.addEventListener('scroll', angular.bind(this, this.onscroll));
-
     this.headers = document.getElementsByClassName('top-nav-author');
     this.annotationDivs = document.getElementsByClassName('annotation');
+
+    this.sizeAndPosition();
 
     angular.forEach(this.annotationDivs, function (annotation, i) {
       this.annotationInfo.push({
@@ -42,14 +42,25 @@ var Scroller = {
     this.currentAnnotation = this.annotationInfo[0];
     this.currentAnnotation.header.removeClass('down');
 
-    //document.body.style.height = (this.height * annotations.length) + 'px';
-    console.log('hi', this.annotationInfo);
+    //window.addEventListener('scroll', angular.bind(this, this.onscroll));
+    window.addEventListener('resize', angular.bind(this, this.sizeAndPosition));
+
+    this.boundOnscroll = angular.bind(this, this.onscroll);
+    window.requestAnimationFrame(this.boundOnscroll);
+  },
+
+  sizeAndPosition: function () {
+    this.height = window.innerHeight;
+    this.halfHeight = this.height / 2;
+    angular.element(this.annotationDivs).find('p').css({
+      height: this.height + 'px'
+    });
   },
 
   onscroll: function () {
-    var currentY = Math.floor(window.scrollY / this.height);
-    currentY = window.scrollY;
+    var currentY = window.scrollY;
 
+    // find current annotation and set current header
     angular.forEach(this.annotationInfo, function (annotation, i) {
       if (annotation !== this.currentAnnotation && currentY > annotation.top && currentY < annotation.bottom) {
         annotation.header.removeClass('up down');
@@ -61,16 +72,18 @@ var Scroller = {
         this.currentAnnotation = annotation;
         console.log('current', annotation);
       }
-
-      return;
-      if (annotation.y <= currentY) {
-        annotation.el.classList.add('pin');
-        annotation.el.style.top = 0;
-      } else {
-        annotation.el.classList.remove('pin');
-        annotation.el.style.top = (i * Scroller.height) + 'px';
-      }
     }, this);
+
+    var distance;
+    var opacity;
+    angular.forEach(this.currentAnnotation.el.find('p'), function (paragraph) {
+      distance = Math.abs(paragraph.offsetTop - currentY);
+      opacity = (Math.max(this.halfHeight - distance, 0) / this.halfHeight).toFixed(2);
+      angular.element(paragraph).css({opacity: opacity});
+      console.log(distance, opacity);
+    }, this);
+
+    window.requestAnimationFrame(this.boundOnscroll);
   }
 };
 

@@ -58,7 +58,6 @@ html, body, body > div {
   height: 100%;
 }
 .annotation {
-  background: transparent;
 
   .header {
     background: black;
@@ -69,5 +68,24 @@ html, body, body > div {
     position: fixed;
     top: 0;
     left: 0;
+  }
+
+  .annotation-author {
+    margin-bottom: 100px;
+  }
+
+  p {
+    position: relative;
+
+    span {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  figure {
+    /* TODO: break figures up into fg/bg images */
+    display: none;
   }
 }
