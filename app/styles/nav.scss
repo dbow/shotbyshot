@@ -14,9 +14,10 @@
   position: absolute;
   left: 30px;
   top: 10px;
-  transform: rotate(90deg);
-  color: #DDD;
-  background-color: rgba(255, 255, 255, 0);
+  height: 40px;
+  width: 50px;
+  background: url(../images/Menu_Icon.svg);
+  background-size: 50px;
   font-size: 20px;
   padding: 5px;
   border: none;
@@ -62,7 +63,7 @@
 .top-nav-shot {
   position: absolute;
   right: 30px;
-  top: 10px;
+  top: 5px;
   text-decoration: none;
   text-align: center;
 }
@@ -70,21 +71,31 @@
 @mixin top-nav-shot-arrow() {
   display: block;
   text-decoration: none;
-  color: white;
-  font-size: 16px;
+  display: block;
+  text-decoration: none;
+  height: 15px;
+  width: 48px;
+  background-size: 40px;
+  cursor: pointer;
+  background-position-x: 4px;
 }
 
 .top-nav-shot-up {
+  background: url(../images/Next_Shot.svg);
   @include top-nav-shot-arrow();
 }
 .top-nav-shot-down {
+  background: url(../images/Prev_Shot.svg);
   @include top-nav-shot-arrow();
-  transform: rotate(180deg);
 }
 
 .top-nav-shot-current {
-  border: 2px solid white;
-  padding: 6px;
+  padding: 31% 3px 0px 5px;
+  height: 28px;
+  width: 40px;
+  background: url(../images/Shot_by_Shot_Icon.svg);
+  background-size: 50px;
+  font-size: 11px;
 }
 
 
