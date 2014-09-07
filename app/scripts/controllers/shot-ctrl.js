@@ -1,6 +1,6 @@
 'use strict';
 
-function ShotCtrl($scope, $sce, $filter, ShotService) {
+function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService) {
   this.id = ShotService.current;
   this.next = ShotService.getNext();
   this.previous = ShotService.getPrevious();
@@ -9,7 +9,7 @@ function ShotCtrl($scope, $sce, $filter, ShotService) {
       $filter('shot')(this.id) + '.mp4');
   var self = this;
   ShotService.getShot(this.id).then(function(annotations) {
-    self.annotations = annotations;
+    self.slides = AnnotationParserService.parse(annotations);
     setTimeout(function () {
       Scroller.init();
     }, 100);

@@ -1,0 +1,44 @@
+<div class="slide">
+
+  <!-- TEXT -->
+  <div ng-if="slide.type === 'text'" class="slide-text" ng-bind-html="slide.content"></div>
+
+  <!-- BACKGROUND -->
+  <div ng-if="slide.type === 'background'" class="slide-background">
+    <img ng-if="slide.attributes.background" ng-src="{{ slide.attributes.background }}" />
+    <div ng-if="!slide.attributes.background" ng-bind-html="slide.content"></div>
+  </div>
+
+  <!-- PHOTO -->
+  <div ng-if="slide.type === 'photo'" class="slide-photo">
+    <img ng-if="slide.attributes.photo" ng-src="{{ slide.attributes.photo }}" />
+    <div ng-if="!slide.attributes.photo" ng-bind-html="slide.content"></div>
+  </div>
+
+  <!-- HIGHLIGHT -->
+  <div ng-if="slide.type === 'highlight'" class="slide-highlight">
+    <div class="slide-highlight-spotlight" style="left: {{ slide.annotation.highlight.x }}%; top: {{ slide.annotation.highlight.y }}%;"></div>
+  </div>
+
+  <!-- STREETVIEW -->
+  <div ng-if="slide.type === 'streetview'" class="slide-streetview">
+    <!-- TODO(dbow): Actually integrate street view -->
+    <div>{{ slide.annotation.streetView }}</div>
+  </div>
+
+  <!-- VIDEO -->
+  <div ng-if="slide.type === 'video'" class="slide-video">
+    <video ng-if="slide.attributes.video" controls>
+      <source ng-repeat="video in slide.attributes.video" ng-src="{{ video }}" type="video/mp4">
+      Your browser does not support the <code>video</code> element.
+    </video>
+  </div>
+
+  <!-- TODO(dbow): Add audio support -->
+
+  <!-- Expect optional title and/or caption on photo, video, streetview, or highlight -->
+  <div ng-if="slide.attributes.title">{{ slide.attributes.title }}</div>
+  <div ng-if="slide.attributes.caption">{{ slide.attributes.caption }}</div>
+
+</div>
+

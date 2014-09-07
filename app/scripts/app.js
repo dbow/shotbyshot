@@ -3,7 +3,7 @@
 angular
   .module('shotbyshot',
           ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ui.router'])
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider) {
     $stateProvider
       .state('home', {
         url: '/',
@@ -18,5 +18,12 @@ angular
       });
 
     $urlRouterProvider.otherwise('/');
-  })
-;
+
+     $sceDelegateProvider.resourceUrlWhitelist([
+       // Allow same origin resource loads.
+       'self',
+       // Allow wordpress uploads.
+       'http://www.memory.lossur.es/wp/wp-content/uploads/**'
+     ]);
+  });
+

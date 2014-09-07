@@ -3,7 +3,10 @@
 function Slide() {
   return {
     restrict: 'E',
-    template: '',
+    templateUrl: 'scripts/components/slide/slide.html',
+    scope: {
+      slide: '=data'
+    },
     link: function ($scope, $element, $attrs) {
     }
   };
@@ -11,4 +14,4 @@ function Slide() {
 
 angular
   .module('shotbyshot')
-  .directive('Slide', Slide);
+  .directive('slide', Slide);
