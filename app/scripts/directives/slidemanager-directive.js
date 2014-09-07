@@ -13,8 +13,14 @@ function SlideManager() {
     scope: {
       slides: '=?',
     },
-    replace: true,
-    link: function ($scope) {
+    link: function ($scope, $element) {
+      // Reference to the container element - can query for slide children.
+      console.log(angular.element($element));
+
+      $scope.$watch('slides', function(newValue, oldValue) {
+        // Array of slide DIVs.
+        console.log($scope.slides);
+      });
     }
   };
 }
