@@ -1,5 +1,6 @@
 .slide {
   height: 100%;
+  text-align: center;
 }
 
 .slide-photo {
@@ -10,4 +11,11 @@
 img {
   max-width: 100%;
   max-height: 100%;
+}
+
+.slide-text {
+  width: 50%;
+  left: 50%;
+  margin-left: -25%;
+  position: relative;
 }
