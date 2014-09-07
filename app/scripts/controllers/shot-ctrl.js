@@ -28,14 +28,24 @@ var Scroller = {
     this.sizeAndPosition();
 
     angular.forEach(this.annotationDivs, function (annotation, i) {
-      this.annotationInfo.push({
+      var el = angular.element(annotation);
+      var info = {
         index: i,
         top: annotation.offsetTop,
         height: annotation.offsetHeight,
         bottom: annotation.offsetTop + annotation.offsetHeight,
         header: angular.element(this.headers[i]),
-        el: angular.element(annotation)
-      });
+        el: el,
+        textEls: el.find('p'),
+        paragraphs: []
+      };
+      this.annotationInfo.push(info);
+
+      angular.forEach(info.textEls, function (textEl) {
+        info.paragraphs.push({
+          top: textEl.offsetTop
+        });
+      }, this);
       //annotation.style.top = (i * Scroller.height) + 'px';
     }, this);
 
@@ -52,6 +62,7 @@ var Scroller = {
   sizeAndPosition: function () {
     this.height = window.innerHeight;
     this.halfHeight = this.height / 2;
+
     angular.element(this.annotationDivs).find('p').css({
       height: this.height + 'px'
     });
@@ -76,8 +87,8 @@ var Scroller = {
 
     var distance;
     var opacity;
-    angular.forEach(this.currentAnnotation.el.find('p'), function (paragraph) {
-      distance = Math.abs(paragraph.offsetTop - currentY);
+    angular.forEach(this.currentAnnotation.el.find('p'), function (paragraph, i) {
+      distance = Math.abs(this.currentAnnotation.paragraphs[i].top - currentY);
       opacity = (Math.max(this.halfHeight - distance, 0) / this.halfHeight).toFixed(2);
       angular.element(paragraph).css({opacity: opacity});
       console.log(distance, opacity);
