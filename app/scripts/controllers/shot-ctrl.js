@@ -36,6 +36,8 @@ var Scroller = {
         bottom: annotation.offsetTop + annotation.offsetHeight,
         header: angular.element(this.headers[i]),
         el: el,
+        // TODO: is there a better way to find children?
+        authorEl: el.find('div').eq(0),
         textEls: el.find('p'),
         paragraphs: []
       };
@@ -46,7 +48,6 @@ var Scroller = {
           top: textEl.offsetTop
         });
       }, this);
-      //annotation.style.top = (i * Scroller.height) + 'px';
     }, this);
 
     this.currentAnnotation = this.annotationInfo[0];
@@ -62,6 +63,11 @@ var Scroller = {
   sizeAndPosition: function () {
     this.height = window.innerHeight;
     this.halfHeight = this.height / 2;
+    this.doubleHeight = this.height * 2;
+
+    angular.forEach(this.annotationDivs, function (div) {
+      angular.element(div).css({paddingTop: this.doubleHeight + 'px'});
+    }, this);
 
     angular.element(this.annotationDivs).find('p').css({
       height: this.height + 'px'
@@ -70,6 +76,11 @@ var Scroller = {
 
   onscroll: function () {
     var currentY = window.scrollY;
+    var slideDistance;
+
+    if (currentY === this.lastY) {
+      return window.requestAnimationFrame(this.boundOnscroll);
+    }
 
     // find current annotation and set current header
     angular.forEach(this.annotationInfo, function (annotation, i) {
@@ -85,16 +96,33 @@ var Scroller = {
       }
     }, this);
 
+    slideDistance = (currentY - this.currentAnnotation.top) / this.height;
+
+    // set opacity of paragraph elements to distance from view
     var distance;
     var opacity;
     angular.forEach(this.currentAnnotation.el.find('p'), function (paragraph, i) {
       distance = Math.abs(this.currentAnnotation.paragraphs[i].top - currentY);
       opacity = (Math.max(this.halfHeight - distance, 0) / this.halfHeight).toFixed(2);
       angular.element(paragraph).css({opacity: opacity});
-      console.log(distance, opacity);
     }, this);
 
-    window.requestAnimationFrame(this.boundOnscroll);
+    // fade in titles
+    console.log('slide distance', slideDistance);
+    if (slideDistance < 1) {
+      this.currentAnnotation.authorEl.css({
+        display: 'block',
+        opacity: slideDistance
+      });
+    } else if (slideDistance < 2) {
+      this.currentAnnotation.authorEl.css({opacity: 2 - slideDistance});
+    } else {
+      this.currentAnnotation.authorEl.css({
+        display: 'none'
+      });
+    }
+
+    return window.requestAnimationFrame(this.boundOnscroll);
   }
 };
 

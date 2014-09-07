@@ -71,6 +71,12 @@ html, body, body > div {
   }
 
   .annotation-author {
+    display: none;
+    position: fixed;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
     margin-bottom: 100px;
   }
 
