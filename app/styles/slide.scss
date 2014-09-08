@@ -19,3 +19,18 @@ img {
   margin-left: -25%;
   position: relative;
 }
+
+.slide-intro {
+  font-size: 30px;
+  padding-top: 70px;
+  font-family: $base-font-medium;
+}
+
+.slide-shot-number {
+  padding: 40px 0px 0px 0px;
+  height: 78px;
+  width: 140px;
+  background-image: url(../images/Shot_by_Shot_Icon.svg);
+  text-align: center;
+  display: inline-block;
+}

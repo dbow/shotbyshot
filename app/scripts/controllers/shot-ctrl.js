@@ -9,7 +9,12 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService) {
       $filter('shot')(this.id) + '.mp4');
   var self = this;
   ShotService.getShot(this.id).then(function(annotations) {
-    self.slides = AnnotationParserService.parse(annotations);
+    var intro = [{
+      type: 'introduction',
+      shot: self.id
+    }];
+    var slides = intro.concat(AnnotationParserService.parse(annotations));
+    self.slides = slides;
     setTimeout(function () {
       Scroller.init();
     }, 100);

@@ -1,5 +1,11 @@
 <div class="slide">
 
+  <!-- INTRO -->
+  <div ng-if="slide.type === 'introduction'" class="slide-intro">
+    <h3>Los Sures - Shot by Shot</h3>
+    <div class="slide-shot-number">{{ slide.shot | shot }}</div>
+  </div>
+
   <!-- TEXT -->
   <div ng-if="slide.type === 'text'" class="slide-text" ng-bind-html="slide.content"></div>
 
