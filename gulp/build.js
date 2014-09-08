@@ -2,6 +2,8 @@
 
 var gulp = require('gulp');
 
+var angularTemplates = require('gulp-angular-templates');
+
 var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license']
 });
@@ -37,7 +39,17 @@ gulp.task('partials', function () {
     .pipe($.size());
 });
 
-gulp.task('html', ['styles', 'scripts', 'partials'], function () {
+gulp.task('templates', function() {
+  gulp.src('app/templates/**/*.html')
+      .pipe(angularTemplates({
+        basePath: 'templates/',
+        module: 'shotbyshot'
+      }))
+      .pipe(gulp.dest('dist/templates'));
+
+});
+
+gulp.task('html', ['styles', 'scripts', 'partials', 'templates'], function () {
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
 
@@ -47,6 +59,12 @@ gulp.task('html', ['styles', 'scripts', 'partials'], function () {
       starttag: '<!-- inject:partials -->',
       addRootSlash: false,
       addPrefix: '../'
+    }))
+    .pipe($.inject(gulp.src('dist/templates/*.js'), {
+      read: false,
+      starttag: '<!-- inject:templates -->',
+      ignorePath: 'dist',
+      addRootSlash: false
     }))
     .pipe($.useref.assets())
     .pipe($.rev())
@@ -76,8 +94,14 @@ gulp.task('images', function () {
     .pipe($.size());
 });
 
+gulp.task('clear', function () {
+    return $.cache.clearAll();
+});
+
 gulp.task('fonts', function () {
-  return gulp.src($.mainBowerFiles())
+  var fontPaths = $.mainBowerFiles();
+  fontPaths.push('app/fonts/**/*');
+  return gulp.src(fontPaths)
     .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
     .pipe($.flatten())
     .pipe(gulp.dest('dist/fonts'))

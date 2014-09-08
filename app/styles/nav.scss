@@ -16,7 +16,8 @@
   top: 10px;
   height: 40px;
   width: 50px;
-  background: url(../images/Menu_Icon.svg);
+  background-image: url(../images/Menu_Icon.svg);
+  background-color: rgba(255, 255, 255, 0);
   background-size: 50px;
   font-size: 20px;
   padding: 5px;
@@ -81,11 +82,11 @@
 }
 
 .top-nav-shot-up {
-  background: url(../images/Next_Shot.svg);
+  background-image: url(../images/Next_Shot.svg);
   @include top-nav-shot-arrow();
 }
 .top-nav-shot-down {
-  background: url(../images/Prev_Shot.svg);
+  background-image: url(../images/Prev_Shot.svg);
   @include top-nav-shot-arrow();
 }
 
@@ -93,7 +94,7 @@
   padding: 31% 3px 0px 5px;
   height: 28px;
   width: 40px;
-  background: url(../images/Shot_by_Shot_Icon.svg);
+  background-image: url(../images/Shot_by_Shot_Icon.svg);
   background-size: 50px;
   font-size: 11px;
 }

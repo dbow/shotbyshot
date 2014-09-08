@@ -14,7 +14,6 @@
     <!-- build:css({.tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-    <link rel="stylesheet" type="text/css" href="styles/MyFontsWebfontsKit.css">
 
     <!-- build:js scripts/modernizr.js -->
     <script src="bower_components/modernizr/modernizr.js"></script>
@@ -48,7 +47,7 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-    <!-- build:js({app,.tmp}) -->
+    <!-- build:js({app,.tmp}) scripts/main.js -->
     <script src="scripts/app.js"></script>
     <!-- controllers -->
     <script src="scripts/controllers/main-ctrl.js"></script>
@@ -62,11 +61,13 @@
     <script src="scripts/filters/shot-filter.js"></script>
     <!-- directives -->
     <script src="scripts/directives/slidemanager-directive.js"></script>
-    <!-- components -->
-    <script src="scripts/components/slide/slide-directive.js"></script>
+    <script src="scripts/directives/slide-directive.js"></script>
     <!-- inject:partials -->
     <!-- endinject -->
     <!-- endbuild -->
+
+    <!-- inject:templates -->
+    <!-- endinject -->
 
   </body>
 </html>

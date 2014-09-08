@@ -3,10 +3,7 @@
 function Slide() {
   return {
     restrict: 'E',
-    templateUrl: 'scripts/components/slide/slide.html',
-    scope: {
-      slide: '=data'
-    },
+    templateUrl: 'templates/slide.html',
     link: function ($scope, $element, $attrs) {
     }
   };

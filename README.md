@@ -42,6 +42,12 @@
 
 4. Get to work!
 
+5. ...oh, and if you want to compile and see a more production-ized version:
+
+    ```sh
+    $ gulp serve:dist
+    ```
+
 
 # But, wait, how did we get here? Where did all these files come from?
 
