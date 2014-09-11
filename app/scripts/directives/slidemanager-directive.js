@@ -183,6 +183,8 @@ var Scroller = {
       if (slide.type === 'text' || slide.type === 'photo') {
         var opacity = (1 - Math.min(Math.abs(slideDistance) / this.halfHeight, 1)).toFixed(2);
         slide.$el.css({opacity: opacity});
+      } else if (slide.type === 'author') {
+        
       }
     }
 
