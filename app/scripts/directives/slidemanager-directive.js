@@ -142,13 +142,12 @@ var Scroller = {
       return window.requestAnimationFrame(this.boundOnscroll);
     }
 
-
     // text opacity
-    for (i = index - 1; i < index + 2; i++) {
+    for (i = Math.max(index - 1, 0); i < index + 2 && i < this.slides.length; i++) {
       slide = this.slides[i];
       slideDistance = currentY - slide.top;
 
-      if (slide.type === 'text') {
+      if (slide.type === 'text' || slide.type === 'photo') {
         var opacity = (1 - Math.min(Math.abs(slideDistance) / this.halfHeight, 1)).toFixed(2);
         slide.$el.css({opacity: opacity});
       }
