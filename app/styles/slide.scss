@@ -24,12 +24,37 @@ img {
   max-height: 100%;
 }
 
+.slide-outer-author {
+  height: 300%;
+}
+
 .slide-author {
   position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 3;
 
   img {
+    position: fixed;
     max-width: 50%;
     max-height: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: 0 0;
+    transition: all 1s;
+  }
+
+  &.pin img {
+    top: 20px + $nav-height;
+    left: 50px;
+    transform: scale(0.2) translate(0, 0);
+  }
+
+  &.show {
+    display: block;
   }
 }
 

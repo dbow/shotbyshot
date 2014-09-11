@@ -47,37 +47,6 @@ var Scroller = {
     window.requestAnimationFrame(this.boundOnscroll);
   },
 
-  s: function () {
-
-    this.sizeAndPosition();
-
-    angular.forEach(this.annotationDivs, function (annotation, i) {
-      var el = angular.element(annotation);
-      var info = {
-        index: i,
-        top: annotation.offsetTop,
-        height: annotation.offsetHeight,
-        bottom: annotation.offsetTop + annotation.offsetHeight,
-        header: angular.element(this.headers[i]),
-        el: el,
-        // TODO: is there a better way to find children?
-        authorEl: el.find('div').eq(0),
-        textEls: el.find('p'),
-        paragraphs: []
-      };
-      this.annotationInfo.push(info);
-
-      angular.forEach(info.textEls, function (textEl) {
-        info.paragraphs.push({
-          top: textEl.offsetTop
-        });
-      }, this);
-    }, this);
-
-    this.currentAnnotation = this.annotationInfo[0];
-    this.currentAnnotation.header.removeClass('down');
-  },
-
   setSlides: function (slides) {
     this.slides = slides;
     this.$slides = this.$el[0].getElementsByClassName('slide');
@@ -110,6 +79,8 @@ var Scroller = {
 
       if (slide.type === 'background') {
         bg = slide;
+
+      } else if (slide.type === 'author') {
       }
     }, this);
 
@@ -147,6 +118,7 @@ var Scroller = {
         index = i;
         this.currentSlide = slide;
       }
+      slide.inView = currentY > slide.top || currentY < slide.bottom;
     }, this);
 
     if (!this.currentSlide) {
@@ -158,6 +130,8 @@ var Scroller = {
     var props;
 
     angular.forEach(this.slides, function (slide) {
+      slideDistance = currentY - slide.top;
+
       // pin background slides
       if (slide.type === 'background') {
         if (currentY < slide.top) {
@@ -172,31 +146,32 @@ var Scroller = {
           slide.$inner.css({position: 'fixed', top: -this.height + 'px'});
         }
       }
-    }, this);
 
-    // loop over visible slides
-    for (i = Math.max(index - 1, 0); i < index + 2 && i < this.slides.length; i++) {
-      slide = this.slides[i];
-      slideDistance = currentY - slide.top;
-
-      // text opacity
-      if (slide.type === 'text' || slide.type === 'photo') {
-        var opacity = (1 - Math.min(Math.abs(slideDistance) / this.halfHeight, 1)).toFixed(2);
-        slide.$el.css({opacity: opacity});
-      } else if (slide.type === 'author') {
-        
+      if (slide.type === 'author') {
+        if (slide === this.currentSlide && slideDistance < this.height) {
+            slide.$inner.removeClass('pin');
+            slide.$el.css({opacity: (slideDistance / this.height).toFixed(2)});
+            slide.$inner.addClass('show');
+        } else if (slide.annotation === this.currentSlide.annotation) {
+            slide.$el.css({opacity: 1});
+            slide.$inner.addClass('show');
+            if (slideDistance > this.doubleHeight) {
+              slide.$inner.addClass('pin');
+            }
+        } else {
+          slide.$inner.removeClass('pin show');
+        }
       }
-    }
 
-    /*
-    // slide bg up/down if moving to a new annotation
-    if (nextSlide && this.currentSlide.bg && nextSlide.bg !== this.currentSlide.bg) {
-      this.currentSlide.bg.$inner.css({top: (this.currentSlide.top - currentY) + 'px'});
-    }
-    if (previousSlide && previousSlide.bg && previousSlide.bg !== this.currentSlide.bg) {
-      previousSlide.bg.$inner.css({top: (-this.height) + 'px'});
-    }
-    */
+      // loop over visible slides
+      if (slide.inView) {
+        // text opacity
+        if (slide.type === 'text' || slide.type === 'photo') {
+          var opacity = (1 - Math.min(Math.abs(slideDistance) / this.halfHeight, 1)).toFixed(2);
+          slide.$el.css({opacity: opacity});
+        }
+      }
+    }, this);
 
     return window.requestAnimationFrame(this.boundOnscroll);
 
