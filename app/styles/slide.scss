@@ -1,3 +1,5 @@
+@import 'variables';
+
 .slide {
   position: relative;
   height: 100%;
@@ -20,6 +22,13 @@
 img {
   max-width: 100%;
   max-height: 100%;
+}
+
+.slide-author {
+  img {
+    max-width: 50%;
+    max-height: 50%;
+  }
 }
 
 .slide-intro {

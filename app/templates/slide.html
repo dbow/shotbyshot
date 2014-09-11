@@ -6,6 +6,11 @@
     <div class="slide-shot-number">{{ slide.shot | shot }}</div>
   </div>
 
+  <!-- AUTHOR -->
+  <div ng-if="slide.type === 'author'" class="slide-author">
+    <img ng-src="{{ slide.annotation.author.image }}" />
+  </div>
+
   <!-- TEXT -->
   <div ng-if="slide.type === 'text'" class="slide-text" ng-bind-html="slide.content"></div>
 

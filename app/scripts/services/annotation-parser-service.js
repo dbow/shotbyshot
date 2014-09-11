@@ -61,7 +61,7 @@ function AnnotationParserService(Annotation) {
       // Ignore first result since it's always outside a slide tag.
       slides = slides.slice(1);
 
-      angular.forEach(slides, function(slide) {
+      angular.forEach(slides, function(slide, i) {
         // Separate into attributes and content.
         var parts = slide.split(']');
         if (parts.length < 2) {
@@ -141,6 +141,21 @@ function AnnotationParserService(Annotation) {
           attributes: attributeMap,
           annotation: annotation // Reference to original annotation.
         };
+
+        var NON_AUTHOR_TYPES = {
+          photo: 1,
+          video: 1,
+          streetview: 1
+        };
+
+        // If first detected slide is not one of the non-author ones, add an
+        // author slide.
+        if (i === 0 && !NON_AUTHOR_TYPES[type]) {
+          slideObjects.push({
+            type: 'author',
+            annotation: annotation
+          });
+        }
 
         slideObjects.push(slideObject);
       });
