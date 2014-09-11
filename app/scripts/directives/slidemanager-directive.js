@@ -63,6 +63,8 @@ var Scroller = {
     this.doubleHeight = this.height * 2;
 
     var bg;
+    var annotation;
+    var annotationIndex = 0;
 
     angular.forEach(this.slides, function (slide, i) {
       var el = this.$slides[i];
@@ -72,6 +74,12 @@ var Scroller = {
       slide.$el = angular.element(el);
       slide.$inner = slide.$el.find('div').eq(0);
       slide.index = i;
+
+      if (annotation !== slide.annotation) {
+        annotation = slide.annotation;
+        annotation.index = annotationIndex++;
+        annotation.header = angular.element(this.headers[annotation.index]);
+      }
 
       if (bg && slide.annotation === bg.annotation) {
         slide.bg = bg;
@@ -128,6 +136,25 @@ var Scroller = {
     var nextSlide = this.slides[index + 1];
     var previousSlide = this.slides[index - 1];
     var props;
+
+    var annotationIndex;
+
+    if (this.currentSlide.annotation) {
+      annotationIndex = this.currentSlide.annotation.index;
+      this.currentSlide.annotation.header.removeClass('up down');
+    } else {
+      annotationIndex = -1;
+    }
+
+    // show a header
+    angular.forEach(this.headers, function (header, i) {
+      var el = angular.element(header);
+      if (i < annotationIndex) {
+        el.addClass('up').removeClass('down');
+      } else if (i > annotationIndex) {
+        el.addClass('down').removeClass('up');
+      }
+    }, this);
 
     angular.forEach(this.slides, function (slide) {
       slideDistance = currentY - slide.top;

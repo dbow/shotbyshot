@@ -4,6 +4,9 @@ angular.module('shotbyshot')
   .controller('MainCtrl', function ($scope) {
     var annotations = $scope.annotations = [
       {
+        author: {
+          name: 'kyle'
+        },
         title: 'Annotation #1',
         content: 'This is an annotation.',
         y: 0

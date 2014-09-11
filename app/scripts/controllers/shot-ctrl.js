@@ -14,6 +14,7 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService) {
       shot: self.id
     }];
     var slides = intro.concat(AnnotationParserService.parse(annotations));
+    self.annotations = annotations;
     self.slides = slides;
   });
 }
