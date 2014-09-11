@@ -93,13 +93,24 @@ var Scroller = {
     this.halfHeight = this.height / 2;
     this.doubleHeight = this.height * 2;
 
+    var bg;
+
     angular.forEach(this.slides, function (slide, i) {
       var el = this.$slides[i];
       slide.top = el.offsetTop;
       slide.bottom = slide.top + this.height;
       slide.el = el;
       slide.$el = angular.element(el);
+      slide.$inner = slide.$el.find('div').eq(0);
       slide.index = i;
+
+      if (bg && slide.annotation === bg.annotation) {
+        slide.bg = bg;
+      }
+
+      if (slide.type === 'background') {
+        bg = slide;
+      }
     }, this);
 
     console.log('slides', this.slides);
@@ -142,16 +153,48 @@ var Scroller = {
       return window.requestAnimationFrame(this.boundOnscroll);
     }
 
-    // text opacity
+    var nextSlide = this.slides[index + 1];
+    var previousSlide = this.slides[index - 1];
+    var props;
+
+    angular.forEach(this.slides, function (slide) {
+      // pin background slides
+      if (slide.type === 'background') {
+        if (currentY < slide.top) {
+          slide.$inner.css({position: 'relative', top: 0});
+        } else if (slide === this.currentSlide || slide === this.currentSlide.bg) {
+          if (nextSlide && nextSlide.bg !== slide) {
+            slide.$inner.css({position: 'fixed', top: (this.currentSlide.top - currentY) + 'px'});
+          } else {
+            slide.$inner.css({position: 'fixed', top: 0});
+          }
+        } else {
+          slide.$inner.css({position: 'fixed', top: -this.height + 'px'});
+        }
+      }
+    }, this);
+
+    // loop over visible slides
     for (i = Math.max(index - 1, 0); i < index + 2 && i < this.slides.length; i++) {
       slide = this.slides[i];
       slideDistance = currentY - slide.top;
 
+      // text opacity
       if (slide.type === 'text' || slide.type === 'photo') {
         var opacity = (1 - Math.min(Math.abs(slideDistance) / this.halfHeight, 1)).toFixed(2);
         slide.$el.css({opacity: opacity});
       }
     }
+
+    /*
+    // slide bg up/down if moving to a new annotation
+    if (nextSlide && this.currentSlide.bg && nextSlide.bg !== this.currentSlide.bg) {
+      this.currentSlide.bg.$inner.css({top: (this.currentSlide.top - currentY) + 'px'});
+    }
+    if (previousSlide && previousSlide.bg && previousSlide.bg !== this.currentSlide.bg) {
+      previousSlide.bg.$inner.css({top: (-this.height) + 'px'});
+    }
+    */
 
     return window.requestAnimationFrame(this.boundOnscroll);
 
