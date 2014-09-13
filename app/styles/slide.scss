@@ -3,43 +3,43 @@
 .slide {
   position: relative;
   height: 100%;
+  width: 100%;
   text-align: center;
+  overflow: hidden;
+}
+
+.slide-inner {
+  left: 0px;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  overflow: hidden;
 }
 
 .slide-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   font-size: 24px;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.4) 25%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.4) 75%, transparent);
 }
+.slide-text-container {
+  margin-left: 20%;
+  width: 60%;
+  margin-top: 310px;
+}
+
 
 .slide-photo {
   height: 100%;
   width: 100%;
 }
 
-.slide-outer-author {
-  height: 300%;
-}
 
 .slide-author {
-  position: fixed;
-  display: none;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 3;
-
+  z-index: 2;
   img {
-    position: fixed;
     max-width: 50%;
-    max-height: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transform-origin: 0 0;
-    transition: all 1s;
+    max-height: 40%;
+    margin-top: 200px;
   }
 
   &.pin img {

@@ -12,6 +12,10 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService) {
     var intro = [{
       type: 'introduction',
       shot: self.id
+    },
+    {
+      type: 'shotvideo',
+      shot: self.id
     }];
     var slides = intro.concat(AnnotationParserService.parse(annotations));
     self.annotations = annotations;
