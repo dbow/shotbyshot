@@ -81,11 +81,21 @@ var KeyFrameSets = {
   'videoEvents': [
     {
       key: 0,
-      event: 'videoSlideVisibilityChange'
+      event: 'videoSlideVisibilityChange',
+      backgroundOpacity: 1
+    },
+    {
+      key: 0.2,
+      backgroundOpacity: 0
+    },
+    {
+      key: 0.8,
+      backgroundOpacity: 0
     },
     {
       key: 1,
-      event: 'videoSlideVisibilityChange'
+      event: 'videoSlideVisibilityChange',
+      backgroundOpacity: 1
     }
   ],
   /**
@@ -226,18 +236,15 @@ var Scroller = {
     this.height = window.innerHeight;
     this.halfHeight = this.height / 2;
     this.doubleHeight = this.height * 2;
-    this.tripleHeight = this.height * 3;
-
-    var annotation;
-    var annotationIndex = 0;
 
     var author;
     var bg;
+    var annotation;
+    var annotationIndex = 0;
 
     angular.forEach(this.slides, function (slide, i) {
       var el = this.$slides[i];
       slide.top = el.offsetTop;
-
       slide.bottom = slide.top + this.height;
       slide.el = el;
       slide.$el = angular.element(el);
@@ -252,6 +259,8 @@ var Scroller = {
         annotation.header = angular.element(this.headers[annotation.index]);
       }
 
+      // Dynamically add last two keyframes for author based on when the next
+      // annotation comes in.
       if (author && slide.annotation !== author.annotation) {
         author.keyFrames = author.keyFrames.concat([
           {
@@ -272,10 +281,13 @@ var Scroller = {
         author = null;
       }
 
+      // Keep reference to author until next annotation.
       if (slide.type === 'author') {
         author = slide;
       }
 
+      // Dynamically add last two keyframes for background based on when the
+      // next annotation comes in.
       if (bg && slide.annotation !== bg.annotation) {
         bg.keyFrames = bg.keyFrames.concat([
           {
@@ -292,11 +304,15 @@ var Scroller = {
         bg = null;
       }
 
+      // Keep reference to background until next annotation.
       if (slide.type === 'background') {
         bg = slide;
       }
     }, this);
 
+    // Force an update to the layout.
+    this.lastY = undefined;
+    this.onscroll();
   },
 
   onscroll: function () {
