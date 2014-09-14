@@ -71,3 +71,22 @@
   text-align: center;
   display: inline-block;
 }
+
+.slide-inner.slide-highlight {
+  overflow: visible;
+
+  .meta-text {
+    height: 200px;
+    width: 200px;
+  }
+}
+.slide-highlight-spotlight {
+  border: 3px solid white;
+  height: 250px;
+  width: 250px;
+  border-radius: 250px;
+  margin-left: -125px;
+  margin-top: -125px;
+}
+
+

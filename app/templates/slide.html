@@ -30,7 +30,11 @@
 
   <!-- HIGHLIGHT -->
   <div ng-if="slide.type === 'highlight'" class="slide-highlight slide-inner">
-    <div class="slide-highlight-spotlight" style="left: {{ slide.annotation.highlight.x }}%; top: {{ slide.annotation.highlight.y }}%;"></div>
+    <div class="slide-highlight-spotlight"></div>
+    <div class="meta-text">
+      <div ng-if="slide.attributes.title">{{ slide.attributes.title }}</div>
+      <div ng-if="slide.attributes.caption">{{ slide.attributes.caption }}</div>
+    </div>
   </div>
 
   <!-- STREETVIEW -->
@@ -48,10 +52,6 @@
   </div>
 
   <!-- TODO(dbow): Add audio support -->
-
-  <!-- Expect optional title and/or caption on photo, video, streetview, or highlight -->
-  <div ng-if="slide.attributes.title">{{ slide.attributes.title }}</div>
-  <div ng-if="slide.attributes.caption">{{ slide.attributes.caption }}</div>
 
 </div>
 

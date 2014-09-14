@@ -78,6 +78,14 @@ var KeyFrameSets = {
       top: -1
     }
   ],
+  'highlightStart': [
+    {
+      key: -0.5,
+      top: 0,
+      left: 1,
+      metaOpacity: 0
+    }
+  ],
   'videoEvents': [
     {
       key: 0,
@@ -195,7 +203,7 @@ var Scroller = {
       }
     ],
     'text': KeyFrameSets.fadeInFromBottom,
-    'highlight': KeyFrameSets.fadeInFromBottom, // TODO construct highlight dynamically.
+    'highlight': KeyFrameSets.highlightStart,
     'photo': KeyFrameSets.slideInFromBottom,
     'streetview': KeyFrameSets.slideInFromBottom,
     'video': KeyFrameSets.construct(
@@ -241,6 +249,11 @@ var Scroller = {
     var bg;
     var headerIndex = 0;
 
+    var shotVideoWidth = 1075; // TODO(dbow): Should not be hard coded.
+    var windowWidth = window.innerWidth;
+    var videoPercentOfScreen = shotVideoWidth / windowWidth;
+    var videoOffsetPercent = ((windowWidth - shotVideoWidth) / 2) / windowWidth;
+
     angular.forEach(this.slides, function (slide, i) {
       var el = this.$slides[i];
       slide.top = el.offsetTop;
@@ -248,9 +261,35 @@ var Scroller = {
       slide.el = el;
       slide.$el = angular.element(el);
       slide.$inner = slide.$el.find('div').eq(0);
+      slide.$meta = angular.element(
+          slide.el.getElementsByClassName('meta-text')[0]);
       slide.index = i;
 
       slide.keyFrames = _.clone(this.keyFrames[slide.type], true) || [];
+
+      if (slide.type === 'highlight') {
+        var top = slide.annotation.highlight.y / 100;
+        var left = slide.annotation.highlight.x / 100;
+        top = videoOffsetPercent + top * videoPercentOfScreen;
+        left = videoOffsetPercent + left * videoPercentOfScreen;
+        slide.keyFrames = slide.keyFrames.concat([
+          {
+            key: 0,
+            top: top,
+            left: left,
+            metaOpacity: 0
+          },
+          {
+            key: 0.5,
+            top: top,
+            left: left,
+            metaOpacity: 1
+          }
+        ]);
+
+        // TODO(dbow): Probably need to dynamically position the meta text
+        //     based on the % (i.e. detect if it's likely to run off the page).
+      }
 
       if (slide.nav || slide.type === 'author') {
         slide.headerEl = this.headers[headerIndex++];
@@ -418,10 +457,16 @@ var Scroller = {
       slide.$inner.css({
         'transform': 'translate3d(' + transformX + ', ' + transformY + ', 0)' + scale,
         'display': 'block',
-        'opacity': css['opacity'] || 1
+        'opacity': (css['opacity'] !== undefined ? css['opacity'] : 1)
       });
 
-      if (css['backgroundOpacity']) {
+      if (css['metaOpacity'] !== undefined) {
+        slide.$meta.css({
+          'opacity': css['metaOpacity']
+        });
+      }
+
+      if (css['backgroundOpacity'] !== undefined) {
         this.$background.css({
           'opacity': css['backgroundOpacity']
         });
