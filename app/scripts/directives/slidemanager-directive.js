@@ -417,20 +417,33 @@ var Scroller = {
 
       slide.hidden = false;
 
-      if (slide.headerEl !== undefined &&
-          slideFrame >= 0 && slideFrame <= 1) {
-        var newHeader;
-        angular.forEach(this.headers, function (header) {
-          var el = angular.element(header);
-          if (header === slide.headerEl) {
-            newHeader = el;
-            el.removeClass('up').removeClass('down');
-          } else if (!newHeader) {
-            el.addClass('up').removeClass('down');
-          } else {
-            el.addClass('down').removeClass('up');
-          }
-        }, this);
+      // Find the target header for the current slide.
+      if (slideFrame >= 0 && slideFrame <= 1) {
+        var targetHeader = slide.headerEl;
+        if (!targetHeader) {
+          var prevSlides = this.slides.slice(0, i);
+          _.forEachRight(prevSlides, function(prevSlide) {
+            if (prevSlide.headerEl) {
+              targetHeader = prevSlide.headerEl;
+              return false;
+            }
+          });
+        }
+        // Adjust header classes so target header is displayed.
+        if (targetHeader) {
+          var newHeader;
+          angular.forEach(this.headers, function (header) {
+            var el = angular.element(header);
+            if (header === targetHeader) {
+              newHeader = el;
+              el.removeClass('up').removeClass('down');
+            } else if (!newHeader) {
+              el.addClass('up').removeClass('down');
+            } else {
+              el.addClass('down').removeClass('up');
+            }
+          }, this);
+        }
       }
 
       var css = {};
