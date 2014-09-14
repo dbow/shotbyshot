@@ -134,6 +134,11 @@ function AnnotationParserService(Annotation) {
           }
         });
 
+        // Filter out linebreaks (<br> and <br /> tags) in image content.
+        if (type === 'photo' || type === 'background') {
+          content = content.replace(/\<br\s*\/*\>/gi, '');
+        }
+
         // Assemble slide object for the slide directive.
         var slideObject = {
           type: type,
