@@ -145,7 +145,7 @@ function AnnotationParserService(Annotation) {
         var NON_AUTHOR_TYPES = {
           photo: 'photos',
           video: 'video',
-          streetview: 'No &amp; Then'
+          streetview: 'Now & Then'
         };
 
         // If first detected slide is not one of the non-author ones, add an

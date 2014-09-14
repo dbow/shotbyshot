@@ -39,8 +39,7 @@
 
   <!-- STREETVIEW -->
   <div ng-if="slide.type === 'streetview'" class="slide-streetview slide-inner">
-    <!-- TODO(dbow): Actually integrate street view -->
-    <div>{{ slide.annotation.streetView }}</div>
+      <street-view url="{{slide.annotation.streetView}}" title="{{slide.attributes.title}}" caption="{{slide.attributes.caption}}"></street-view>
   </div>
 
   <!-- VIDEO -->
