@@ -247,6 +247,7 @@ var Scroller = {
 
     var author;
     var bg;
+    var highlight;
     var headerIndex = 0;
 
     var shotVideoWidth = 1075; // TODO(dbow): Should not be hard coded.
@@ -267,7 +268,29 @@ var Scroller = {
 
       slide.keyFrames = _.clone(this.keyFrames[slide.type], true) || [];
 
+      if (highlight && slide.annotation !== author.annotation) {
+        var lastKeyframe = _.last(highlight.keyFrames);
+        highlight.keyFrames = highlight.keyFrames.concat([
+          {
+            key: i - highlight.index - 1.5,
+            opacity: 1,
+            top: lastKeyframe.top,
+            left: lastKeyframe.left,
+            metaOpacity: 1
+          },
+          {
+            key: i - highlight.index - 1,
+            opacity: 0,
+            top: lastKeyframe.top,
+            left: lastKeyframe.left,
+            metaOpacity: 1
+          }
+        ]);
+      }
+
       if (slide.type === 'highlight') {
+        highlight = slide;
+
         var top = slide.annotation.highlight.y / 100;
         var left = slide.annotation.highlight.x / 100;
         top = videoOffsetPercent + top * videoPercentOfScreen;
