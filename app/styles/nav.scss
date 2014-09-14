@@ -51,6 +51,8 @@
     position: absolute;
     transition: transform 1s, opacity 1s;
     text-transform: capitalize;
+    width: 100%;
+    text-align: center;
 
     &.up {
       transform: translate3d(0, -$nav-height, 0);
