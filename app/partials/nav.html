@@ -1,8 +1,9 @@
 <nav class="top-nav">
     <button class="top-nav-menu"></button>
     <div class="top-nav-current-slide">
-        <!-- TODO(dbow): ng-repeat for each slide with nav= and show current slide's nav -->
-        <div class="top-nav-author down" ng-repeat="annotation in shot.annotations">{{ annotation.author.name }}</div>
+        <div class="top-nav-author down" ng-repeat="slide in shot.slides | filter:isNavSlide">
+          {{ slide.nav || slide.annotation.author.name }}
+        </div>
     </div>
     <div class="top-nav-shot">
         <a ui-sref="shot({ shot: shot.previous })" class="top-nav-shot-down"></a>

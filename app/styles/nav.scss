@@ -50,6 +50,7 @@
   .top-nav-author {
     position: absolute;
     transition: transform 1s, opacity 1s;
+    text-transform: capitalize;
 
     &.up {
       transform: translate3d(0, -$nav-height, 0);

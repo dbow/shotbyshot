@@ -143,9 +143,9 @@ function AnnotationParserService(Annotation) {
         };
 
         var NON_AUTHOR_TYPES = {
-          photo: 1,
-          video: 1,
-          streetview: 1
+          photo: 'photos',
+          video: 'video',
+          streetview: 'No &amp; Then'
         };
 
         // If first detected slide is not one of the non-author ones, add an
@@ -155,6 +155,11 @@ function AnnotationParserService(Annotation) {
             type: 'author',
             annotation: annotation
           });
+        }
+
+        if (NON_AUTHOR_TYPES[type]) {
+          slideObject.nav = type === 'video' && attributeMap.title ?
+              attributeMap.title : NON_AUTHOR_TYPES[type];
         }
 
         slideObjects.push(slideObject);

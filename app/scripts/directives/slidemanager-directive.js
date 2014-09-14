@@ -239,8 +239,7 @@ var Scroller = {
 
     var author;
     var bg;
-    var annotation;
-    var annotationIndex = 0;
+    var headerIndex = 0;
 
     angular.forEach(this.slides, function (slide, i) {
       var el = this.$slides[i];
@@ -253,10 +252,8 @@ var Scroller = {
 
       slide.keyFrames = _.clone(this.keyFrames[slide.type], true) || [];
 
-      if (annotation !== slide.annotation) {
-        annotation = slide.annotation;
-        annotation.index = annotationIndex++;
-        annotation.header = angular.element(this.headers[annotation.index]);
+      if (slide.nav || slide.type === 'author') {
+        slide.headerEl = this.headers[headerIndex++];
       }
 
       // Dynamically add last two keyframes for author based on when the next
@@ -326,18 +323,6 @@ var Scroller = {
 
     this.lastY = currentY;
 
-    // TODO(dbow): Restore header stuff.
-
-    // show a header
-    // angular.forEach(this.headers, function (header, i) {
-      // var el = angular.element(header);
-      // if (i < annotationIndex) {
-        // el.addClass('up').removeClass('down');
-      // } else if (i > annotationIndex) {
-        // el.addClass('down').removeClass('up');
-      // }
-    // }, this);
-
     var slideHeight = this.height;
 
     angular.forEach(this.slides, function (slide, i) {
@@ -369,6 +354,22 @@ var Scroller = {
       }
 
       slide.hidden = false;
+
+      if (slide.headerEl !== undefined &&
+          slideFrame >= 0 && slideFrame <= 1) {
+        var newHeader;
+        angular.forEach(this.headers, function (header) {
+          var el = angular.element(header);
+          if (header === slide.headerEl) {
+            newHeader = el;
+            el.removeClass('up').removeClass('down');
+          } else if (!newHeader) {
+            el.addClass('up').removeClass('down');
+          } else {
+            el.addClass('down').removeClass('up');
+          }
+        }, this);
+      }
 
       var css = {};
       var previousFrame;
