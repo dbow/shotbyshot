@@ -13,6 +13,12 @@ function ShotService($rootScope, $http, $filter, $stateParams, $q,
   this.current = !isNaN(current) ? current : 0;
 
   /**
+   * Video URL of current shot.
+   * @type {string}
+   */
+  this.videoUrl = '';
+
+  /**
    * Max number of shots that exist.
    * TODO(dbow): Either set it to the actual value, or call a category API
    * to figure it out.
@@ -44,7 +50,7 @@ function ShotService($rootScope, $http, $filter, $stateParams, $q,
    */
   this.cache = [];
 
-  var urlBase = '/api/?json=get_category_posts&post_type=mm_annotation&slug=';
+  var urlBase = '/wp/?json=get_category_posts&post_type=mm_annotation&slug=';
 
   /**
    * @param {number=} opt_id optional id of shot to fetch. Defaults to current.
@@ -55,6 +61,8 @@ function ShotService($rootScope, $http, $filter, $stateParams, $q,
     var deferred = $q.defer();
     var id = (typeof opt_id === 'number' && !isNaN(opt_id)) ? opt_id :
         this.current;
+    this.videoUrl = '/wp/wp-content/uploads/shots/' +
+        $filter('shot')(id) + '.mp4';
     if (this.cache[id]) {
       deferred.resolve(this.cache[id]);
       return deferred.promise;

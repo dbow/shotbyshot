@@ -9,8 +9,7 @@ function Annotation() {
     // Parse author info.
     this.author = {
       name: data.author && data.author.name,
-      image: '//memory.lossur.es/wp/wp-content/uploads/authors/' +
-             data.author.nickname + '.jpg'
+      image: '/wp/wp-content/uploads/authors/' + data.author.nickname + '.jpg'
     };
 
     // Store content.

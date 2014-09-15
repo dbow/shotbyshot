@@ -1,13 +1,13 @@
 'use strict';
 
 function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService) {
+  var self = this;
+
   this.id = ShotService.current;
   this.next = ShotService.getNext();
   this.previous = ShotService.getPrevious();
-  this.videoUrl = $sce.trustAsResourceUrl(
-      '//memory.lossur.es/wp/wp-content/uploads/shots/' +
-      $filter('shot')(this.id) + '.mp4');
-  var self = this;
+  this.videoUrl = ShotService.videoUrl;
+
   ShotService.getShot(this.id).then(function(annotations) {
     var intro = [{
       type: 'introduction',

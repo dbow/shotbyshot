@@ -10,7 +10,7 @@ var proxy = require('proxy-middleware');
 // an issue with the dreamhost server and I couldn't figure it out :/
 // Probably something with specific headers. proxy-middleware just works though.
 var proxyOptions = url.parse('http://www.memory.lossur.es/wp/');
-proxyOptions.route = '/api';
+proxyOptions.route = '/wp';
 
 function browserSyncInit(baseDir, files, browser) {
   browser = browser === undefined ? 'default' : browser;
