@@ -13,10 +13,14 @@ function ShotService($rootScope, $http, $filter, $stateParams, $q,
   this.current = !isNaN(current) ? current : 0;
 
   /**
-   * Video URL of current shot.
-   * @type {string}
+   * Get Video URL of current shot.
+   * @return {string}
    */
-  this.videoUrl = '';
+  this.getVideoUrl = function() {
+    var url = '/wp/wp-content/uploads/shots/' +
+        $filter('shot')(this.current) + '.mp4';
+    return url;
+  };
 
   /**
    * Max number of shots that exist.
@@ -61,8 +65,6 @@ function ShotService($rootScope, $http, $filter, $stateParams, $q,
     var deferred = $q.defer();
     var id = (typeof opt_id === 'number' && !isNaN(opt_id)) ? opt_id :
         this.current;
-    this.videoUrl = '/wp/wp-content/uploads/shots/' +
-        $filter('shot')(id) + '.mp4';
     if (this.cache[id]) {
       deferred.resolve(this.cache[id]);
       return deferred.promise;

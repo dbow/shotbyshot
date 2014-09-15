@@ -6,7 +6,7 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService) {
   this.id = ShotService.current;
   this.next = ShotService.getNext();
   this.previous = ShotService.getPrevious();
-  this.videoUrl = ShotService.videoUrl;
+  this.videoUrl = ShotService.getVideoUrl();
 
   ShotService.getShot(this.id).then(function(annotations) {
     var intro = [{

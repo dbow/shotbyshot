@@ -34,7 +34,7 @@ function VideoFrame(ShotService, VideoService) {
       // at the specified timecode.
       } else {
         VideoService.screenshot(
-            ShotService.videoUrl + (target ? '#t=' + target : ''),
+            ShotService.getVideoUrl() + (target ? '#t=' + target : ''),
             drawScreenshot);
       }
     }
