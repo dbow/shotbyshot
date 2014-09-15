@@ -1,4 +1,70 @@
+@import 'variables';
+
 .street-view-container {
+  &.one-up {
+    display: inline-block;
+    width: 30%;
+    margin-top: 100px;
+    border: 2px solid white;
+    overflow: hidden;
+    height: 300px;
+    position: relative;
+
+    &.street-view-go {
+      font-size: 20px;
+    }
+  }
+}
+
+.street-view-comparison {
+  display: inline-block;
+  height: 300px;
+  margin-right: 10%;
+  margin-top: 250px;
+
+  canvas {
+    height: 300px;
+    border: 2px solid white;
+  }
+}
+
+.street-view-toggle {
+  position: absolute;
+  top: 15%;
+  left: 5%;
+  cursor: pointer;
+  color: #544E3D;
+  background-color: white;
+  font-size: 33px;
+  line-height: 0px;
+  padding-top: 5px;
+}
+
+.street-view-toggle-icon {
+  height: 100px;
+  width: 96px;
+  position: relative;
+}
+
+.street-view-toggle-icon-box {
+  background-color: #544E3D;
+  height: 28px;
+  width: 70px;
+  display: inline-block;
+  position: relative;
+  top: 6px;
+  margin: 0px -14px;
+
+  &.two-up {
+    width: 28px;
+  }
+}
+
+.street-view-toggle-label {
+  text-align: center;
+  margin-top: -39px;
+  padding-bottom: 19px;
+  font-size: 23px;
 }
 
 .street-view-go {
@@ -8,4 +74,22 @@
   width: 400px;
   margin-left: -200px;
   font-size: 30px;
+}
+
+.street-view-meta {
+  width: 400px;
+  position: absolute;
+  left: 50%;
+  margin-left: -200px;
+  top: 600px;
+}
+
+.street-view-title {
+  font-size: 24px;
+  font-family: $base-font-medium;
+}
+
+.street-view-caption {
+  font-size: 20px;
+  margin-top: 8px;
 }

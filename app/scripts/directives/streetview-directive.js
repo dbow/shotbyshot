@@ -1,6 +1,7 @@
 'use strict';
 
 /**
+ *
  */
 function StreetView(StreetViewService) {
   return {
@@ -9,12 +10,22 @@ function StreetView(StreetViewService) {
     scope: {
       url: '@',
       caption: '@',
-      title: '@'
+      title: '@',
+      startFrame: '@'
     },
     link: function ($scope, $element, $attrs) {
+      // Assemble street view image URL.
       var size = window.innerWidth + 'x' + window.innerHeight;
+      var streetViewParams = StreetViewService.parseStreetViewUrl(
+          $scope.url, size);
       $scope.streetViewImageUrl = StreetViewService.buildStreetViewAPIUrl(
-          StreetViewService.parseStreetViewUrl($scope.url, size));
+          streetViewParams);
+
+      // Whether to show "one-up" version.
+      $scope.onUp = false;
+
+      $scope.goToStreetView = function() {
+      };
     }
   };
 }

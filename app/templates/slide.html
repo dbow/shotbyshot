@@ -45,7 +45,7 @@
 
   <!-- STREETVIEW -->
   <div ng-if="slide.type === 'streetview'" class="slide-streetview slide-inner">
-      <street-view url="{{slide.annotation.streetView}}" title="{{slide.attributes.title}}" caption="{{slide.attributes.caption}}"></street-view>
+      <street-view url="{{slide.annotation.streetView}}" title="{{slide.attributes.title}}" caption="{{slide.attributes.caption}}" start-frame="{{slide.annotation.timecodes.start}}"></street-view>
   </div>
 
   <!-- VIDEO -->
