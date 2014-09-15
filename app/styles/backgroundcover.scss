@@ -2,11 +2,12 @@
 
 img.background-cover-directive,
 .background-cover-directive img {
-  width: 100%;
+  display: block;
+  max-width: 100%;
 
   &.fill-height-directive {
-    height: 100%;
-    width: auto;
+    max-height: 100%;
+    max-width: none;
   }
 }
 
