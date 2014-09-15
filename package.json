@@ -39,7 +39,8 @@
     "protractor": "^1.0.0",
     "uglify-save-license": "^0.4.1",
     "gulp-ruby-sass": "^0.4.3",
-    "proxy-middleware": "0.5.1"
+    "proxy-middleware": "0.5.1",
+    "express": "4.x"
   },
   "engines": {
     "node": ">=0.10.0"

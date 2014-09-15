@@ -48,6 +48,12 @@
     $ gulp serve:dist
     ```
 
+6. ...and if you want a bit of API caching and don't want to deal with livereload:
+
+    ```sh
+    $ gulp serve:4Real
+    ```
+
 
 # But, wait, how did we get here? Where did all these files come from?
 

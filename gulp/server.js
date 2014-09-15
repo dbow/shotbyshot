@@ -40,6 +40,65 @@ gulp.task('serve', ['watch'], function () {
   ]);
 });
 
+gulp.task('serve:4Real', ['styles'], function() {
+  var express = require('express');
+  var httpProxy = require('http-proxy');
+  var util = require('util');
+
+  var app = express();
+  var apiProxy = httpProxy.createProxyServer();
+
+  // haha
+  var cache = {};
+
+  app.get('/wp/*', function(req, res){
+    // Try to return cached JSON.
+    if (cache[req.url] && cache[req.url].body) {
+      console.log('CACHED RESPONSE: ' + req.url);
+      var cached = cache[req.url];
+      res.set(cached.headers);
+      return res.send(cached.body);
+    }
+    // This is important! Wordpress does not like it when host is passed
+    // in the proxy.
+    delete req.headers['host'];
+    apiProxy.web(req, res, {
+      target: 'http://www.memory.lossur.es/'
+    });
+  });
+
+  apiProxy.on('error', function (err, req, res) {
+    console.log('error!');
+    res.end('Proxy failure.');
+  });
+
+  apiProxy.on('proxyRes', function (proxyRes, req, res) {
+    if (req.url.indexOf('json=') < 0) {
+      return;
+    }
+    console.log('CACHING: ' + req.url);
+    var cacheObject = {};
+    cacheObject.headers = proxyRes.headers;
+    cache[req.url] = cacheObject;
+    var chunks = [];
+    proxyRes.on('data', function (chunk) {
+      chunks.push(chunk);
+    });
+    proxyRes.on('end', function(chunk) {
+      if (chunk) {
+        chunks.push(chunk);
+      }
+      cacheObject.body = Buffer.concat(chunks)
+    });
+  });
+
+  var appDirectory = __dirname.replace('gulp', 'app');
+  app.use(express.static(appDirectory));
+  var cssDirectory = __dirname.replace('gulp', '.tmp/styles');
+  app.use('/styles', express.static(cssDirectory));
+  app.listen(8080);
+});
+
 gulp.task('serve:dist', ['build'], function () {
   browserSyncInit('dist');
 });
