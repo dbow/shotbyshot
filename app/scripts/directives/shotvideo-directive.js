@@ -3,7 +3,7 @@
 /**
  *
  */
-function shotVideoDirective(ShotService, VideoService) {
+function shotVideoDirective(VideoService) {
   return {
     /**
      * Must be a class since this depends on CSS classes.
@@ -17,34 +17,17 @@ function shotVideoDirective(ShotService, VideoService) {
       // Set playback to 20% speed.
       video.playbackRate = 0.3;
 
-      // Create a map of timecode to screenshot data.
-      ShotService.screenshots = ShotService.screenshots || {};
-      var screenshots = ShotService.screenshots;
-
-      // Identify timecodes that we'll need screenshots of (all annotations
-      // that have a start timecode.
-      $scope.$watch('shot.annotations', function() {
-        _.forEach($scope.shot.annotations, function(annotation) {
-          var timecodes = annotation.timecodes;
-          var hasStart = timecodes && timecodes.start !== undefined;
-          if (hasStart) {
-            screenshots[timecodes.start] = screenshots[timecodes.start] || '';
-          }
-        });
-      });
-
       function checkForScreenshot() {
         // Check if we need a screenshot of the current frame.
         var time = parseFloat(video.currentTime.toFixed(1));
-        if (screenshots[time] === '') {
-          screenshots[time] = VideoService.screenshot(video);
-        }
+        if (screenshotsToTake[time]) {
+          VideoService.screenshot(video, time);
+          delete screenshotsToTake[time];
 
-        // Check if we're done with all the screenshots we need.
-        if (screenshots[time]) {
+          // Check if we're done with all the screenshots we need.
           var codesLeft = false;
-          _.forIn(screenshots, function(val, code) {
-            if (val === '') {
+          _.forIn(screenshotsToTake, function(val, code) {
+            if (val) {
               codesLeft = true;
               return false;
             }
@@ -52,12 +35,34 @@ function shotVideoDirective(ShotService, VideoService) {
           // If we are, stop listening.
           if (!codesLeft) {
             video.removeEventListener('timeupdate', checkForScreenshot);
+            screenshotsToTake = false;
           }
         }
       }
 
-      // Anytime this video changes frame, check if we should take a screenshot.
-      video.addEventListener('timeupdate', checkForScreenshot);
+      // Create a map of timecode to screenshot data.
+      VideoService.screenshots = VideoService.screenshots || {};
+      var screenshotsToTake;
+
+      // Identify timecodes that we'll need screenshots of (all annotations
+      // that have a start timecode.
+      $scope.$watch('shot.annotations', function() {
+        screenshotsToTake = false;
+        _.forEach($scope.shot.annotations, function(annotation) {
+          var timecodes = annotation.timecodes;
+          var hasStart = timecodes && timecodes.start !== undefined;
+          if (hasStart &&
+              !VideoService.screenshotTaken(video, timecodes.start)) {
+            screenshotsToTake = screenshotsToTake || {};
+            screenshotsToTake[timecodes.start] = 1;
+          }
+        });
+
+        // Anytime this video changes frame, check if we should take a screenshot.
+        if (screenshotsToTake) {
+          video.addEventListener('timeupdate', checkForScreenshot);
+        }
+      });
     }
   };
 }

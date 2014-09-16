@@ -3,24 +3,34 @@
 /**
  * Service for video element utilities.
  */
-function VideoService() {
+function VideoService(ShotService) {
   var self = this;
 
-  // Shared DOM elements.
+  // Shared DOM elements for taking screenshots.
   var canvas = document.createElement('canvas');
   var ctx = canvas.getContext('2d');
-  var video = document.createElement('video');
 
-  // Cache of ImageData already retrieved.
-  var screenshotCache = {};
+  // Cache of ImageData already retrieved, keyed on shot integer (hence array)
+  // and timecode.
+  var screenshotCache = [];
 
-  // Map of requests for ImageData for the same video URL. Only one will
-  // trigger the video request - the rest will be passed the result of the
-  // first.
-  var batch = {};
+  // Queued requests for screenshots, keyed on shot integer (hence array)
+  // and timecode.
+  var requests = [];
 
-  // Queue of requests for screenshots.
-  var screenshotQueue = [];
+
+  /**
+   * Whether a screenshot for the given timecode of the current shot has been
+   * taken.
+   * @param {number} timecode to check.
+   * @return {boolean} Whether the screenshot exists.
+   */
+  this.screenshotTaken = function(timecode) {
+    timecode = timecode || 0;
+    var shot = ShotService.current;
+    var cached = screenshotCache[shot];
+    return cached && cached[timecode];
+  };
 
 
   /**
@@ -40,83 +50,75 @@ function VideoService() {
 
 
   /**
-   * Take a screenshot of the video passed in.
+   * Take a screenshot of the video passed in and store in the cache. The
+   * video should already be set to the given timecode.
    *
-   * @param {Element|string} videoToScreenshot either an actual video element
-   *     in which case the current frame will be screenshot, or a video URL
-   *     which should have a #t= fragment if a frame other than the first is
-   *     desired.
-   * @param {Function=} opt_cb optional callback function. Required if a string
-   *     is passed in as the video, since the video will have to be loaded
-   *     before a screenshot can be taken.
-   * @return {ImageData|undefined} If a loaded video is passed in, returns the
-   *     ImageData for the frame. Otherwise, the callback will be used to do
-   *     further work.
+   * @param {Element} video element to screenshot.
+   * @param {number} timecode to key from.
    */
-  this.screenshot = function(videoToScreenshot, opt_cb) {
-    var screenshot;
-    var getVideoData;
+  this.screenshot = function(video, timecode) {
+    var shot = ShotService.current;
+    var firstScreenshot = !screenshotCache[shot];
+    var cached = screenshotCache[shot] || {};
+    cached[timecode] = getFrameData_(video);
+    screenshotCache[shot] = cached;
 
-    // If a URL is passed in, load the video in the local video element and
-    // then grab frame data and pass to callback.
-    if (typeof videoToScreenshot === 'string') {
-
-      // Check the cache for this url.
-      if (screenshotCache[videoToScreenshot]) {
-        opt_cb(screenshotCache[videoToScreenshot]);
-        return;
+    // Handle any outstanding requests for this screenshot.
+    var shotRequests = requests[shot];
+    var requestsForThisTimecode = shotRequests && shotRequests[timecode];
+    if (requestsForThisTimecode && requestsForThisTimecode.length) {
+      while(requestsForThisTimecode.length) {
+        requestsForThisTimecode.pop()(cached[timecode]);
       }
+      requests[shot][timecode] = null;
+    }
 
-      // Batch requests to the same URL.
-      if (!batch[videoToScreenshot]) {
-        batch[videoToScreenshot] = [];
-      } else {
-        batch[videoToScreenshot].push(opt_cb);
-        return;
-      }
+    // If this is the first screenshot and there are open shot requests, pass
+    // this to them (since they would not have been given an initial shot
+    // on request).
+    if (firstScreenshot && shotRequests) {
+      _.forIn(shotRequests, function(requests) {
+        _.forEach(requests, function(cb) {
+          cb(cached[timecode]);
+        });
+      });
+    }
+  };
 
-      // If video element is currently loading another video, add this request
-      // to the queue - it will be processed when the video element is free.
-      if (video.src) {
-        screenshotQueue.push([videoToScreenshot, opt_cb]);
-        return;
-      }
 
-      getVideoData = function() {
-        var imageData = getFrameData_(video);
-        if (imageData) {
-          // Pass result to callback.
-          opt_cb(imageData);
+  /**
+   * Request that a screenshot for the given timecode of the current shot video
+   * be passed to the given callback function. If the given screenshot is not
+   * readily available, attempts to pass a different screenshot from the shot
+   * first, and queues the callback to be passed the correct screenshot as
+   * soon as it's available.
+   *
+   * @param {number} timecode of screenshot requested.
+   * @param {Function} cb callback function to pass the screenshot data.
+   */
+  this.requestScreenshot = function(timecode, cb) {
+    var shot = ShotService.current;
+    var cached = screenshotCache[shot] || {};
 
-          // Cache result.
-          screenshotCache[videoToScreenshot] = imageData;
-
-          // See if there were any other requests batched that need the result.
-          if (batch[videoToScreenshot] && batch[videoToScreenshot].length) {
-            while(batch[videoToScreenshot].length) {
-              batch[videoToScreenshot].pop()(imageData);
-            }
-          }
-
-          // See if any other requests need to use the video element now.
-          if (screenshotQueue.length) {
-            var next = screenshotQueue.pop();
-            self.screenshot(next[0], next[1]);
-          }
-        }
-
-        // Clean up video.
-        video.src = '';
-        video.removeEventListener('loadeddata', getVideoData);
-      };
-
-      // Wait til we get the first frame of data.
-      video.addEventListener('loadeddata', getVideoData);
-      video.src = videoToScreenshot;
-
-    // Otherwise, video is loaded and we can just get the data.
+    if (cached[timecode]) {
+      cb(cached[timecode]);
     } else {
-      return getFrameData_(videoToScreenshot);
+      // Queue callback to be called when we have the screenshot.
+      requests[shot] = requests[shot] || {};
+      requests[shot][timecode] = requests[shot][timecode] || [];
+      requests[shot][timecode].push(cb);
+
+      // Try to callback now with a different screenshot.
+      if (cached[0]) {
+        // Try for first frame.
+        cb(cached[0]);
+      } else {
+        // Otherwise go with first available.
+        _.forIn(cached, function(screenshot) {
+          cb(screenshot);
+          return false;
+        });
+      }
     }
   };
 }

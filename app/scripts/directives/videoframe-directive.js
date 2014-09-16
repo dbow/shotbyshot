@@ -5,7 +5,7 @@
  * specified target frame (or the first frame).
  * Must be applied as an attribute on a <canvas> tag.
  */
-function VideoFrame(ShotService, VideoService) {
+function VideoFrame(VideoService) {
   return {
     restrict: 'A',
     scope: {
@@ -14,7 +14,6 @@ function VideoFrame(ShotService, VideoService) {
     link: function ($scope, $element, $attrs) {
       // Target frame timecode.
       var target = $scope.target || 0;
-      console.log(target);
       var canvas = $element[0];
       var ctx = canvas.getContext('2d');
 
@@ -26,17 +25,7 @@ function VideoFrame(ShotService, VideoService) {
             screenshot.width, screenshot.height);
       }
 
-      // Check the shot service cache for screenshot data.
-      if (ShotService.screenshots[target]) {
-        drawScreenshot(ShotService.screenshots[target]);
-
-      // Otherwise ask VideoService to get a screenshot of the shot video
-      // at the specified timecode.
-      } else {
-        VideoService.screenshot(
-            ShotService.getVideoUrl() + (target ? '#t=' + target : ''),
-            drawScreenshot);
-      }
+      VideoService.requestScreenshot(target, drawScreenshot);
     }
   };
 }
