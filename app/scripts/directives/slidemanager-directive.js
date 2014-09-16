@@ -182,6 +182,10 @@ var Scroller = {
       {
         key: 0.5,
         opacity: 1
+      },
+      {
+        key: 10,
+        opacity: 1
       }
     ],
     'shotvideo': KeyFrameSets.videoEvents,
@@ -199,6 +203,12 @@ var Scroller = {
       },
       {
         key: 1,
+        left: 0,
+        top: 0,
+        scale: 1
+      },
+      {
+        key: 1.5,
         top: -0.3,
         left: -0.4,
         scale: 0.2
