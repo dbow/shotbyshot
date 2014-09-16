@@ -18,7 +18,12 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService) {
       type: 'shotvideo',
       shot: self.id
     }];
-    var slides = intro.concat(AnnotationParserService.parse(annotations));
+    var outro = [{
+      shot: self.id,
+      nav: 'end',
+      type: 'outro'
+    }];
+    var slides = intro.concat(AnnotationParserService.parse(annotations), outro);
     self.annotations = annotations;
     self.slides = slides;
   });
@@ -26,6 +31,7 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService) {
   $scope.isNavSlide = function(slide) {
     var NAV_TYPES = [
       'introduction',
+      'outro',
       'author',
       'photo',
       'video',
