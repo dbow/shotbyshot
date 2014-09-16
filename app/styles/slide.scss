@@ -54,10 +54,18 @@
   }
 }
 
+.slide-outer-author {
+  height: 200%;
+}
+
 .slide-intro, .slide-outro {
   font-size: 30px;
   padding-top: 70px;
   font-family: $base-font-medium;
+}
+
+.slide-outer-outro {
+  height: 200%;
 }
 
 .slide-background {

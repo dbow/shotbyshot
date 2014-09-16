@@ -171,10 +171,16 @@ var Scroller = {
     'outro': [
       {
         key: -0.3,
+        backgroundOpacity: 1,
         opacity: 0
       },
       {
         key: 0,
+        backgroundOpacity: 0,
+        opacity: 0
+      },
+      {
+        key: 0.5,
         opacity: 1
       }
     ],
@@ -268,7 +274,8 @@ var Scroller = {
     angular.forEach(this.slides, function (slide, i) {
       var el = this.$slides[i];
       slide.top = el.offsetTop;
-      slide.bottom = slide.top + this.height;
+      slide.height = el.offsetHeight;
+      slide.bottom = slide.top + slide.height;
       slide.el = el;
       slide.$el = angular.element(el);
       slide.$inner = slide.$el.find('div').eq(0);
@@ -416,7 +423,7 @@ var Scroller = {
         return;
       }
       var afterLastFrame = frameIndex === numFrames &&
-                           slideFrame > keyFrames[numFrames - 1].length;
+                           slideFrame > keyFrames[numFrames - 1].key;
       if (afterLastFrame) {
         if (!slide.hidden) {
           slide.$inner.css({'display': 'none'});
