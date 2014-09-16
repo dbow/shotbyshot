@@ -40,7 +40,8 @@ gulp.task('serve', ['watch'], function () {
   ]);
 });
 
-gulp.task('serve:4Real', ['styles'], function() {
+
+function expressProxyCacheSetup(directory) {
   var express = require('express');
   var httpProxy = require('http-proxy');
   var util = require('util');
@@ -92,11 +93,23 @@ gulp.task('serve:4Real', ['styles'], function() {
     });
   });
 
-  var appDirectory = __dirname.replace('gulp', 'app');
-  app.use(express.static(appDirectory));
-  var cssDirectory = __dirname.replace('gulp', '.tmp/styles');
-  app.use('/styles', express.static(cssDirectory));
+  if (directory) {
+    app.use(express.static(__dirname.replace('gulp', directory)));
+  } else {
+    var appDirectory = __dirname.replace('gulp', 'app');
+    app.use(express.static(appDirectory));
+    var cssDirectory = __dirname.replace('gulp', '.tmp/styles');
+    app.use('/styles', express.static(cssDirectory));
+  }
   app.listen(8080);
+}
+
+gulp.task('serve:4Real', ['styles'], function() {
+  expressProxyCacheSetup();
+});
+
+gulp.task('serve:4RealDist', ['build'], function() {
+  expressProxyCacheSetup('dist');
 });
 
 gulp.task('serve:dist', ['build'], function () {

@@ -54,6 +54,12 @@
     $ gulp serve:4Real
     ```
 
+7. ...ok, seriously last thing, but if you want all you get with 4Real but with the production-ized version:
+
+    ```sh
+    $ gulp serve:4RealDist
+    ```
+
 
 # But, wait, how did we get here? Where did all these files come from?
 
