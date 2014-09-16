@@ -170,16 +170,12 @@ var Scroller = {
     ],
     'outro': [
       {
-        key: -1,
-        backgroundOpacity: 0
+        key: -0.3,
+        opacity: 0
       },
       {
-        key: -0.2,
+        key: 0,
         opacity: 1
-      },
-      {
-        key: 1,
-        backgroundOpacity: 1
       }
     ],
     'shotvideo': KeyFrameSets.videoEvents,
