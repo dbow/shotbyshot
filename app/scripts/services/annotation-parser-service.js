@@ -81,7 +81,7 @@ function AnnotationParserService(Annotation) {
           throw new Error('Could not determine type of slide tag: ' + slide);
           return;
         }
-        type = type[1];
+        type = type[1].toLowerCase();
 
         var ALLOWED_TYPES = {
           'text': 1,
