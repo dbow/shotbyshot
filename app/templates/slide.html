@@ -26,12 +26,20 @@
   <div ng-if="slide.type === 'background'" class="slide-background slide-inner">
     <img ng-if="slide.attributes.background" ng-src="{{ slide.attributes.background }}" class="background-cover-directive" />
     <div ng-if="!slide.attributes.background" ng-bind-html="slide.content" class="background-cover-directive" ></div>
+    <div class="meta-text">
+      <div ng-if="slide.attributes.title">{{ slide.attributes.title }}</div>
+      <div ng-if="slide.attributes.caption">{{ slide.attributes.caption }}</div>
+    </div>
   </div>
 
   <!-- PHOTO -->
   <div ng-if="slide.type === 'photo'" class="slide-photo slide-inner">
     <img ng-if="slide.attributes.photo" ng-src="{{ slide.attributes.photo }}" class="background-cover-directive" />
     <div ng-if="!slide.attributes.photo" ng-bind-html="slide.content" class="background-cover-directive"></div>
+    <div class="meta-text">
+      <div ng-if="slide.attributes.title">{{ slide.attributes.title }}</div>
+      <div ng-if="slide.attributes.caption" class="meta-caption">{{ slide.attributes.caption }}</div>
+    </div>
   </div>
 
   <!-- HIGHLIGHT -->
@@ -54,6 +62,10 @@
       <source ng-repeat="video in slide.attributes.video" ng-src="{{ video }}" type="video/mp4">
       Your browser does not support the <code>video</code> element.
     </video>
+    <div class="meta-text">
+      <div ng-if="slide.attributes.title">{{ slide.attributes.title }}</div>
+      <div ng-if="slide.attributes.caption">{{ slide.attributes.caption }}</div>
+    </div>
   </div>
 
   <!-- TODO(dbow): Add audio support -->
