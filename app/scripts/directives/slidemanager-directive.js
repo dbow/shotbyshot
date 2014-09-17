@@ -46,12 +46,14 @@ var KeyFrameSets = {
     {
       key: -0.5,
       opacity: 0,
-      top: 0.5
+      top: 0.5,
+      ease: 'out'
     },
     {
       key: 0,
       opacity: 1,
-      top: 0
+      top: 0,
+      ease: 'in'
     },
     {
       key: 1,
@@ -208,7 +210,8 @@ var Scroller = {
     'background': [
       {
         key: -0.5,
-        top: 1
+        top: 1,
+        ease: 'out'
       },
       {
         key: 0.2,
@@ -245,6 +248,20 @@ var Scroller = {
             event: null
           }
         ])
+  },
+
+  easing: {
+    'linear': function (percent) {
+      return percent;
+    },
+
+    'in': function (percent) {
+      return percent * percent;
+    },
+
+    'out': function (percent) {
+      return percent * (percent - 2) * -1;
+    }
   },
 
   setSlides: function (slides) {
@@ -457,6 +474,7 @@ var Scroller = {
 
       var css = {};
       var previousFrame;
+      var ease;
       _.forEach(keyFrames, function(frame) {
         if (slideFrame === frame.key) {
           css = _.omit(frame, ['key', 'event']);
@@ -466,9 +484,16 @@ var Scroller = {
           if (slideFrame > frame.key) {
             css = _.omit(frame, ['key', 'event']);
             previousFrame = frame.key;
+            ease = frame.ease || 'linear';
           } else {
             var percentageThroughFrame = (slideFrame - previousFrame) /
                                          (frame.key - previousFrame);
+            var easedPercent = this.easing[ease](percentageThroughFrame);
+            if (ease !== 'linear') {
+              //console.log('ease', ease, percentageThroughFrame, easedPercent);
+            } else {
+              //console.log('ease', ease, previousFrame);
+            }
             var combinedCss = {};
             _.forEach(frame, function(val, key) {
               if (key === 'key' || key === 'event') {
@@ -476,14 +501,14 @@ var Scroller = {
               }
               if (css[key] !== undefined) {
                 combinedCss[key] = css[key] +
-                    (val - css[key]) * percentageThroughFrame;
+                    (val - css[key]) * easedPercent;
               }
             });
             css = combinedCss;
             return false;
           }
         }
-      });
+      }, this);
 
       var transformX = 0;
       var transformY = 0;
