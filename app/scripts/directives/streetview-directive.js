@@ -22,7 +22,7 @@ function StreetView(StreetViewService) {
           streetViewParams);
 
       // Whether to show "one-up" version.
-      $scope.onUp = false;
+      $scope.oneUp = true;
 
       $scope.goToStreetView = function() {
       };

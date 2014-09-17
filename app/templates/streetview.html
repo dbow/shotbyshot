@@ -4,26 +4,9 @@
   </div>
   <div class="street-view-container background-cover-directive" ng-class="{'one-up': oneUp}">
     <img ng-src="{{ streetViewImageUrl }}" />
-    <div class="street-view-go">
-      <div>Go to Google Street View</div>
-      <div class="street-view-go-button" ng-click="goToStreetView()">>></div>
-    </div>
   </div>
   <div ng-if="oneUp" class="street-view-meta">
     <div class="street-view-title">{{ title }}</div>
     <div class="street-view-caption">{{ caption }}</div>
-  </div>
-  <div class="street-view-toggle" ng-click="oneUp = !oneUp">
-    <div class="street-view-toggle-icon">
-      <div ng-if="!oneUp">
-        <div class="street-view-toggle-icon-box two-up"></div>
-        |
-        <div class="street-view-toggle-icon-box two-up"></div>
-      </div>
-      <div ng-if="oneUp">
-        <div class="street-view-toggle-icon-box"></div>
-      </div>
-    </div>
-    <div class="street-view-toggle-label">{{ oneUp ? '1-up' : '2-up' }}</div>
   </div>
 </div>
