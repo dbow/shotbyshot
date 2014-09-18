@@ -20,7 +20,6 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService) {
     }];
     var outro = [{
       shot: self.id,
-      nav: 'end',
       type: 'outro'
     }];
     var slides = intro.concat(AnnotationParserService.parse(annotations), outro);
