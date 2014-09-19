@@ -1,6 +1,7 @@
 'use strict';
 
-function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService) {
+function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService,
+                  ShotVideoService) {
   var self = this;
 
   this.id = ShotService.current;
@@ -16,7 +17,9 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService) {
     },
     {
       type: 'shotvideo',
-      shot: self.id
+      shot: self.id,
+      onEnter: ShotVideoService.play,
+      onExit: ShotVideoService.resumeLoop
     }];
     var outro = [{
       shot: self.id,

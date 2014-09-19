@@ -3,7 +3,7 @@
 /**
  *
  */
-function shotVideoDirective(VideoService) {
+function shotVideoDirective(VideoService, ShotVideoService) {
   return {
     /**
      * Must be a class since this depends on CSS classes.
@@ -13,6 +13,8 @@ function shotVideoDirective(VideoService) {
     restrict: 'C',
     link: function ($scope, $element, $attrs) {
       var video = $element[0];
+
+      ShotVideoService.registerShotVideo(video);
 
       // Set playback to 20% speed.
       video.playbackRate = 0.3;

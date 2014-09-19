@@ -91,7 +91,6 @@ var KeyFrameSets = {
   'videoEvents': [
     {
       key: 0,
-      event: 'videoSlideVisibilityChange',
       backgroundOpacity: 1
     },
     {
@@ -104,7 +103,6 @@ var KeyFrameSets = {
     },
     {
       key: 1,
-      event: 'videoSlideVisibilityChange',
       backgroundOpacity: 1
     }
   ],
@@ -251,13 +249,11 @@ var Scroller = {
           },
           {
             key: 0.5,
-            top: 0,
-            event: 'videoSlideVisibilityChange'
+            top: 0
           },
           {
             key: 1,
-            top: -1,
-            event: null
+            top: -1
           }
         ])
   },
@@ -439,6 +435,8 @@ var Scroller = {
     this.onscroll();
   },
 
+  currentSlide: {},
+
   onscroll: function () {
     var currentY = window.scrollY;
     var slideDistance;
@@ -495,6 +493,15 @@ var Scroller = {
 
       // Find the target header for the current slide.
       if (slideFrame >= 0 && slideFrame <= 1) {
+        if (this.currentSlide !== slide) {
+          if (this.currentSlide.onExit) {
+            this.currentSlide.onExit();
+          }
+          if (slide.onEnter) {
+            slide.onEnter();
+          }
+          this.currentSlide = slide;
+        }
         var targetHeader = slide.headerEl;
         var targetNav = slide.navButton;
         if (!targetHeader) {
