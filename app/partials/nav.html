@@ -25,7 +25,9 @@
 
 <nav class="side-nav">
     <ul class="side-nav-circles">
-        <li class="side-nav-circle" ng-repeat="slide in shot.slides | filter:isNavSlide" ng-click="scrollToSlide(slide)"></li>
+      <li class="side-nav-circle" ng-repeat="slide in shot.slides | filter:isNavSlide" ng-click="scrollToSlide(slide)">
+        <div class="side-nav-tag">{{ slide.nav || slide.annotation.author.name }}</div>
+      </li>
     </ul>
 </nav>
 
