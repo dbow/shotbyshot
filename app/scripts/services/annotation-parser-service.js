@@ -20,7 +20,7 @@
  * will be parsed into 4 separate slide objects of type "text", "background",
  * "text", and "streetview".
  */
-function AnnotationParserService(Annotation) {
+function AnnotationParserService($sce, Annotation) {
 
   /**
    * Convert annotations to slides based on the content field.
@@ -142,7 +142,7 @@ function AnnotationParserService(Annotation) {
         // Assemble slide object for the slide directive.
         var slideObject = {
           type: type,
-          content: content,
+          content: $sce.trustAsHtml(content),
           attributes: attributeMap,
           annotation: annotation // Reference to original annotation.
         };

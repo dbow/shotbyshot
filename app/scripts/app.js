@@ -23,7 +23,9 @@ angular
        // Allow same origin resource loads.
        'self',
        // Allow wordpress uploads.
-       'http://www.memory.lossur.es/wp/wp-content/uploads/**'
+       'http://www.memory.lossur.es/wp/wp-content/uploads/**',
+
+       'player.vimeo.com/video/**'
      ]);
   });
 
