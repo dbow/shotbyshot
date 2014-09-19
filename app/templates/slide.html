@@ -2,14 +2,21 @@
 
   <!-- INTRO -->
   <div ng-if="slide.type === 'introduction'" class="slide-intro slide-inner">
-    <h3>Los Sures - Shot by Shot</h3>
-    <div class="slide-shot-number">{{ slide.shot | shot }}</div>
+    <div class="slide-center">
+      <h3>Los Sures - Shot by Shot</h3>
+      <div class="slide-shot-number">{{ slide.shot | shot }}</div>
+    </div>
   </div>
 
   <!-- OUTRO -->
   <div ng-if="slide.type === 'outro'" class="slide-outro slide-inner">
-    <h3>End</h3>
-    <div class="slide-shot-number">{{ slide.shot | shot }}</div>
+    <div class="slide-center">
+      <h3>End</h3>
+      <div class="slide-shot-number">{{ slide.shot | shot }}</div>
+      <div class="slide-outro-actions">
+        <a class="slide-outro-action" ng-show="slide.next" ui-sref="shot({shot: slide.next})">Continue</a>
+      </div>
+    </div>
   </div>
 
   <!-- AUTHOR -->
