@@ -1,5 +1,5 @@
 <div class="container">
-    <div ng-class="{'cinema': shot.playing}" ng-include="'partials/nav.html'"></div>
+    <div ng-class="{'cinema': inView}" ng-include="'partials/nav.html'"></div>
 
     <div class="content">
 
@@ -9,6 +9,8 @@
             <source ng-src="{{ shot.videoUrl }}" type="video/mp4">
             Your browser does not support the <code>video</code> element.
         </video>
+
+        <div class="shot-video-play" ng-show="shot.played && inView && !shot.playing" ng-click="shot.play()">play (>)</div>
 
         <div class="slides">
             <slide-manager slides="shot.slides"></slide-manager>

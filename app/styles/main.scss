@@ -41,6 +41,19 @@ body, html {
   z-index: 0;
 }
 
+.shot-video-play {
+  position: fixed;
+  top: 300px;
+  left: 50%;
+  width: 300px;
+  margin-left: -150px;
+  color: white;
+  text-align: center;
+  font-size: 70px;
+  cursor: pointer;
+  z-index: 3;
+}
+
 .slides {
   position: absolute;
   top: 0px;

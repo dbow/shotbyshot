@@ -9,6 +9,11 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService,
   this.previous = ShotService.getPrevious();
   this.videoUrl = ShotService.getVideoUrl();
 
+  this.play = function() {
+    self.playing = true;
+    ShotVideoService.play();
+  };
+
   ShotService.getShot(this.id).then(function(annotations) {
     var intro = [{
       type: 'introduction',
@@ -19,14 +24,19 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService,
       type: 'shotvideo',
       shot: self.id,
       onEnter: function() {
-        self.playing = true;
+        $scope.inView = true;
+        if (!self.played) {
+          self.playing = true;
+          ShotVideoService.play();
+          self.played = true;
+        }
         $scope.$apply();
-        ShotVideoService.play();
       },
       onExit: function() {
+        $scope.inView = false;
         self.playing = false;
-        $scope.$apply();
         ShotVideoService.resumeLoop();
+        $scope.$apply();
       }
     }];
     var outro = [{
