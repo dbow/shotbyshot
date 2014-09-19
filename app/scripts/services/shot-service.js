@@ -82,6 +82,28 @@ function ShotService($rootScope, $http, $filter, $stateParams, $q,
     return deferred.promise;
   };
 
+  var thumbnailUrl = '/wp/?json=get_category_index';
+  this.getThumbnails = function(page) {
+    var deferred = $q.defer();
+
+    page = page || 0;
+
+    $http({
+      method: 'GET',
+      url: thumbnailUrl + '&page=' + page
+    }).success(function(data) {
+      if (data.status === 'ok') {
+        deferred.resolve(data.categories);
+      } else {
+        deferred.reject('Error fetching shots');
+      }
+    }).error(function() {
+      deferred.reject('Error fetching shots');
+    });
+
+    return deferred.promise;
+  };
+
   // Update the current shot number on any state change.
   $rootScope.$on('$stateChangeStart',
       function(event, toState, toParams, fromState, fromParams) {

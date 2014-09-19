@@ -8,6 +8,7 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService,
   this.next = ShotService.getNext();
   this.previous = ShotService.getPrevious();
   this.videoUrl = ShotService.getVideoUrl();
+  this.shots = [];
 
   this.play = function() {
     self.playing = true;
@@ -47,6 +48,12 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService,
     var slides = intro.concat(AnnotationParserService.parse(annotations), outro);
     self.annotations = annotations;
     self.slides = slides;
+  });
+
+  // TODO: probably can lazy load this, but i'm not
+  // angular enought to know how.
+  ShotService.getThumbnails(0).then(function(shots) {
+    self.shots = shots;
   });
 
   $scope.isNavSlide = function(slide) {

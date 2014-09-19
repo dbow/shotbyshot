@@ -10,6 +10,17 @@
         <div class="top-nav-shot-current">{{ shot.id | shot }}</div>
         <a ui-sref="shot({ shot: shot.next })" class="top-nav-shot-up"></a>
     </div>
+
+    <div class="nav-menu">
+      <div class="nav-menu-controls">
+      </div>
+
+      <div class="nav-menu-shots">
+        <div class="nav-menu-shot" ng-repeat="shot in shots">
+          {{ shot.id }}
+        </div>
+      </div>
+    </div>
 </nav>
 
 <nav class="side-nav">
