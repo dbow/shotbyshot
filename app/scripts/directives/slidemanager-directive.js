@@ -67,12 +67,16 @@ var KeyFrameSets = {
       ease: 'out'
     },
     {
-      key: 0.5,
+      key: 0.8,
+      top: 0,
+    },
+    {
+      key: 1.2,
       top: 0,
       ease: 'in'
     },
     {
-      key: 1,
+      key: 2,
       top: -1
     }
   ],
