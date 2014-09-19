@@ -13,14 +13,8 @@
 </nav>
 
 <nav class="side-nav">
-    <!-- TODO(dbow): ng-repeat for each slide with nav= -->
     <ul class="side-nav-circles">
-        <li class="side-nav-circle"></li>
-        <li class="side-nav-circle"></li>
-        <li class="side-nav-circle"></li>
-        <li class="side-nav-circle highlighted"></li>
-        <li class="side-nav-circle"></li>
-        <li class="side-nav-circle"></li>
+        <li class="side-nav-circle" ng-repeat="slide in shot.slides | filter:isNavSlide" ng-click="scrollToSlide(slide)"></li>
     </ul>
 </nav>
 

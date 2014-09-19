@@ -44,6 +44,11 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService) {
     }
     return false;
   };
+
+  $scope.scrollToSlide = function (slide) {
+    // TODO: ask Danny if this is kosher
+    Scroller.scrollToSlide(slide);
+  }
 }
 
 angular

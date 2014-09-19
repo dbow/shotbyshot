@@ -296,6 +296,15 @@ var Scroller = {
     }, 0);
   },
 
+  scrollToSlide: function (slide) {
+    this.animateStart = new Date();
+    this.animateTo = slide.top;
+    this.animateFromY = window.scrollY;
+    this.animateDistance = this.animateTo - this.animateFromY;
+    this.animateDuration = 1000;
+    angular.element(document.body).addClass('noscroll');
+  },
+
   sizeAndPosition: function () {
     this.height = window.innerHeight;
     this.halfHeight = this.height / 2;
@@ -427,9 +436,20 @@ var Scroller = {
     var slideDistance;
     var currentSlideIndex;
 
-    if (!this.slides || !this.slides.length || currentY === this.lastY || currentY < 0) {
+    if (_.isNumber(this.animateTo)) {
+      var percent = (new Date() - this.animateStart) / this.animateDuration;
+
+      currentY = Math.round(this.easing.linear(percent) * this.animateDistance + this.animateFromY);
+      window.scrollTo(0, currentY);
+
+      if (percent >= 1) {
+        this.animateTo = null;
+        angular.element(document.body).removeClass('noscroll');
+      }
+    } else if (!this.slides || !this.slides.length || currentY === this.lastY || currentY < 0) {
       return window.requestAnimationFrame(this.boundOnscroll);
     }
+
 
     this.lastY = currentY;
 
@@ -511,11 +531,6 @@ var Scroller = {
             var percentageThroughFrame = (slideFrame - previousFrame) /
                                          (frame.key - previousFrame);
             var easedPercent = this.easing[ease](percentageThroughFrame);
-            if (ease !== 'linear') {
-              //console.log('ease', ease, percentageThroughFrame, easedPercent);
-            } else {
-              //console.log('ease', ease, previousFrame);
-            }
             var combinedCss = {};
             _.forEach(frame, function(val, key) {
               if (key === 'key' || key === 'event') {
