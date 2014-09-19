@@ -1,6 +1,6 @@
 'use strict';
 
-function ScrollService() {
+function ScrollService(ShotVideoService) {
   /**
    * key: distance from current slide of the keyframe, in units of slides.
    *     so -1 means this keyframe starts when the current slide is one full
@@ -413,6 +413,8 @@ function ScrollService() {
 
   this.currentSlide = {};
 
+  this.currentAnnotation = {};
+
 
   this.onscroll = function () {
     var currentY = window.scrollY;
@@ -478,6 +480,12 @@ function ScrollService() {
             slide.onEnter();
           }
           this.currentSlide = slide;
+
+          // If new annotation is in view, update shot video loop bounds.
+          if (slide.annotation && this.currentAnnotation !== slide.annotation) {
+            this.currentAnnotation = slide.annotation;
+            ShotVideoService.setLoopBounds(this.currentAnnotation.timecodes);
+          }
         }
         var targetHeader = slide.headerEl;
         var targetNav = slide.navButton;

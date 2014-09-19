@@ -7,14 +7,22 @@
 function ShotVideoService() {
   var self = this;
 
+
   /**
-   * Current bounds on playback. Updated by individual annotations.
+   * Default bounds object i.e. no bounds.
    * @type {Object}
    */
-  var bounds = {
+  var defaultBounds = {
     start: 0,
     end: 0
   };
+
+
+  /**
+   * Reference to currently operating bounds object.
+   * @type {Object}
+   */
+  var bounds = defaultBounds;
 
 
   /**
@@ -63,7 +71,7 @@ function ShotVideoService() {
    * @param {Object} timecodes to use.
    */
   this.setLoopBounds = function(timecodes) {
-    bounds = timecodes;
+    bounds = timecodes || defaultBounds;
   };
 
 
@@ -78,8 +86,8 @@ function ShotVideoService() {
       var t = video.currentTime;
       if (bounds.start && t < bounds.start) {
         video.currentTime = bounds.start;
-      } else if (bounds.end && bounds.end > bounds.end) {
-        video.currentTime = bounds.end;
+      } else if (bounds.end && t > bounds.end) {
+        video.currentTime = bounds.start || 0;
       }
     }
   };
