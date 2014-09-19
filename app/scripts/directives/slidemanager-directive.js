@@ -52,8 +52,7 @@ var KeyFrameSets = {
     {
       key: 0,
       opacity: 1,
-      top: 0,
-      ease: 'in'
+      top: 0
     },
     {
       key: 1,
@@ -64,7 +63,13 @@ var KeyFrameSets = {
   'slideInFromBottom': [
     {
       key: 0,
-      top: 1
+      top: 1,
+      ease: 'out'
+    },
+    {
+      key: 0.5,
+      top: 0,
+      ease: 'in'
     },
     {
       key: 1,
@@ -198,7 +203,8 @@ var Scroller = {
         key: 1,
         left: 0,
         top: 0,
-        scale: 1
+        scale: 1,
+        ease: 'in-out'
       },
       {
         key: 1.5,
@@ -261,6 +267,22 @@ var Scroller = {
 
     'out': function (percent) {
       return percent * (percent - 2) * -1;
+    },
+
+    'in-out': function (percent) {
+      percent = percent * 2;
+      if (percent < 1) {
+        return percent * percent * 0.5;
+      }
+      return -0.5 * ((--percent) * (percent - 2) - 1);
+    },
+
+    'cube-in': function (percent) {
+      return percent * percent * percent;
+    },
+
+    'cube-out': function (percent) {
+      return (percent -= 1) * percent * percent + 1;
     }
   },
 
