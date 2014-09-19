@@ -1,7 +1,7 @@
 'use strict';
 
 function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService,
-                  ShotVideoService) {
+                  ShotVideoService, ScrollService) {
   var self = this;
 
   this.id = ShotService.current;
@@ -75,7 +75,7 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService,
 
   $scope.scrollToSlide = function (slide) {
     // TODO: ask Danny if this is kosher
-    Scroller.scrollToSlide(slide);
+    ScrollService.scrollToSlide(slide);
   }
 }
 
