@@ -243,6 +243,7 @@ var Scroller = {
           {
             key: -0.5,
             top: 1,
+            ease: 'out'
           },
           {
             key: 0,
