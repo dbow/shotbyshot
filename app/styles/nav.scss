@@ -123,8 +123,13 @@
   border-radius: 10px;
   cursor: pointer;
 
+  &.highlighted {
+    background-color: white;
+  }
+
   &:hover {
     background-color: white;
+    cursor: default;
   }
 }
 

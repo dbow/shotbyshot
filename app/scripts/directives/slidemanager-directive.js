@@ -139,6 +139,7 @@ var Scroller = {
     this.$slides = [];
 
     this.headers = document.getElementsByClassName('top-nav-author');
+    this.navButtons = document.getElementsByClassName('side-nav-circle');
 
     this.$background = angular.element(
         document.getElementsByClassName('shot-background')[0]);
@@ -372,7 +373,9 @@ var Scroller = {
       }
 
       if (slide.nav || slide.type === 'author') {
-        slide.headerEl = this.headers[headerIndex++];
+        slide.headerEl = this.headers[headerIndex];
+        slide.navButton = this.navButtons[headerIndex];
+        headerIndex++;
       }
 
       // Dynamically add last two keyframes for author based on when the next
@@ -488,17 +491,20 @@ var Scroller = {
       // Find the target header for the current slide.
       if (slideFrame >= 0 && slideFrame <= 1) {
         var targetHeader = slide.headerEl;
+        var targetNav = slide.navButton;
         if (!targetHeader) {
           var prevSlides = this.slides.slice(0, i);
           _.forEachRight(prevSlides, function(prevSlide) {
             if (prevSlide.headerEl) {
               targetHeader = prevSlide.headerEl;
+              targetNav = prevSlide.navButton;
               return false;
             }
           });
         }
+
         // Adjust header classes so target header is displayed.
-        if (targetHeader) {
+        if (targetHeader && (!this.lastHeader || this.lastHeader !== targetHeader)) {
           var newHeader;
           angular.forEach(this.headers, function (header) {
             var el = angular.element(header);
@@ -511,6 +517,14 @@ var Scroller = {
               el.addClass('down').removeClass('up');
             }
           }, this);
+
+          if (this.lastNav) {
+            angular.element(this.lastNav).removeClass('highlighted');
+          }
+          angular.element(targetNav).addClass('highlighted');
+
+          this.lastNav = targetNav;
+          this.lastHeader = targetHeader;
         }
       }
 
