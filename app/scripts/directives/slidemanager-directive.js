@@ -157,11 +157,12 @@ var Scroller = {
     'introduction': [
       {
         key: 0,
-        backgroundOpacity: 1
+        backgroundOpacity: 1,
+        opacity: 1,
       },
       {
         key: 0.8,
-        opacity: 1
+        opacity: 0,
       },
       {
         key: 1,

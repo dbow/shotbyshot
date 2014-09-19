@@ -18,8 +18,16 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService,
     {
       type: 'shotvideo',
       shot: self.id,
-      onEnter: ShotVideoService.play,
-      onExit: ShotVideoService.resumeLoop
+      onEnter: function() {
+        self.playing = true;
+        $scope.$apply();
+        ShotVideoService.play();
+      },
+      onExit: function() {
+        self.playing = false;
+        $scope.$apply();
+        ShotVideoService.resumeLoop();
+      }
     }];
     var outro = [{
       shot: self.id,
