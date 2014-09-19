@@ -38,6 +38,9 @@ function ShotVideoService() {
     // Update video reference.
     self.video = video;
 
+    // Re-set bounds.
+    bounds = defaultBounds;
+
     // Listen for timeupdates.
     self.video.addEventListener('timeupdate', self.onTimeUpdate, false);
   };
