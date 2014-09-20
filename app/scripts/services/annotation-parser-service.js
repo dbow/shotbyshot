@@ -135,8 +135,14 @@ function AnnotationParserService($sce, Annotation) {
         });
 
         // Filter out linebreaks (<br> and <br /> tags) in image content.
-        if (type === 'photo' || type === 'background') {
+        if (type === 'photo' || type === 'background' || type === 'video') {
           content = content.replace(/\<br\s*\/*\>/gi, '');
+
+          // Remove height and width from iframe - will be set via CSS.
+          if (type === 'video') {
+            content = content.replace(/width\=\"[0-9a-z]+\"/gi, '');
+            content = content.replace(/height\=\"[0-9a-z]+\"/gi, '');
+          }
         }
 
         // Assemble slide object for the slide directive.

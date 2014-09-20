@@ -35,6 +35,15 @@
   margin-top: 310px;
 }
 
+.slide-video-content {
+  height: 100%;
+  width: 100%;
+
+  iframe {
+    height: 100%;
+    width: 100%;
+  }
+}
 
 .slide-photo {
   height: 100%;

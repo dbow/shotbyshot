@@ -59,24 +59,6 @@ function ScrollService(ShotVideoService) {
         metaOpacity: 0
       }
     ],
-    'videoEvents': [
-      {
-        key: 0,
-        backgroundOpacity: 1
-      },
-      {
-        key: 0.2,
-        backgroundOpacity: 0
-      },
-      {
-        key: 0.8,
-        backgroundOpacity: 0
-      },
-      {
-        key: 1,
-        backgroundOpacity: 1
-      }
-    ],
     /**
      * Performs a merge of two arrays of objects by merging b into a.
      * For every object in b, if an object in a with the same key value is found
@@ -160,7 +142,24 @@ function ScrollService(ShotVideoService) {
         opacity: 1
       }
     ],
-    'shotvideo': KeyFrameSets.videoEvents,
+    'shotvideo': [
+      {
+        key: 0,
+        backgroundOpacity: 1
+      },
+      {
+        key: 0.2,
+        backgroundOpacity: 0
+      },
+      {
+        key: 0.8,
+        backgroundOpacity: 0
+      },
+      {
+        key: 1,
+        backgroundOpacity: 1
+      }
+    ],
     'author': [
       {
         key: 0,
@@ -206,27 +205,25 @@ function ScrollService(ShotVideoService) {
     'highlight': KeyFrameSets.highlightStart,
     'photo': KeyFrameSets.slideInFromBottom,
     'streetview': KeyFrameSets.slideInFromBottom,
-    'video': KeyFrameSets.construct(
-        KeyFrameSets.videoEvents,
-        [
-          {
-            key: -0.5,
-            top: 1,
-            ease: 'out'
-          },
-          {
-            key: 0,
-            top: 0
-          },
-          {
-            key: 0.5,
-            top: 0
-          },
-          {
-            key: 1,
-            top: -1
-          }
-        ])
+    'video': [
+      {
+        key: -0.5,
+        top: 1,
+        ease: 'out'
+      },
+      {
+        key: 0,
+        top: 0
+      },
+      {
+        key: 0.5,
+        top: 0
+      },
+      {
+        key: 1,
+        top: -1
+      }
+    ]
   };
 
 

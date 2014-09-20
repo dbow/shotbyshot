@@ -69,7 +69,7 @@
       <source ng-repeat="video in slide.attributes.video" ng-src="{{ video }}" type="video/mp4">
       Your browser does not support the <code>video</code> element.
     </video>
-    <div ng-if="!slide.attributes.video" ng-bind-html="slide.content">
+    <div class="slide-video-content" ng-if="!slide.attributes.video" ng-bind-html="slide.content">
     </div>
     <div class="meta-text">
       <div ng-if="slide.attributes.title">{{ slide.attributes.title }}</div>
