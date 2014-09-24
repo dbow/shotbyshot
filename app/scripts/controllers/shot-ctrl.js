@@ -52,8 +52,8 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService,
 
   // TODO: probably can lazy load this, but i'm not
   // angular enought to know how.
-  ShotService.getThumbnails(0).then(function(shots) {
-    self.shots = shots;
+  ShotService.getThumbnails(0).then(function(thumbs) {
+    self.thumbs = thumbs;
   });
 
   $scope.isHeaderSlide = function(slide) {

@@ -14,16 +14,16 @@
     <div class="nav-menu">
       <div class="nav-menu-controls">
         <div class="nav-menu-tabs">
-          <a class="nav-menu-tab">Shots</a>
+          <a class="nav-menu-tab on">Shots</a>
           <a class="nav-menu-tab">Tags</a>
           <a class="nav-menu-tab">Authors</a>
         </div>
       </div>
 
       <div class="nav-menu-shots">
-        <div class="nav-menu-shot" ng-repeat="shot in shots">
-          {{ shot.id }}
-        </div>
+        <a class="nav-menu-shot" ng-repeat="shot in shot.thumbs" ui-sref="shot({ shot: shot.id })">
+          <div class="nav-menu-shot-number">{{ shot.id }}</div>
+        </a>
       </div>
     </div>
 </nav>
