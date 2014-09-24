@@ -85,6 +85,9 @@ function ShotVideoService() {
    * Restores slow motion, muted playback of shot video.
    */
   this.resumeLoop = function() {
+    if (self.video.readyState !== 4) {
+      return;
+    }
     playing = false;
     self.video.playbackRate = 0.3;
     self.video.muted = true;
