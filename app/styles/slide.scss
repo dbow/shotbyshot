@@ -52,6 +52,15 @@
   }
 }
 
+.slide-outer-video {
+  z-index: 2;
+}
+.slide-video .meta-text {
+  right: initial;
+  width: 230px;
+  bottom: 50px;
+}
+
 .slide-photo {
   height: 100%;
   width: 100%;

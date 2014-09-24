@@ -20,7 +20,7 @@
  * will be parsed into 4 separate slide objects of type "text", "background",
  * "text", and "streetview".
  */
-function AnnotationParserService($sce, Annotation) {
+function AnnotationParserService($sce, $rootScope, Annotation) {
 
   /**
    * Convert annotations to slides based on the content field.
@@ -177,6 +177,18 @@ function AnnotationParserService($sce, Annotation) {
         if (NON_AUTHOR_TYPES[type]) {
           slideObject.nav = type === 'video' && attributeMap.title ?
               attributeMap.title : NON_AUTHOR_TYPES[type];
+        }
+
+        if (type === 'video') {
+          // Add callbacks that broadcast video events on enter and exit,
+          // passing in the slide object so listeners can identify the
+          // specific slide that triggered the event.
+          slideObject.onEnter = function() {
+            $rootScope.$broadcast('videoEnter', slideObject);
+          };
+          slideObject.onExit = function() {
+            $rootScope.$broadcast('videoExit', slideObject);
+          };
         }
 
         slideObjects.push(slideObject);
