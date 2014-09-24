@@ -7,7 +7,7 @@
  * Should be applied to either an <img> tag or a <div ng-bind-html> that will
  * load content with an <img> tag.
  */
-function BackgroundCoverDirective($timeout) {
+function BackgroundCoverDirective($timeout, $window) {
   return {
     /**
      * Must be a class since this depends on CSS classes.
@@ -63,6 +63,9 @@ function BackgroundCoverDirective($timeout) {
           });
         }
       }
+
+      // Update on resize (debounced).
+      angular.element($window).on('resize', _.debounce(checkImage, 150));
     }
   };
 }

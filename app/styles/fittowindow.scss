@@ -1,0 +1,36 @@
+// Styles for fit-to-window-directive.
+
+img.fit-to-window-directive,
+video.fit-to-window-directive {
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+
+  &.fit-to-window-width-directive {
+    width: 100%;
+    height: auto;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+div.fit-to-window-directive {
+  height: 100%;
+  width: 100%;
+
+  img {
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  &.fit-to-window-width-directive {
+    img {
+      width: 100%;
+      height: auto;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+

@@ -3,10 +3,16 @@
 img.background-cover-directive,
 .background-cover-directive img {
   width: 100%;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 
   &.fill-height-directive {
     height: 100%;
     width: auto;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
   }
 }
 
