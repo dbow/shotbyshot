@@ -102,7 +102,7 @@ function ScrollService(ShotVideoService) {
     window.addEventListener('resize', angular.bind(this, this.sizeAndPosition));
 
     this.boundOnscroll = angular.bind(this, this.onscroll);
-    window.requestAnimationFrame(this.boundOnscroll);
+    this.nextDraw();
   };
 
   this.keyFrames = {
@@ -271,7 +271,7 @@ function ScrollService(ShotVideoService) {
 
   this.scrollToSlide = function (slide) {
     window.scrollTo(0, slide.padded_top);
-  }
+  };
 
 
   this.sizeAndPosition = function () {
@@ -400,7 +400,7 @@ function ScrollService(ShotVideoService) {
 
     // Force an update to the layout.
     this.lastY = undefined;
-    this.onscroll();
+    this.reflow();
   };
 
 
@@ -408,6 +408,14 @@ function ScrollService(ShotVideoService) {
 
   this.currentAnnotation = {};
 
+  this.nextDraw = function () {
+    this.animationFrame = window.requestAnimationFrame(this.boundOnscroll);
+  };
+
+  this.reflow = function () {
+    window.cancelAnimationFrame(this.animationFrame);
+    this.onscroll();
+  };
 
   this.onscroll = function () {
     var currentY = window.scrollY;
@@ -415,7 +423,7 @@ function ScrollService(ShotVideoService) {
     var currentSlideIndex;
 
     if (!this.slides || !this.slides.length || currentY === this.lastY || currentY < 0) {
-      return window.requestAnimationFrame(this.boundOnscroll);
+      return this.nextDraw();
     }
 
     this.lastY = currentY;
@@ -575,7 +583,7 @@ function ScrollService(ShotVideoService) {
       }
     }, this);
 
-    return window.requestAnimationFrame(this.boundOnscroll);
+    return this.nextDraw();
   }
 }
 
