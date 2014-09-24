@@ -270,12 +270,7 @@ function ScrollService(ShotVideoService) {
 
 
   this.scrollToSlide = function (slide) {
-    this.animateStart = new Date();
-    this.animateTo = slide.top;
-    this.animateFromY = window.scrollY;
-    this.animateDistance = this.animateTo - this.animateFromY;
-    this.animateDuration = 1000;
-    angular.element(document.body).addClass('noscroll');
+    window.scrollTo(0, slide.padded_top);
   }
 
 
@@ -298,6 +293,7 @@ function ScrollService(ShotVideoService) {
       slide.top = el.offsetTop;
       slide.height = el.offsetHeight;
       slide.bottom = slide.top + slide.height;
+      slide.padded_top = Math.round(slide.top + (slide.height - this.height) / 2);
       slide.el = el;
       slide.$el = angular.element(el);
       slide.$inner = slide.$el.find('div').eq(0);
@@ -418,20 +414,9 @@ function ScrollService(ShotVideoService) {
     var slideDistance;
     var currentSlideIndex;
 
-    if (_.isNumber(this.animateTo)) {
-      var percent = (new Date() - this.animateStart) / this.animateDuration;
-
-      currentY = Math.round(this.easing.linear(percent) * this.animateDistance + this.animateFromY);
-      window.scrollTo(0, currentY);
-
-      if (percent >= 1) {
-        this.animateTo = null;
-        angular.element(document.body).removeClass('noscroll');
-      }
-    } else if (!this.slides || !this.slides.length || currentY === this.lastY || currentY < 0) {
+    if (!this.slides || !this.slides.length || currentY === this.lastY || currentY < 0) {
       return window.requestAnimationFrame(this.boundOnscroll);
     }
-
 
     this.lastY = currentY;
 
