@@ -1,7 +1,7 @@
 <nav class="top-nav">
     <button class="top-nav-menu"></button>
     <div class="top-nav-current-slide">
-        <div class="top-nav-author down" ng-repeat="slide in shot.slides | filter:isNavSlide">
+        <div class="top-nav-author down" ng-repeat="slide in shot.slides | filter:isHeaderSlide">
           {{ slide.nav || slide.annotation.author.name }}
         </div>
     </div>

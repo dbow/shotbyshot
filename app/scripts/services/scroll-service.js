@@ -491,6 +491,8 @@ function ScrollService(ShotVideoService) {
           _.forEachRight(prevSlides, function(prevSlide) {
             if (prevSlide.headerEl) {
               targetHeader = prevSlide.headerEl;
+            }
+            if (prevSlide.navButton) {
               targetNav = prevSlide.navButton;
               return false;
             }

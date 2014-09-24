@@ -56,7 +56,7 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService,
     self.shots = shots;
   });
 
-  $scope.isNavSlide = function(slide) {
+  $scope.isHeaderSlide = function(slide) {
     var NAV_TYPES = [
       'introduction',
       'outro',
@@ -65,12 +65,18 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService,
       'video',
       'streetview'
     ];
-    for (var i = 0, len = NAV_TYPES.length; i < len; i++) {
-      if (slide.type === NAV_TYPES[i]) {
-        return true;
-      }
-    }
-    return false;
+    return _.contains(NAV_TYPES, slide.type);
+  };
+
+  $scope.isNavSlide = function(slide) {
+    var NAV_TYPES = [
+      'introduction',
+      'author',
+      'photo',
+      'video',
+      'streetview'
+    ];
+    return _.contains(NAV_TYPES, slide.type);
   };
 
   $scope.scrollToSlide = function (slide) {
