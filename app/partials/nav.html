@@ -21,7 +21,7 @@
       </div>
 
       <div class="nav-menu-shots">
-        <a class="nav-menu-shot" ng-repeat="shot in shot.thumbs" ui-sref="shot({ shot: shot.id })">
+        <a class="nav-menu-shot" ng-repeat="shot in shot.thumbs" ui-sref="shot({ shot: shot.id })" ng-style="{'background-image': 'url(' + thumbnailForShot(shot) + ')'}">
           <div class="nav-menu-shot-number">{{ shot.id }}</div>
         </a>
       </div>

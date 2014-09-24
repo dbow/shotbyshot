@@ -25,16 +25,16 @@
       transition: 0.1s color;
       cursor: pointer;
 
-      &:hover, .on {
+      &:hover, &.on {
         color: white;
       }
-      .on {
+      &.on {
         cursor: default;
       }
     }
 
-$shot-thumb-height: 238px;
-$shot-thumb-width: 1288px / 3px - 30px * 2;
+$shot-thumb-height: 235px;
+$shot-thumb-width: 400px;
 .nav-menu-shots {
   padding: 0 (58px - 15px);
   line-height: 0;
@@ -60,7 +60,7 @@ $shot-thumb-width: 1288px / 3px - 30px * 2;
       background: rgba(255, 255, 255, 0.1);
       transition: opacity 0.2s;
     }
-    
+
     &:hover {
       &::before {
         opacity: 1;
