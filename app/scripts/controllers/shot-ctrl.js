@@ -9,7 +9,9 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService,
   this.previous = ShotService.getPrevious();
   this.videoUrl = ShotService.getVideoUrl();
   this.shots = [];
-  this.menuIsOn = false;
+
+  $scope.menuIsOn = false;
+  $scope.showMenuTab = 'shots';
 
   this.play = function() {
     self.playing = true;
@@ -97,8 +99,7 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService,
       ShotVideoService.pause();
       angular.element(document.body).addClass('noscroll');
     }
-    self.menuIsOn = !self.menuIsOn;
-    return self.menuIsOn;
+    $scope.menuIsOn = !self.menuIsOn;
   };
 }
 

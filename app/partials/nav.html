@@ -1,5 +1,5 @@
 <nav class="top-nav" ng-class="{menu: menuIsOn}">
-    <button class="top-nav-menu-button" ng-click="menuIsOn = toggleMenu()"></button>
+    <button class="top-nav-menu-button" ng-click="toggleMenu()"></button>
     <div class="top-nav-current-slide">
         <div class="top-nav-author down" ng-repeat="slide in shot.slides | filter:isHeaderSlide">
           {{ slide.nav || slide.annotation.author.name }}
@@ -14,13 +14,11 @@
     <div class="nav-menu">
       <div class="nav-menu-controls">
         <div class="nav-menu-tabs">
-          <a class="nav-menu-tab on">Shots</a>
-          <a class="nav-menu-tab">Tags</a>
-          <a class="nav-menu-tab">Authors</a>
+          <a class="nav-menu-tab" ng-repeat="tab in ['shots', 'tags', 'authors']" ng-click="$parent.showMenuTab = tab" ng-bind="tab" ng-class="{on: showMenuTab === tab}"></a>
         </div>
       </div>
 
-      <div class="nav-menu-shots">
+      <div class="nav-menu-shots" ng-show="showMenuTab === 'shots'">
         <a class="nav-menu-shot" ng-repeat="shot in shot.thumbs" ui-sref="shot({ shot: shot.id })" ng-style="{'background-image': 'url(' + thumbnailForShot(shot) + ')'}">
           <div class="nav-menu-shot-number">{{ shot.id }}</div>
         </a>

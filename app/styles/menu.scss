@@ -18,12 +18,14 @@
     padding-bottom: 14px;
   }
     .nav-menu-tab {
+      display: inline-block;
       margin-right: 34px;
       font-family: $base-font-medium;
       font-size: 22px;
       color: rgb(155, 151, 147);
       transition: 0.1s color;
       cursor: pointer;
+      text-transform: capitalize;
 
       &:hover, &.on {
         color: white;
