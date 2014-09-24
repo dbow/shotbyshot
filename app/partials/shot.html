@@ -1,9 +1,9 @@
 <div class="container">
-    <div ng-class="{'cinema': inView}" ng-include="'partials/nav.html'"></div>
+    <div ng-class="{'cinema': shot.playing}" ng-include="'partials/nav.html'"></div>
 
-    <div class="content">
+    <div class="content" ng-class="{'shot-played': shot.played, 'cinema': shot.playing}">
 
-        <div class="shot-background"></div>
+        <div class="shot-background" ng-style="{'opacity': shot.backgroundOpacity}"></div>
 
         <video class="shot-video-directive" autoplay loop muted>
             <source ng-src="{{ shot.videoUrl }}" type="video/mp4">

@@ -26,6 +26,20 @@ function ShotVideoService() {
 
 
   /**
+   * Whether video is currently being played (as opposed to silently looped).
+   * @type {boolean}
+   */
+  var playing = false;
+
+
+  /**
+   * Callback function to execute when playback finishes.
+   * @type {Function}
+   */
+  var cb = null;
+
+
+  /**
    * Store reference to given video and add listener for timeupdate.
    * @param {Element} video element to register.
    */
@@ -49,14 +63,21 @@ function ShotVideoService() {
   /**
    * If video is ready, restores normal playrate, unmutes video, and sets
    * time to beginning. Basically, plays the video.
+   * @param {Function} onComplete callback when this play ends.
    */
-  this.play = function() {
+  this.play = function(onComplete) {
     if (self.video.readyState !== 4) {
       return;
     }
+    playing = true;
+    cb = onComplete;
     self.video.currentTime = 0;
     self.video.playbackRate = 1;
     self.video.muted = false;
+    self.video.loop = false;
+    if (onComplete) {
+      self.video.addEventListener('ended', cb, false);
+    }
   };
 
 
@@ -64,8 +85,14 @@ function ShotVideoService() {
    * Restores slow motion, muted playback of shot video.
    */
   this.resumeLoop = function() {
+    playing = false;
     self.video.playbackRate = 0.3;
     self.video.muted = true;
+    self.video.loop = true;
+    self.video.removeEventListener('ended', cb, false);
+    cb = null;
+    self.video.currentTime = 0;
+    self.video.play();
   };
 
 
@@ -92,7 +119,7 @@ function ShotVideoService() {
    */
   this.onTimeUpdate = function() {
     var video;
-    if (bounds.start || bounds.end) {
+    if (!playing && (bounds.start || bounds.end)) {
       video = self.video;
       var t = video.currentTime;
       if (bounds.start && t < bounds.start) {

@@ -1,7 +1,7 @@
 'use strict';
 
-function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService,
-                  ShotVideoService, ScrollService) {
+function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
+                  AnnotationParserService, ShotVideoService, ScrollService) {
   var self = this;
 
   this.id = ShotService.current;
@@ -14,33 +14,36 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService,
   $scope.showMenuTab = 'shots';
 
   this.play = function() {
+    self.backgroundOpacity = 0;
     self.playing = true;
-    ShotVideoService.play();
+    ShotVideoService.play(self.stop);
+  };
+
+  this.stop = function() {
+    self.playing = false;
+    ShotVideoService.resumeLoop();
+    self.backgroundOpacity = 1;
+    $scope.$apply();
   };
 
   ShotService.getShot(this.id).then(function(annotations) {
     var intro = [{
       type: 'introduction',
       shot: self.id,
-      nav: 'introduction'
-    },
-    {
-      type: 'shotvideo',
-      shot: self.id,
+      nav: 'introduction',
       onEnter: function() {
         $scope.inView = true;
         if (!self.played) {
-          self.playing = true;
-          ShotVideoService.play();
-          self.played = true;
+          $timeout(function() {
+            self.play();
+            self.played = true;
+          }, 3000);
         }
         $scope.$apply();
       },
       onExit: function() {
         $scope.inView = false;
-        self.playing = false;
-        ShotVideoService.resumeLoop();
-        $scope.$apply();
+        self.stop();
       }
     }];
     var outro = [{
