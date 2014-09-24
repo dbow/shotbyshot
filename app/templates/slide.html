@@ -32,10 +32,9 @@
   <!-- BACKGROUND -->
   <div ng-if="slide.type === 'background'" class="slide-background slide-inner">
     <img ng-if="slide.attributes.background" ng-src="{{ slide.attributes.background }}" class="background-cover-directive" />
-    <div ng-if="!slide.attributes.background" ng-bind-html="slide.content" class="background-cover-directive" ></div>
-    <div class="meta-text">
-      <div ng-if="slide.attributes.title">{{ slide.attributes.title }}</div>
-      <div ng-if="slide.attributes.caption">{{ slide.attributes.caption }}</div>
+    <div ng-if="!slide.attributes.background" ng-bind-html="slide.content" class="background-cover-directive"></div>
+    <div class="meta-text" ng-if="slide.attributes.caption">
+      <div class="meta-caption">{{ slide.attributes.caption }}</div>
     </div>
   </div>
 
@@ -43,16 +42,15 @@
   <div ng-if="slide.type === 'photo'" class="slide-photo slide-inner">
     <img ng-if="slide.attributes.photo" ng-src="{{ slide.attributes.photo }}" class="fit-to-window-directive" />
     <div ng-if="!slide.attributes.photo" ng-bind-html="slide.content" class="fit-to-window-directive"></div>
-    <div class="meta-text">
-      <div ng-if="slide.attributes.title">{{ slide.attributes.title }}</div>
-      <div ng-if="slide.attributes.caption" class="meta-caption">{{ slide.attributes.caption }}</div>
+    <div class="meta-text" ng-if="slide.attributes.caption">
+      <div class="meta-caption">{{ slide.attributes.caption }}</div>
     </div>
   </div>
 
   <!-- HIGHLIGHT -->
   <div ng-if="slide.type === 'highlight'" class="slide-highlight slide-inner">
     <div class="slide-highlight-spotlight"></div>
-    <div class="meta-text">
+    <div class="meta-text" ng-if="slide.attributes.title || slide.attributes.caption">
       <div ng-if="slide.attributes.title">{{ slide.attributes.title }}</div>
       <div ng-if="slide.attributes.caption">{{ slide.attributes.caption }}</div>
     </div>
@@ -71,9 +69,8 @@
     </video>
     <div class="slide-video-content" ng-if="!slide.attributes.video" ng-bind-html="slide.content">
     </div>
-    <div class="meta-text">
-      <div ng-if="slide.attributes.title">{{ slide.attributes.title }}</div>
-      <div ng-if="slide.attributes.caption">{{ slide.attributes.caption }}</div>
+    <div class="meta-text" ng-if="slide.attributes.caption">
+      <div class="meta-caption">{{ slide.attributes.caption }}</div>
     </div>
   </div>
 

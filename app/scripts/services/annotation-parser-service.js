@@ -134,6 +134,12 @@ function AnnotationParserService($sce, Annotation) {
           }
         });
 
+        // Filter out linebreaks from caption.
+        if (attributeMap.caption) {
+          attributeMap.caption = attributeMap.caption.replace(/\<br\s*\/*\>/gi,
+              '');
+        }
+
         // Filter out linebreaks (<br> and <br /> tags) in image content.
         if (type === 'photo' || type === 'background' || type === 'video') {
           content = content.replace(/\<br\s*\/*\>/gi, '');
