@@ -70,6 +70,14 @@ function ShotVideoService() {
 
 
   /**
+   * Pauses the video.
+   */
+  this.pause = function() {
+    self.video.playbackRate = 0;
+  };
+
+
+  /**
    * Update the loop bounds with the given object.
    * @param {Object} timecodes to use.
    */

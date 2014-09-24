@@ -55,7 +55,6 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService,
   // angular enought to know how.
   ShotService.getThumbnails(0).then(function(thumbs) {
     self.thumbs = thumbs;
-    console.log('thumbs', self.thumbs);
   });
 
   $scope.isHeaderSlide = function(slide) {
@@ -88,6 +87,18 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService,
 
   $scope.thumbnailForShot = function (shot) {
     return '/wp/wp-content/uploads/Shots_400px/' + shot.slug + '.png';
+  };
+
+  $scope.toggleMenu = function () {
+    if (self.menuIsOn) {
+      ShotVideoService.resumeLoop();
+      angular.element(document.body).removeClass('noscroll');
+    } else {
+      ShotVideoService.pause();
+      angular.element(document.body).addClass('noscroll');
+    }
+    self.menuIsOn = !self.menuIsOn;
+    return self.menuIsOn;
   };
 }
 

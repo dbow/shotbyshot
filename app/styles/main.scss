@@ -16,6 +16,10 @@ body, html {
   background-color: black;
 }
 
+body.noscroll {
+  overflow: hidden;
+}
+
 .content {
   padding-top: $nav-height;
   height: 100%;
