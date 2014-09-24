@@ -10,12 +10,22 @@
   z-index: 3;
   transition: opacity 0.3s ease-in-out;
 
+  .nav-menu {
+    height: 0;
+    visibility: hidden;
+  }
+
   &.menu {
     height: 100%;
+
+    .nav-menu {
+      height: 100%;
+      visibility: visible;
+    }
   }
 }
 
-.top-nav-menu {
+.top-nav-menu-button {
   position: absolute;
   left: 30px;
   top: 10px;
@@ -31,11 +41,15 @@
   display: inline-block;
   text-align: center;
   cursor: pointer;
+  z-index: 2;
   -webkit-user-drag: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
+  /* TODO is this bad? */
+  outline: none;
 
   &:hover {
     color: #FFF;

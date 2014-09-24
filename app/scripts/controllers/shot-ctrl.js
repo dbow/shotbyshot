@@ -9,6 +9,7 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService,
   this.previous = ShotService.getPrevious();
   this.videoUrl = ShotService.getVideoUrl();
   this.shots = [];
+  this.menuIsOn = false;
 
   this.play = function() {
     self.playing = true;
@@ -82,7 +83,7 @@ function ShotCtrl($scope, $sce, $filter, ShotService, AnnotationParserService,
   $scope.scrollToSlide = function (slide) {
     // TODO: ask Danny if this is kosher
     ScrollService.scrollToSlide(slide);
-  }
+  };
 }
 
 angular
