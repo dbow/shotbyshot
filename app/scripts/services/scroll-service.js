@@ -190,15 +190,22 @@ function ScrollService(ShotVideoService) {
       {
         key: -0.5,
         top: 1,
-        ease: 'out'
+        ease: 'out',
+        metaOpacity: 1
       },
       {
         key: 0.2,
-        top: 0
+        top: 0,
+        metaOpacity: 1
+      },
+      {
+        key: 0.9,
+        metaOpacity: 1
       },
       {
         key: 1,
-        top: 0
+        top: 0,
+        metaOpacity: 0
       }
     ],
     'text': KeyFrameSets.fadeInFromBottom,
@@ -381,12 +388,14 @@ function ScrollService(ShotVideoService) {
           {
             key: i - bg.index - 0.5,
             opacity: 1,
-            top: 0
+            top: 0,
+            metaOpacity: 0
           },
           {
             key: i - bg.index,
             opacity: 0,
-            top: -1
+            top: -1,
+            metaOpacity: 0
           }
         ]);
         bg = null;
