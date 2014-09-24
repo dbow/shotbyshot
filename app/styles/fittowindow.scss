@@ -3,11 +3,13 @@
 img.fit-to-window-directive,
 video.fit-to-window-directive {
   height: 100%;
-  margin: 0 auto;
-  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
 
   &.fit-to-window-width-directive {
     width: 100%;
+    left: 0;
     height: auto;
     top: 50%;
     transform: translateY(-50%);
@@ -17,16 +19,19 @@ video.fit-to-window-directive {
 div.fit-to-window-directive {
   height: 100%;
   width: 100%;
+  position: absolute;
 
   img {
     height: 100%;
-    margin: 0 auto;
-    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
   }
 
   &.fit-to-window-width-directive {
     img {
       width: 100%;
+      left: 0;
       height: auto;
       top: 50%;
       transform: translateY(-50%);
