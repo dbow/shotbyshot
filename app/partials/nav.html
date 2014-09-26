@@ -14,14 +14,18 @@
     <div class="nav-menu">
       <div class="nav-menu-controls">
         <div class="nav-menu-tabs">
-          <a class="nav-menu-tab" ng-repeat="tab in ['shots', 'tags', 'authors']" ng-click="$parent.showMenuTab = tab" ng-bind="tab" ng-class="{on: showMenuTab === tab}"></a>
+          <a class="nav-menu-tab" ng-repeat="tab in ['shots', 'tags', 'authors']" ng-click="$parent.showMenuTab = tab; $parent.filterShots();" ng-bind="tab" ng-class="{on: showMenuTab === tab}"></a>
         </div>
       </div>
 
       <div class="nav-menu-shots" ng-show="showMenuTab === 'shots'">
-        <a class="nav-menu-shot" ng-repeat="shot in shot.thumbs" ui-sref="shot({ shot: shot.id })" ng-style="{'background-image': 'url(' + thumbnailForShot(shot) + ')'}">
+        <a class="nav-menu-shot" ng-repeat="shot in thumbs" ui-sref="shot({ shot: shot.id })" ng-style="{'background-image': 'url(' + thumbnailForShot(shot) + ')'}">
           <div class="nav-menu-shot-number">{{ shot.id }}</div>
         </a>
+      </div>
+
+      <div class="nav-menu-tags" ng-show="showMenuTab === 'tags'">
+        <a class="nav-menu-tag" ng-repeat="tag in shot.tags" ng-bind="tag.title" ng-click="$parent.filterShots(tag); $parent.showMenuTab = 'shots';"></a>
       </div>
     </div>
 </nav>

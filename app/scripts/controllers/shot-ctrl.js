@@ -9,6 +9,7 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
   this.previous = ShotService.getPrevious();
   this.videoUrl = ShotService.getVideoUrl();
   this.shots = [];
+  this.thumbsForTag = {};
 
   $scope.menuIsOn = false;
   $scope.showMenuTab = 'shots';
@@ -59,7 +60,13 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
   // TODO: probably can lazy load this, but i'm not
   // angular enought to know how.
   ShotService.getThumbnails(0).then(function(thumbs) {
-    self.thumbs = thumbs;
+    $scope.thumbs = self.thumbs = thumbs;
+  });
+
+  ShotService.getTags(0).then(function(tags) {
+    self.tags = _.sortBy(tags, function (tag) {
+      return -tag.post_count;
+    }).slice(0, 30);
   });
 
   $scope.isHeaderSlide = function(slide) {
@@ -103,6 +110,25 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
       angular.element(document.body).addClass('noscroll');
     }
     $scope.menuIsOn = !self.menuIsOn;
+  };
+
+  $scope.filterShots = function (tag) {
+    if (!tag) {
+      $scope.thumbs = self.thumbs;
+    } else if (self.thumbsForTag[tag.id]) {
+      $scope.thumbs = self.thumbsForTag[tag.id];
+    } else {
+      ShotService.getAnnotationsForTag(tag, 0).then(function(annotations) {
+        var shots = {};
+        var thumbs = [];
+        _.each(annotations, function (annotation) {
+          if (annotation.categories.length) {
+            shots[annotation.categories[0].id] = annotation.categories[0];
+          }
+        });
+        $scope.thumbs = self.thumbsForTag[tag.id] = _.toArray(shots);
+      });
+    }
   };
 }
 

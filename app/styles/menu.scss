@@ -83,3 +83,13 @@ $shot-thumb-width: 400px;
       text-align: center;
       color: white;
     }
+
+.nav-menu-tags {
+  padding: 20px 58px;
+}
+  .nav-menu-tag {
+    margin-right: 70px;
+    font-size: 92px;
+    font-family: $base-font-medium;
+    cursor: pointer;
+  }

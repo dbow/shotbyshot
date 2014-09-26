@@ -104,6 +104,51 @@ function ShotService($rootScope, $http, $filter, $stateParams, $q,
     return deferred.promise;
   };
 
+  var postsForTagUrl = '/wp/?json=get_tag_posts';
+  this.getAnnotationsForTag = function(tag, page) {
+    var deferred = $q.defer();
+
+    page = page || 0;
+
+    $http({
+      method: 'GET',
+      url: postsForTagUrl + '&id=' + tag.id + '&page=' + page
+    }).success(function(data) {
+      console.log('data', data);
+      if (data.status === 'ok') {
+        deferred.resolve(data.posts);
+      } else {
+        deferred.reject('Error fetching shots');
+      }
+    }).error(function() {
+      deferred.reject('Error fetching shots');
+    });
+
+    return deferred.promise;
+  };
+
+  var tagUrl = '/wp/?json=get_tag_index';
+  this.getTags = function(page) {
+    var deferred = $q.defer();
+
+    page = page || 0;
+
+    $http({
+      method: 'GET',
+      url: tagUrl + '&page=' + page
+    }).success(function(data) {
+      if (data.status === 'ok') {
+        deferred.resolve(data.tags);
+      } else {
+        deferred.reject('Error fetching shots');
+      }
+    }).error(function() {
+      deferred.reject('Error fetching shots');
+    });
+
+    return deferred.promise;
+  };
+
   // Update the current shot number on any state change.
   $rootScope.$on('$stateChangeStart',
       function(event, toState, toParams, fromState, fromParams) {
