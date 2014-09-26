@@ -102,14 +102,14 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
   };
 
   $scope.toggleMenu = function () {
-    if (self.menuIsOn) {
+    if ($scope.menuIsOn) {
       ShotVideoService.resumeLoop();
       angular.element(document.body).removeClass('noscroll');
     } else {
       ShotVideoService.pause();
       angular.element(document.body).addClass('noscroll');
     }
-    $scope.menuIsOn = !self.menuIsOn;
+    $scope.menuIsOn = !$scope.menuIsOn;
   };
 
   $scope.filterShots = function (tag) {

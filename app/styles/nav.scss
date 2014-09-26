@@ -7,7 +7,7 @@
   right: 0px;
   height: $nav-height;
   color: #FFF;
-  z-index: 3;
+  z-index: 5;
   transition: opacity 0.3s ease-in-out;
 
   .nav-menu {
@@ -21,6 +21,10 @@
     .nav-menu {
       height: 100%;
       visibility: visible;
+    }
+
+    .top-nav-shots-button {
+      transform: rotate(180deg);
     }
   }
 }
@@ -41,7 +45,7 @@
   display: inline-block;
   text-align: center;
   cursor: pointer;
-  z-index: 2;
+  z-index: 5;
   -webkit-user-drag: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -81,6 +85,18 @@
       transform: translate3d(0, $nav-height, 0);
       opacity: 0;
     }
+  }
+  .top-nav-shots-button {
+    position: absolute;
+    border: none;
+    outline: 0;
+    height: 10px;
+    width: 100%;
+    top: 60px;
+    background: url(../images/Next_Shot.svg) no-repeat center;
+    background-size: 60px;
+    cursor: pointer;
+    z-index: 5;
   }
 
 .top-nav-shot {

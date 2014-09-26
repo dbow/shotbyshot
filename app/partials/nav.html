@@ -1,9 +1,10 @@
 <nav class="top-nav" ng-class="{menu: menuIsOn}">
-    <button class="top-nav-menu-button" ng-click="toggleMenu()"></button>
+    <button class="top-nav-menu-button" ng-click=""></button>
     <div class="top-nav-current-slide">
         <div class="top-nav-author down" ng-repeat="slide in shot.slides | filter:isHeaderSlide">
           {{ slide.nav || slide.annotation.author.name }}
         </div>
+        <button class="top-nav-shots-button" ng-click="toggleMenu()"></button>
     </div>
     <div class="top-nav-shot">
         <a ui-sref="shot({ shot: shot.previous })" class="top-nav-shot-down"></a>
@@ -14,7 +15,7 @@
     <div class="nav-menu">
       <div class="nav-menu-controls">
         <div class="nav-menu-tabs">
-          <a class="nav-menu-tab" ng-repeat="tab in ['shots', 'tags', 'authors']" ng-click="$parent.showMenuTab = tab; $parent.filterShots();" ng-bind="tab" ng-class="{on: showMenuTab === tab}"></a>
+          <a class="nav-menu-tab" ng-repeat="tab in ['shots', 'tags']" ng-click="$parent.showMenuTab = tab; $parent.filterShots();" ng-bind="tab" ng-class="{on: showMenuTab === tab}"></a>
         </div>
       </div>
 
