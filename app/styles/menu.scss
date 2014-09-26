@@ -86,10 +86,17 @@ $shot-thumb-width: 400px;
 
 .nav-menu-tags {
   padding: 20px 58px;
+  word-wrap: break-word;
 }
   .nav-menu-tag {
     margin-right: 70px;
     font-size: 92px;
     font-family: $base-font-medium;
     cursor: pointer;
+    transition: color 0.2s, text-decoration 0.2s;
+
+    &:hover {
+      color: rgb(254, 212, 97);
+      text-decoration: underline;
+    }
   }
