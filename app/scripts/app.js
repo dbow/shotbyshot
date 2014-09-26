@@ -25,7 +25,8 @@ angular
        // Allow wordpress uploads.
        'http://www.memory.lossur.es/wp/wp-content/uploads/**',
 
-       'player.vimeo.com/video/**'
+       'player.vimeo.com/video/**',
+        'https://s3.amazonaws.com/shot-by-shot/**'
      ]);
   });
 
