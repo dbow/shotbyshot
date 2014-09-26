@@ -15,3 +15,4 @@ angular
   .filter('shot', function() {
     return ShotFilter;
   });
+
