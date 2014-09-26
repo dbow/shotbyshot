@@ -17,14 +17,8 @@ function ShotService($rootScope, $http, $filter, $stateParams, $q,
    * @return {string}
    */
   this.getVideoUrl = function() {
-    // don't use wordpress
-    /*
-    var url = '/wp/wp-content/uploads/shots/' +
+    var url = 'http://d16hdktz6rtx08.cloudfront.net/' +
         $filter('shot')(this.current) + '.mp4';
-    */
-
-    var url = 'https://s3.amazonaws.com/shot-by-shot/' +
-      $filter('shot')(this.current) + '.mp4';
     return url;
   };
 

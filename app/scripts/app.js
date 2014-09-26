@@ -26,7 +26,7 @@ angular
        'http://www.memory.lossur.es/wp/wp-content/uploads/**',
 
        'player.vimeo.com/video/**',
-        'https://s3.amazonaws.com/shot-by-shot/**'
+       'http://d16hdktz6rtx08.cloudfront.net/**'
      ]);
   });
 
