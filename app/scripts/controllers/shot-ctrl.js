@@ -112,6 +112,17 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
     $scope.menuIsOn = !$scope.menuIsOn;
   };
 
+  $scope.toggleGlobalMenu = function () {
+    if ($scope.globalIsOn) {
+      ShotVideoService.resumeLoop();
+      angular.element(document.body).removeClass('noscroll');
+    } else {
+      ShotVideoService.pause();
+      angular.element(document.body).addClass('noscroll');
+    }
+    $scope.globalIsOn = !$scope.globalIsOn;
+  };
+
   $scope.filterShots = function (tag) {
     if (!tag) {
       $scope.thumbs = self.thumbs;

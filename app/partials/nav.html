@@ -1,5 +1,5 @@
-<nav class="top-nav" ng-class="{menu: menuIsOn}">
-    <button class="top-nav-menu-button" ng-click=""></button>
+<nav class="top-nav" ng-class="{menu: menuIsOn, global: globalIsOn}">
+    <button class="top-nav-menu-button" ng-click="toggleGlobalMenu()"></button>
     <div class="top-nav-current-slide">
         <div class="top-nav-author down" ng-repeat="slide in shot.slides | filter:isHeaderSlide">
           {{ slide.nav || slide.annotation.author.name }}
@@ -28,6 +28,23 @@
       <div class="nav-menu-tags" ng-show="showMenuTab === 'tags'">
         <a class="nav-menu-tag" ng-repeat="tag in shot.tags" ng-bind="tag.title" ng-click="$parent.filterShots(tag); $parent.showMenuTab = 'shots';"></a>
       </div>
+    </div>
+
+    <div class="nav-global">
+      <div><a class="nav-global-title" href="http://lossur.es">living <strong>los sures</span></a></div>
+      <div><a href="http://89.lossur.es">89 Steps</a></div>
+      <div><a href="http://lossur.es/shot-by-shot/">Shot by Shot</a></div>
+      <div><a href="http://lossur.es/short-docs/">Southside Short Docs</a></div>
+      <div><a class="nav-global-donate" href="http://uniondocs.org/donate" target="_blank">« Donate »</a></div>
+
+      <div class="nav-global-subscribe">
+        <form action="http://ymlp.com/subscribe.php?id=gumhejygmgb" method="post">
+          <input type="email" name="YMP0" placeholder="your email address">
+          <input type="submit" value="Submit" style="display: none;">
+        </form>
+      </div>
+
+      <div class="copyright">© <strong>UnionDocs, Inc.</strong> 2014</div>
     </div>
 </nav>
 

@@ -71,6 +71,16 @@ body.noscroll {
   right: 0px;
 }
 
+.shot-video-play, .slides {
+  transition: opacity 0.3s;
+}
+
+.noscroll {
+  .shot-video-play, .slides {
+    opacity: 0;
+  }
+}
+
 .annotation-author {
   font-size: 20px;
   font-weight: bold;
