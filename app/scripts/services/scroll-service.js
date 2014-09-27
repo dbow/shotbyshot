@@ -208,6 +208,23 @@ function ScrollService(ShotVideoService) {
         metaOpacity: 0
       }
     ],
+    'bg-video': [
+      {
+        key: -0.5,
+        top: 1,
+      },
+      {
+        key: 0,
+        top: 0,
+      },
+      {
+        key: 2.5,
+      },
+      {
+        key: 3,
+        top: -1,
+      }
+    ],
     'text': KeyFrameSets.fadeInFromBottom,
     'highlight': KeyFrameSets.highlightStart,
     'photo': KeyFrameSets.slideInFromBottom,
@@ -295,7 +312,14 @@ function ScrollService(ShotVideoService) {
     var videoPercentOfScreen = shotVideoWidth / windowWidth;
     var videoOffsetPercent = ((windowWidth - shotVideoWidth) / 2) / windowWidth;
 
+    if (this.slides.length < 1 || this.$slides.length < 1) {
+      return;
+    }
+
+    console.log('$slides', this.$slides);
+    console.log('slides', this.slides);
     angular.forEach(this.slides, function (slide, i) {
+      console.log(this.$slides[i]);
       var el = this.$slides[i];
       slide.top = el.offsetTop;
       slide.height = el.offsetHeight;

@@ -55,6 +55,7 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
     var slides = intro.concat(AnnotationParserService.parse(annotations), outro);
     self.annotations = annotations;
     self.slides = slides;
+    console.log('slides', slides);
   });
 
   // TODO: probably can lazy load this, but i'm not

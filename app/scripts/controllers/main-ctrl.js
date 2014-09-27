@@ -2,24 +2,22 @@
 
 angular.module('shotbyshot')
   .controller('MainCtrl', function ($scope) {
-    var annotations = $scope.annotations = [
+    var slides = $scope.slides = [
       {
-        author: {
-          name: 'kyle'
+        type: 'bg-video',
+        nav: 'Living Los Sures',
+        attributes: {
+          video: [
+            'http://cf.lossur.es/home/HOME01.mp4',
+            'http://cf.lossur.es/home/HOME01.webmhd.webm'
+          ]
         },
-        title: 'Annotation #1',
-        content: 'This is an annotation.',
-        y: 0
-      },
-      {
-        title: 'Annotation #2',
-        content: 'This is an annotation.',
-        y: 1
-      },
-      {
-        title: 'Annotation #3',
-        content: 'This is an annotation.',
-        y: 2
+        annotation: {
+          src: 'cf.lossur.es/home/HOME01',
+          title: 'Living Los Sures',
+          content: 'An expansive documentary project about the Southside neighborhood of Williamsburg, Brooklyn. In five parts.',
+          subtitle: 'In four parts'
+        }
       },
     ];
 

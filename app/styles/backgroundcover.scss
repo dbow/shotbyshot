@@ -1,7 +1,8 @@
 // Styles for background-cover-directive.
 
 img.background-cover-directive,
-.background-cover-directive img {
+.background-cover-directive img,
+video.video-cover-directive {
   width: 100%;
   position: absolute;
   left: 0;

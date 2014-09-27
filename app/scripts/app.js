@@ -7,9 +7,9 @@ angular
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: 'partials/shot.html',
-        controller: 'ShotCtrl',
-        controllerAs: 'shot'
+        templateUrl: 'partials/main.html',
+        controller: 'MainCtrl',
+        controllerAs: 'main'
       })
       .state('shot', {
         url: '/shot/:shot',

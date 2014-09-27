@@ -17,7 +17,9 @@ function SlideManager(ScrollService) {
       ScrollService.init({el: $element});
 
       $scope.$watch('slides', function(newValue, oldValue) {
-        ScrollService.setSlides($scope.slides);
+        $scope.$evalAsync(function() {
+          ScrollService.setSlides($scope.slides);
+        });
       });
     }
   };
