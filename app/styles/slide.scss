@@ -53,6 +53,7 @@
 }
 
 .slide-outer-video {
+  height: 200%;
   z-index: 2;
 }
 .slide-video .meta-text {
@@ -244,5 +245,8 @@
 .slide-streetview {
   border-top: 2px solid white;
   border-bottom: 2px solid white;
+}
+.slide-outer-streetview {
+  height: 200%;
 }
 

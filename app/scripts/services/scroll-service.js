@@ -214,13 +214,9 @@ function ScrollService(ShotVideoService) {
     'streetview': KeyFrameSets.slideInFromBottom,
     'video': [
       {
-        key: -0.5,
+        key: 0,
         top: 1,
         ease: 'out'
-      },
-      {
-        key: 0,
-        top: 0
       },
       {
         key: 0.5,
@@ -228,6 +224,10 @@ function ScrollService(ShotVideoService) {
       },
       {
         key: 1,
+        top: 0
+      },
+      {
+        key: 1.5,
         top: -1
       }
     ]
