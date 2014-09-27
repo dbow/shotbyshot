@@ -83,7 +83,26 @@
     </video>
   </div>
 
+  <!-- MAIN TITLE -->
+  <div ng-if="slide.type === 'main-title'" class="slide-main-title slide-inner">
+    <div class="slide-main-title-content">
+      <div class="slide-main-title-title" ng-bind="slide.attributes.title"></div>
+      <div class="slide-main-title-description" ng-bind="slide.attributes.description"></div>
+      <div class="slide-main-title-subtitle" ng-bind="slide.attributes.subtitle"></div>
+      <div class="slide-main-subtitle-play" ng-if="slide.attributes.play">Play</div>
+    </div>
+  </div>
 
+  <!-- MAIN CONTENT -->
+  <div ng-if="slide.type === 'main-content'" class="slide-main-content slide-inner">
+    <div class="slide-main-content-content" ng-bind="slide.attributes.content"></div>
+  </div>
+
+  <!-- MAIN SUBTITLE -->
+  <div ng-if="slide.type === 'main-subtitle'" class="slide-main-subtitle slide-inner">
+    <div class="slide-main-subtitle-content" ng-bind="slide.attributes.content"></div>
+    <div class="slide-main-subtitle-play" ng-if="slide.attributes.play">Play</div>
+  </div>
   <!-- TODO(dbow): Add audio support -->
 
 </div>

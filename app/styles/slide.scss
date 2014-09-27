@@ -252,6 +252,19 @@
 }
 
 .slide-outer-bg-video {
-  height: 300%;
+  height: 100%;
 }
+
+.slide-main-title {
+  font-size: 28px;
+}
+  .slide-main-title-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100px);
+  }
+    .slide-main-title-title {
+      font-family: $base-font-medium;
+    }
 

@@ -218,12 +218,48 @@ function ScrollService(ShotVideoService) {
         top: 0,
       },
       {
-        key: 2.5,
+        key: 1.5,
+        top: 0,
       },
       {
-        key: 3,
+        key: 2,
         top: -1,
       }
+    ],
+    'main-title': [
+      {
+        key: -0.8,
+        top: 1,
+        ease: 'out'
+      },
+      {
+        key: -0.5,
+        top: 0,
+        children: {
+          'slide-main-title-description': {
+            top: -1
+          }
+        },
+      },
+      {
+        key: -0.2,
+        top: 0,
+        children: {
+          'slide-main-title-description': {
+            top: 0
+          }
+        },
+      },
+      {
+        key: 0.5,
+        top: 0,
+        metaOpacity: 1,
+      },
+      {
+        key: 1,
+        top: -1,
+        metaOpacity: 1,
+      },
     ],
     'text': KeyFrameSets.fadeInFromBottom,
     'highlight': KeyFrameSets.highlightStart,
@@ -284,12 +320,12 @@ function ScrollService(ShotVideoService) {
 
   this.setSlides = function (slides) {
     this.slides = slides;
-    this.$slides = this.$el[0].getElementsByClassName('slide');
 
     var self = this;
     window.setTimeout(function () {
+      self.$slides = self.$el[0].getElementsByClassName('slide');
       self.sizeAndPosition();
-    }, 0);
+    }, 100);
   };
 
 
@@ -312,6 +348,9 @@ function ScrollService(ShotVideoService) {
     var videoPercentOfScreen = shotVideoWidth / windowWidth;
     var videoOffsetPercent = ((windowWidth - shotVideoWidth) / 2) / windowWidth;
 
+    console.log('sizing');
+    console.log('slides', this.slides.length);
+    console.log('$slides', this.$slides.length);
     if (this.slides.length < 1 || this.$slides.length < 1) {
       return;
     }

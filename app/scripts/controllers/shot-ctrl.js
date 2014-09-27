@@ -27,36 +27,69 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
     $scope.$apply();
   };
 
-  ShotService.getShot(this.id).then(function(annotations) {
-    var intro = [{
-      type: 'introduction',
-      shot: self.id,
-      nav: 'introduction',
-      onEnter: function() {
-        $scope.inView = true;
-        if (!self.played) {
-          $timeout(function() {
-            self.play();
-            self.played = true;
-          }, 3000);
+  if (this.id) {
+    ShotService.getShot(this.id).then(function(annotations) {
+      var intro = [{
+        type: 'introduction',
+        shot: self.id,
+        nav: 'introduction',
+        onEnter: function() {
+          $scope.inView = true;
+          if (!self.played) {
+            $timeout(function() {
+              self.play();
+              self.played = true;
+            }, 3000);
+          }
+          $scope.$apply();
+        },
+        onExit: function() {
+          $scope.inView = false;
+          self.stop();
         }
-        $scope.$apply();
+      }];
+      var outro = [{
+        shot: self.id,
+        type: 'outro',
+        next: self.next
+      }];
+      var slides = intro.concat(AnnotationParserService.parse(annotations), outro);
+      self.annotations = annotations;
+      self.slides = slides;
+      console.log('slides', slides);
+    });
+  } else {
+    self.slides = [
+      {
+        type: 'bg-video',
+        nav: 'Living Los Sures',
+        attributes: {
+          video: [
+            'http://cf.lossur.es/home/HOME01.mp4',
+            'http://cf.lossur.es/home/HOME01.webmhd.webm'
+          ]
+        },
+        annotation: {
+          src: 'cf.lossur.es/home/HOME01',
+          title: 'Living Los Sures',
+          content: 'An expansive documentary project about the Southside neighborhood of Williamsburg, Brooklyn. In five parts.',
+          subtitle: 'In four parts'
+        }
       },
-      onExit: function() {
-        $scope.inView = false;
-        self.stop();
-      }
-    }];
-    var outro = [{
-      shot: self.id,
-      type: 'outro',
-      next: self.next
-    }];
-    var slides = intro.concat(AnnotationParserService.parse(annotations), outro);
-    self.annotations = annotations;
-    self.slides = slides;
-    console.log('slides', slides);
-  });
+      {
+        type: 'main-title',
+        attributes: {
+          content: 'Living Los Sures'
+        },
+        annotation: {
+          src: 'cf.lossur.es/home/HOME01',
+          title: 'Living Los Sures',
+          content: 'An expansive documentary project about the Southside neighborhood of Williamsburg, Brooklyn. In five parts.',
+          subtitle: 'In four parts'
+        }
+      },
+    ];
+  }
 
   // TODO: probably can lazy load this, but i'm not
   // angular enought to know how.
@@ -77,7 +110,8 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
       'author',
       'photo',
       'video',
-      'streetview'
+      'streetview',
+      'bg-video'
     ];
     return _.contains(NAV_TYPES, slide.type);
   };
@@ -88,7 +122,8 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
       'author',
       'photo',
       'video',
-      'streetview'
+      'streetview',
+      'main-title'
     ];
     return _.contains(NAV_TYPES, slide.type);
   };
