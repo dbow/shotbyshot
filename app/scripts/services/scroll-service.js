@@ -592,67 +592,80 @@ function ScrollService(ShotVideoService) {
       var css = {};
       var previousFrame;
       var ease;
-      _.forEach(keyFrames, function(frame) {
-        if (slideFrame === frame.key) {
-          css = _.omit(frame, ['key', 'event']);
-          // TODO(dbow): Process events.
-          return false;
-        } else {
-          if (slideFrame > frame.key) {
+      var els;
+
+      if (_.isArray(keyFrames)) {
+        els = [{$el: slide.$inner, keyFrames: keyFrames}];
+      } else {
+        els = keyFrames.paths;
+      }
+
+      _.each(els, function (path) {
+        keyFrames = path.keyFrames;
+
+        _.forEach(keyFrames, function(frame) {
+          if (slideFrame === frame.key) {
             css = _.omit(frame, ['key', 'event']);
-            previousFrame = frame.key;
-            ease = frame.ease || 'linear';
-          } else {
-            var percentageThroughFrame = (slideFrame - previousFrame) /
-                                         (frame.key - previousFrame);
-            var easedPercent = this.easing[ease](percentageThroughFrame);
-            var combinedCss = {};
-            _.forEach(frame, function(val, key) {
-              if (key === 'key' || key === 'event') {
-                return;
-              }
-              if (css[key] !== undefined) {
-                combinedCss[key] = css[key] +
-                    (val - css[key]) * easedPercent;
-              }
-            });
-            css = combinedCss;
+            // TODO(dbow): Process events.
             return false;
+          } else {
+            if (slideFrame > frame.key) {
+              css = _.omit(frame, ['key', 'event']);
+              previousFrame = frame.key;
+              ease = frame.ease || 'linear';
+            } else {
+              var percentageThroughFrame = (slideFrame - previousFrame) /
+                                           (frame.key - previousFrame);
+              var easedPercent = this.easing[ease](percentageThroughFrame);
+              var combinedCss = {};
+              _.forEach(frame, function(val, key) {
+                if (key === 'key' || key === 'event') {
+                  return;
+                }
+                if (css[key] !== undefined) {
+                  combinedCss[key] = css[key] +
+                      (val - css[key]) * easedPercent;
+                }
+              });
+              css = combinedCss;
+              return false;
+            }
           }
+        }, this);
+
+        var transformX = 0;
+        var transformY = 0;
+        var scale = '';
+        _.forEach(css, function(val, prop) {
+          if (prop === 'top') {
+            transformY = (val * 100).toFixed(1) + '%';
+          } else if (prop === 'left') {
+            transformX = (val * 100).toFixed(1) + '%';
+          } else if (prop === 'scale') {
+            scale = ' scale(' + val.toFixed(2) + ')';
+          } else if (prop === 'opacity' || prop === 'backgroundOpacity') {
+            css[prop] = val.toFixed(2);
+          }
+        });
+        path.$el.css({
+          'transform': 'translate3d(' + transformX + ', ' + transformY + ', 0)' + scale,
+          'display': 'block',
+          'opacity': (css['opacity'] !== undefined ? css['opacity'] : 1)
+        });
+
+        if (css['metaOpacity'] !== undefined) {
+          slide.$meta.css({
+            'opacity': css['metaOpacity']
+          });
         }
+
+        if (css['backgroundOpacity'] !== undefined) {
+          this.$background.css({
+            'opacity': css['backgroundOpacity']
+          });
+        }
+
       }, this);
-
-      var transformX = 0;
-      var transformY = 0;
-      var scale = '';
-      _.forEach(css, function(val, prop) {
-        if (prop === 'top') {
-          transformY = (val * 100).toFixed(1) + '%';
-        } else if (prop === 'left') {
-          transformX = (val * 100).toFixed(1) + '%';
-        } else if (prop === 'scale') {
-          scale = ' scale(' + val.toFixed(2) + ')';
-        } else if (prop === 'opacity' || prop === 'backgroundOpacity') {
-          css[prop] = val.toFixed(2);
-        }
-      });
-      slide.$inner.css({
-        'transform': 'translate3d(' + transformX + ', ' + transformY + ', 0)' + scale,
-        'display': 'block',
-        'opacity': (css['opacity'] !== undefined ? css['opacity'] : 1)
-      });
-
-      if (css['metaOpacity'] !== undefined) {
-        slide.$meta.css({
-          'opacity': css['metaOpacity']
-        });
-      }
-
-      if (css['backgroundOpacity'] !== undefined) {
-        this.$background.css({
-          'opacity': css['backgroundOpacity']
-        });
-      }
     }, this);
 
     return this.nextDraw();
