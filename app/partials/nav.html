@@ -1,4 +1,4 @@
-<nav class="top-nav" ng-class="{menu: menuIsOn, global: globalIsOn}">
+<nav class="top-nav" ng-class="{menu: menuIsOn && !globalIsOn, global: globalIsOn}">
     <button class="top-nav-menu-button" ng-click="toggleGlobalMenu()"></button>
     <div class="top-nav-current-slide">
         <div class="top-nav-author down" ng-repeat="slide in shot.slides | filter:isHeaderSlide">
