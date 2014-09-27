@@ -17,7 +17,7 @@ function ShotService($rootScope, $http, $filter, $stateParams, $q,
    * @return {string}
    */
   this.getVideoUrl = function() {
-    var url = 'http://d16hdktz6rtx08.cloudfront.net/' +
+    var url = 'http://cf.lossur.es/' +
         $filter('shot')(this.current) + '.mp4';
     return url;
   };
