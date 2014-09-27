@@ -7,8 +7,9 @@ angular
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: 'partials/main.html',
-        controller: 'MainCtrl'
+        templateUrl: 'partials/shot.html',
+        controller: 'ShotCtrl',
+        controllerAs: 'shot'
       })
       .state('shot', {
         url: '/shot/:shot',
@@ -26,7 +27,7 @@ angular
        'http://www.memory.lossur.es/wp/wp-content/uploads/**',
 
        'player.vimeo.com/video/**',
-       'cf.lossur.es/**',
+       'http://cf.lossur.es/**',
        'http://d16hdktz6rtx08.cloudfront.net/**'
      ]);
   });

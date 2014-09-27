@@ -10,7 +10,7 @@ function ShotService($rootScope, $http, $filter, $stateParams, $q,
    * Current shot number.
    * @type {number}
    */
-  this.current = !isNaN(current) ? current : 0;
+  this.current = !isNaN(current) ? current : 1;
 
   /**
    * Get Video URL of current shot.
