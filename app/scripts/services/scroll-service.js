@@ -226,41 +226,33 @@ function ScrollService(ShotVideoService) {
         top: -1,
       }
     ],
-    'main-title': [
-      {
-        key: -0.8,
-        top: 1,
-        ease: 'out'
-      },
-      {
-        key: -0.5,
-        top: 0,
-        children: {
-          'slide-main-title-description': {
-            top: -1
-          }
-        },
-      },
-      {
-        key: -0.2,
-        top: 0,
-        children: {
-          'slide-main-title-description': {
-            top: 0
-          }
-        },
-      },
-      {
-        key: 0.5,
-        top: 0,
-        metaOpacity: 1,
-      },
-      {
-        key: 1,
-        top: -1,
-        metaOpacity: 1,
-      },
-    ],
+    'main-title': {
+      'slide-inner': {
+        frames: [
+          {
+            key: -0.8,
+            top: 1,
+            ease: 'out'
+          },
+          {
+            key: -0.5,
+            top: 0,
+          },
+          {
+            key: -0.2,
+            top: 0,
+          },
+          {
+            key: 0.5,
+            top: 0,
+          },
+          {
+            key: 1,
+            top: -1,
+          },
+        ]
+      }
+    },
     'text': KeyFrameSets.fadeInFromBottom,
     'highlight': KeyFrameSets.highlightStart,
     'photo': KeyFrameSets.slideInFromBottom,
@@ -372,6 +364,13 @@ function ScrollService(ShotVideoService) {
       slide.index = i;
 
       slide.keyFrames = _.clone(this.keyFrames[slide.type], true) || [];
+
+      // uses key-val keyFrames
+      if (!_.isArray(slide.keyFrames)) {
+        _.each(slide.keyFrames, function (path, klass) {
+          path.$el = angular.element(slide.$el[0].getElementsByClassName(klass));
+        });
+      }
 
       if (slide.type === 'highlight') {
         var top = slide.annotation.highlight.y / 100;
@@ -508,11 +507,12 @@ function ScrollService(ShotVideoService) {
       if (!keyFrames) {
         return;
       }
-      var numFrames = keyFrames.length;
-      var frameIndex = _.sortedIndex(keyFrames, {
+      var mainKeyFrames = _.isArray(keyFrames) ? keyFrames : keyFrames['slide-inner'].frames;
+      var numFrames = mainKeyFrames.length;
+      var frameIndex = _.sortedIndex(mainKeyFrames, {
         key: slideFrame
       }, 'key');
-      var beforeFirstFrame = frameIndex === 0 && slideFrame < keyFrames[0].key;
+      var beforeFirstFrame = frameIndex === 0 && slideFrame < mainKeyFrames[0].key;
       if (beforeFirstFrame) {
         if (!slide.hidden) {
           slide.$inner.css({'display': 'none'});
@@ -521,7 +521,7 @@ function ScrollService(ShotVideoService) {
         return;
       }
       var afterLastFrame = frameIndex === numFrames &&
-                           slideFrame > keyFrames[numFrames - 1].key;
+                           slideFrame > mainKeyFrames[numFrames - 1].key;
       if (afterLastFrame) {
         if (!slide.hidden) {
           slide.$inner.css({'display': 'none'});
@@ -592,16 +592,16 @@ function ScrollService(ShotVideoService) {
       var css = {};
       var previousFrame;
       var ease;
-      var els;
+      var paths;
 
       if (_.isArray(keyFrames)) {
-        els = [{$el: slide.$inner, keyFrames: keyFrames}];
+        paths = [{$el: slide.$inner, frames: keyFrames}];
       } else {
-        els = keyFrames.paths;
+        paths = _.toArray(keyFrames);
       }
 
-      _.each(els, function (path) {
-        keyFrames = path.keyFrames;
+      _.each(paths, function (path) {
+        keyFrames = path.frames;
 
         _.forEach(keyFrames, function(frame) {
           if (slideFrame === frame.key) {
