@@ -16,3 +16,13 @@ angular
     return ShotFilter;
   });
 
+
+function MimeTypeFilter(file) {
+  return _.last(file.split('.'));
+}
+
+angular
+  .module('shotbyshot')
+  .filter('mimetype', function() {
+    return MimeTypeFilter;
+  });

@@ -65,7 +65,7 @@
   <!-- VIDEO -->
   <div video-container ng-if="slide.type === 'video'" class="slide-video slide-inner">
     <video class="fit-to-window-directive" ng-if="slide.attributes.video" controls>
-      <source ng-repeat="video in slide.attributes.video" ng-src="{{ video }}" type="video/mp4">
+    <source ng-repeat="video in slide.attributes.video" ng-src="{{ video }}" type="video/{{ video | mimetype }}">
       Your browser does not support the <code>video</code> element.
     </video>
     <div class="slide-video-content" ng-if="!slide.attributes.video" ng-bind-html="slide.content">
