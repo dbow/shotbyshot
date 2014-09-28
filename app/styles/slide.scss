@@ -271,4 +271,18 @@
     .slide-main-title-title {
       font-family: $base-font-medium;
     }
+    .slide-main-title-play {
+      height: 80px;
+      width: 80px;
+      margin: 20px auto 0;
+      background: url(../images/play-button.svg) no-repeat;
+      background-size: 100%;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
 

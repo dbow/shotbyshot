@@ -682,10 +682,14 @@ function ScrollService(ShotVideoService) {
             css[prop] = val.toFixed(2);
           }
         }, this);
+        // TODO this is janky
+        if (path.$el[0] === slide.$inner[0] && !_.has(css, 'opacity')) {
+          css.opacity = 1;
+        }
         path.$el.css({
           'transform': 'translate3d(' + transformX + ', ' + transformY + ', 0)' + scale,
           'display': 'block',
-          'opacity': (css['opacity'] !== undefined ? css['opacity'] : 1)
+          'opacity': css['opacity']
         });
 
         if (css['metaOpacity'] !== undefined) {

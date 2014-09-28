@@ -89,20 +89,10 @@
       <div class="slide-main-title-title" ng-bind="slide.attributes.title"></div>
       <div class="slide-main-title-description" ng-bind="slide.attributes.description"></div>
       <div class="slide-main-title-subtitle" ng-bind="slide.attributes.subtitle"></div>
-      <div class="slide-main-title-play" ng-if="slide.attributes.play">Play</div>
+      <a class="slide-main-title-play" ng-if="slide.attributes.href" href="{{ slide.attributes.href }}"></a>
     </div>
   </div>
 
-  <!-- MAIN CONTENT -->
-  <div ng-if="slide.type === 'main-content'" class="slide-main-content slide-inner">
-    <div class="slide-main-content-content" ng-bind="slide.attributes.content"></div>
-  </div>
-
-  <!-- MAIN SUBTITLE -->
-  <div ng-if="slide.type === 'main-subtitle'" class="slide-main-subtitle slide-inner">
-    <div class="slide-main-subtitle-content" ng-bind="slide.attributes.content"></div>
-    <div class="slide-main-subtitle-play" ng-if="slide.attributes.play">Play</div>
-  </div>
   <!-- TODO(dbow): Add audio support -->
 
 </div>
