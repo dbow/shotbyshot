@@ -230,16 +230,12 @@ function ScrollService(ShotVideoService) {
       'slide-inner': {
         frames: [
           {
-            key: -0.8,
+            key: -0.9,
             top: 1,
             ease: 'out'
           },
           {
-            key: -0.5,
-            top: 0,
-          },
-          {
-            key: -0.2,
+            key: -0.6,
             top: 0,
           },
           {
@@ -250,8 +246,44 @@ function ScrollService(ShotVideoService) {
             key: 1,
             top: -1,
           },
+        ],
+      },
+      'slide-main-title-description': {
+        frames: [
+          {
+            key: -0.6,
+            top: 1,
+          },
+          {
+            key: -0.3,
+            top: 0,
+          },
         ]
-      }
+      },
+      'slide-main-title-subtitle': {
+        frames: [
+          {
+            key: -0.3,
+            top: 1,
+          },
+          {
+            key: 0,
+            top: 0,
+          },
+        ]
+      },
+      'slide-main-title-play': {
+        frames: [
+          {
+            key: -0.3,
+            top: 1,
+          },
+          {
+            key: 0,
+            top: 0,
+          },
+        ]
+      },
     },
     'text': KeyFrameSets.fadeInFromBottom,
     'highlight': KeyFrameSets.highlightStart,
@@ -638,7 +670,7 @@ function ScrollService(ShotVideoService) {
         var scale = '';
         _.forEach(css, function(val, prop) {
           if (prop === 'top') {
-            transformY = (val * 100).toFixed(1) + '%';
+            transformY = (val * this.height).toFixed(1) + 'px';
           } else if (prop === 'left') {
             transformX = (val * 100).toFixed(1) + '%';
           } else if (prop === 'scale') {
@@ -646,7 +678,7 @@ function ScrollService(ShotVideoService) {
           } else if (prop === 'opacity' || prop === 'backgroundOpacity') {
             css[prop] = val.toFixed(2);
           }
-        });
+        }, this);
         path.$el.css({
           'transform': 'translate3d(' + transformX + ', ' + transformY + ', 0)' + scale,
           'display': 'block',
