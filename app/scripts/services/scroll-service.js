@@ -218,11 +218,11 @@ function ScrollService(ShotVideoService) {
         top: 0,
       },
       {
-        key: 1.5,
+        key: 2.5,
         top: 0,
       },
       {
-        key: 2,
+        key: 3,
         top: -1,
       }
     ],
@@ -235,11 +235,11 @@ function ScrollService(ShotVideoService) {
             ease: 'out'
           },
           {
-            key: -0.6,
+            key: -0.3,
             top: 0,
           },
           {
-            key: 0.5,
+            key: 1.5,
             top: 0,
           },
           {
@@ -251,11 +251,12 @@ function ScrollService(ShotVideoService) {
       'slide-main-title-description': {
         frames: [
           {
-            key: -0.6,
+            key: -0.3,
             top: 1,
+            ease: 'out'
           },
           {
-            key: -0.3,
+            key: 0.3,
             top: 0,
           },
         ]
@@ -263,11 +264,12 @@ function ScrollService(ShotVideoService) {
       'slide-main-title-subtitle': {
         frames: [
           {
-            key: -0.3,
+            key: 0.3,
             top: 1,
+            ease: 'out'
           },
           {
-            key: 0,
+            key: 0.9,
             top: 0,
           },
         ]
@@ -275,11 +277,12 @@ function ScrollService(ShotVideoService) {
       'slide-main-title-play': {
         frames: [
           {
-            key: -0.3,
+            key: 0.3,
             top: 1,
+            ease: 'out'
           },
           {
-            key: 0,
+            key: 0.9,
             top: 0,
           },
         ]
