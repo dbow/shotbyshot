@@ -572,7 +572,7 @@ function ScrollService(ShotVideoService) {
       slide.hidden = false;
 
       // Find the target header for the current slide.
-      if (slideFrame >= 0 && slideFrame <= 1) {
+      if (currentY >= slide.top && currentY <= slide.bottom) {
         if (this.currentSlide !== slide) {
           if (this.currentSlide.onExit) {
             this.currentSlide.onExit();
@@ -588,14 +588,23 @@ function ScrollService(ShotVideoService) {
             ShotVideoService.setLoopBounds(this.currentAnnotation.timecodes);
           }
         }
+
         var targetHeader = slide.headerEl;
         var targetNav = slide.navButton;
+        var prevSlides;
         if (!targetHeader) {
-          var prevSlides = this.slides.slice(0, i);
+          prevSlides = this.slides.slice(0, i);
           _.forEachRight(prevSlides, function(prevSlide) {
             if (prevSlide.headerEl) {
               targetHeader = prevSlide.headerEl;
+              return false
             }
+          });
+        }
+
+        if (!targetNav) {
+          prevSlides = this.slides.slice(0, i);
+          _.forEachRight(prevSlides, function(prevSlide) {
             if (prevSlide.navButton) {
               targetNav = prevSlide.navButton;
               return false;
