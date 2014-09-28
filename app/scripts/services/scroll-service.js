@@ -459,6 +459,7 @@ function ScrollService(ShotVideoService) {
         slide.navButton = this.navButtons[navIndex];
         navIndex++;
       }
+      //slide.navButton = this.navButtons[navIndex - 1];
 
       // Dynamically add last two keyframes for author based on when the next
       // annotation comes in.
@@ -632,13 +633,15 @@ function ScrollService(ShotVideoService) {
             }
           }, this);
 
+          this.lastHeader = targetHeader;
+        }
+
+        if (targetNav && (!this.lastNav || this.lastNav !== targetNav)) {
           if (this.lastNav) {
             angular.element(this.lastNav).removeClass('highlighted');
           }
           angular.element(targetNav).addClass('highlighted');
-
           this.lastNav = targetNav;
-          this.lastHeader = targetHeader;
         }
       }
 
