@@ -391,7 +391,12 @@ function ScrollService(ShotVideoService) {
       slide.top = el.offsetTop;
       slide.height = el.offsetHeight;
       slide.bottom = slide.top + slide.height;
-      slide.padded_top = Math.round(slide.top + (slide.height - this.height) / 2);
+      // TODO h4x
+      if (slide.type !== 'main-title') {
+        slide.padded_top = Math.round(slide.top + (slide.height - this.height) / 2);
+      } else {
+        slide.padded_top = slide.bottom - this.height;
+      }
       slide.el = el;
       slide.$el = angular.element(el);
       slide.$inner = slide.$el.find('div').eq(0);
