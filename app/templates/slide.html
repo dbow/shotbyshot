@@ -81,6 +81,7 @@
     <source ng-repeat="video in slide.attributes.video" ng-src="{{ video }}" type="video/{{ video | mimetype }}">
       Your browser does not support the <code>video</code> element.
     </video>
+    <div class="slide-scroll-indicator" ng-if="$first"></div>
   </div>
 
   <!-- MAIN TITLE -->
