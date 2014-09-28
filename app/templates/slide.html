@@ -77,7 +77,7 @@
 
   <!-- BACKGROUND VIDEO -->
   <div video-container ng-if="slide.type === 'bg-video'" class="slide-bg-video slide-inner">
-    <video class="video-cover-directive" ng-if="slide.attributes.video">
+    <video class="video-cover-directive" ng-if="slide.attributes.video" autoplay loop muted>
     <source ng-repeat="video in slide.attributes.video" ng-src="{{ video }}" type="video/{{ video | mimetype }}">
       Your browser does not support the <code>video</code> element.
     </video>
