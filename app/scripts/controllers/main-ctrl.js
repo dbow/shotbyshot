@@ -53,13 +53,15 @@ angular.module('shotbyshot')
             annotation.src + '.webmhd.webm'
           ]
         },
-        annotation: annotation
+        annotation: annotation,
+        isHeader: true
       });
       shot.slides.push({
         type: 'main-title',
         nav: annotation.title,
         attributes: annotation,
-        annotation: annotation
+        annotation: annotation,
+        isNav: true
       });
     });
 

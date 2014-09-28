@@ -56,6 +56,10 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
       var slides = intro.concat(AnnotationParserService.parse(annotations), outro);
       self.annotations = annotations;
       self.slides = slides;
+      _.each(slides, function (slide) {
+        slide.isNav = $scope.isNavSlide(slide);
+        slide.isHeader = $scope.isHeaderSlide(slide);
+      });
       console.log('slides', slides);
     });
   } else {

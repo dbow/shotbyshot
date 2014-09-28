@@ -369,6 +369,7 @@ function ScrollService(ShotVideoService) {
     var author;
     var bg;
     var headerIndex = 0;
+    var navIndex = 0;
 
     var shotVideoWidth = 1075; // TODO(dbow): Should not be hard coded.
     var windowWidth = window.innerWidth;
@@ -445,10 +446,13 @@ function ScrollService(ShotVideoService) {
         //     based on the % (i.e. detect if it's likely to run off the page).
       }
 
-      if (slide.nav || slide.type === 'author') {
+      if (slide.isHeader || slide.type === 'author') {
         slide.headerEl = this.headers[headerIndex];
-        slide.navButton = this.navButtons[headerIndex];
         headerIndex++;
+      }
+      if (slide.isNav) {
+        slide.navButton = this.navButtons[navIndex];
+        navIndex++;
       }
 
       // Dynamically add last two keyframes for author based on when the next
