@@ -79,6 +79,13 @@ body.noscroll {
   .shot-video-play, .slides {
     opacity: 0;
   }
+  .home .slides {
+    opacity: 1;
+
+    .slide-main-title-content {
+      opacity: 0;
+    }
+  }
 }
 
 .annotation-author {
