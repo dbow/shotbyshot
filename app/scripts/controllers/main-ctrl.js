@@ -67,6 +67,8 @@ angular.module('shotbyshot')
 
     $scope.shot = shot;
 
+    angular.element(document.body).removeClass('noscroll');
+
   // TODO: probably can lazy load this, but i'm not
   // angular enought to know how.
   ShotService.getThumbnails(0).then(function(thumbs) {

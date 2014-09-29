@@ -243,7 +243,7 @@ function ScrollService(ShotVideoService) {
             top: 0,
           },
           {
-            key: 1,
+            key: 2,
             top: -1,
           },
         ],

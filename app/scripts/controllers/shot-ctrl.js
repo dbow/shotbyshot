@@ -14,6 +14,8 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
   $scope.menuIsOn = false;
   $scope.showMenuTab = 'shots';
 
+  angular.element(document.body).removeClass('noscroll');
+
   this.play = function() {
     self.backgroundOpacity = 0;
     self.playing = true;
