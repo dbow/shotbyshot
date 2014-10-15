@@ -50,15 +50,16 @@ body.noscroll {
 
 .shot-video-play {
   position: fixed;
-  top: 300px;
+  top: 50%;
   left: 50%;
-  width: 300px;
-  margin-left: -150px;
-  color: white;
+  width: 82px;
+  margin-left: -41px;
   text-align: center;
-  font-size: 70px;
+  height: 82px;
   cursor: pointer;
   z-index: 3;
+  background-image: url(../images/play-button.svg);
+  transform: translateY(-50%);
 }
 
 .slides {

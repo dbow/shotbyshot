@@ -97,6 +97,8 @@ function ScrollService(ShotVideoService) {
 
     this.$background = angular.element(
         document.getElementsByClassName('shot-background')[0]);
+    this.$play = angular.element(
+        document.getElementsByClassName('shot-video-play')[0]);
 
     //window.addEventListener('scroll', angular.bind(this, this.onscroll));
     window.addEventListener('resize', angular.bind(this, this.sizeAndPosition));
@@ -111,15 +113,23 @@ function ScrollService(ShotVideoService) {
         key: 0,
         backgroundOpacity: 1,
         opacity: 1,
+        playOpacity: 1
       },
       {
         key: 0.8,
         opacity: 0,
+        playOpacity: 1
+      },
+      {
+        key: 0.9,
+        opacity: 0,
+        playOpacity: 0
       },
       {
         key: 1,
         backgroundOpacity: 0,
-        opacity: 0
+        opacity: 0,
+        playOpacity: 0
       }
     ],
     'outro': [
@@ -722,6 +732,12 @@ function ScrollService(ShotVideoService) {
         if (css['backgroundOpacity'] !== undefined) {
           this.$background.css({
             'opacity': css['backgroundOpacity']
+          });
+        }
+
+        if (css['playOpacity'] !== undefined) {
+          this.$play.css({
+            'opacity': css['playOpacity']
           });
         }
 
