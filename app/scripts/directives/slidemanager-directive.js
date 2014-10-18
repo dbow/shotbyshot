@@ -3,11 +3,11 @@
 /**
  *
  */
-function SlideManager(ScrollService) {
+function SlideManager($timeout, ScrollService) {
   return {
     restrict: 'E',
     template: [
-          '<slide ng-repeat="slide in slides" data="slide">' +
+          '<slide ng-class="{\'slides-loading\': loading}" ng-repeat="slide in slides" data="slide">' +
           '</slide>'
         ].join(''),
     scope: {
@@ -17,8 +17,13 @@ function SlideManager(ScrollService) {
       ScrollService.init({el: $element});
 
       $scope.$watch('slides', function(newValue, oldValue) {
+        $scope.loading = true;
         $scope.$evalAsync(function() {
           ScrollService.setSlides($scope.slides);
+          // End loading 100ms after setting slides to avoid flicker of slide content.
+          $timeout(function() {
+            $scope.loading = false;
+          }, 100);
         });
       });
     }

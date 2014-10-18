@@ -76,6 +76,11 @@ body.noscroll {
   transition: opacity 0.3s;
 }
 
+// Use visibility:hidden so slides still occupy space.
+.slides-loading {
+  visibility: hidden;
+}
+
 .noscroll {
   .shot-video-play, .slides {
     opacity: 0;
