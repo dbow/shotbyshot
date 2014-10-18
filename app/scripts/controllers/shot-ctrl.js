@@ -62,7 +62,6 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
         slide.isNav = $scope.isNavSlide(slide);
         slide.isHeader = $scope.isHeaderSlide(slide);
       });
-      console.log('slides', slides);
     });
   } else {
     self.slides = [

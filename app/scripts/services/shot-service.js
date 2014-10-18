@@ -114,7 +114,6 @@ function ShotService($rootScope, $http, $filter, $stateParams, $q,
       method: 'GET',
       url: postsForTagUrl + '&id=' + tag.id + '&page=' + page
     }).success(function(data) {
-      console.log('data', data);
       if (data.status === 'ok') {
         deferred.resolve(data.posts);
       } else {

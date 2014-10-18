@@ -141,6 +141,5 @@ angular.module('shotbyshot')
       });
     }
   };
-    console.log(shot.slides);
 
   });

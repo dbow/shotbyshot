@@ -386,17 +386,11 @@ function ScrollService(ShotVideoService) {
     var videoPercentOfScreen = shotVideoWidth / windowWidth;
     var videoOffsetPercent = ((windowWidth - shotVideoWidth) / 2) / windowWidth;
 
-    console.log('sizing');
-    console.log('slides', this.slides.length);
-    console.log('$slides', this.$slides.length);
     if (this.slides.length < 1 || this.$slides.length < 1) {
       return;
     }
 
-    console.log('$slides', this.$slides);
-    console.log('slides', this.slides);
     angular.forEach(this.slides, function (slide, i) {
-      console.log(this.$slides[i]);
       var el = this.$slides[i];
       slide.top = el.offsetTop;
       slide.height = el.offsetHeight;
