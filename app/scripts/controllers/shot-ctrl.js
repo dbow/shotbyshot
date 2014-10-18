@@ -139,7 +139,7 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
   };
 
   $scope.thumbnailForShot = function (shot) {
-    return '/wp/wp-content/uploads/Shots_400px/' + $filter('shot')(parseInt(shot.slug, 10) + 1) + '.png';
+    return '/wp/wp-content/uploads/Shots_400px/' + shot.slug + '.png';
   };
 
   $scope.toggleMenu = function () {

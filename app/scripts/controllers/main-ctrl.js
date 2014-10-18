@@ -101,10 +101,6 @@ angular.module('shotbyshot')
       ScrollService.scrollToSlide(slide);
     };
 
-  $scope.thumbnailForShot = function (shot) {
-    return '/wp/wp-content/uploads/Shots_400px/' + $filter('shot')(parseInt(shot.slug, 10) + 1) + '.png';
-  };
-
   $scope.toggleMenu = function () {
     if ($scope.menuIsOn) {
       angular.element(document.body).removeClass('noscroll');
