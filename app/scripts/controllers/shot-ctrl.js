@@ -1,8 +1,10 @@
 'use strict';
 
 function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
-                  AnnotationParserService, ShotVideoService, ScrollService) {
+                  AnnotationParserService, ShotVideoService, ScrollService,
+                  AnalyticsService) {
   var self = this;
+
 
   this.id = ShotService.current;
   this.next = ShotService.getNext();
@@ -10,6 +12,9 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
   this.videoUrl = ShotService.getVideoUrl();
   this.shots = [];
   this.thumbsForTag = {};
+
+  AnalyticsService.pageview(window.location.href,
+      document.title + ' - Shot ' + this.id);
 
   $scope.menuIsOn = false;
   $scope.showMenuTab = 'shots';

@@ -1,12 +1,16 @@
 'use strict';
 
 angular.module('shotbyshot')
-  .controller('MainCtrl', function ($scope, $sce, $filter, ScrollService, ShotService) {
+  .controller('MainCtrl', function ($scope, $sce, $filter, ScrollService,
+                                    ShotService, AnalyticsService) {
     this.shots = [];
     this.thumbsForTag = {};
 
     $scope.menuIsOn = false;
     $scope.showMenuTab = 'shots';
+
+    AnalyticsService.pageview(window.location.href,
+        document.title + ' - Main Menu');
 
     var shot = {};
     shot.annotations = [
