@@ -150,12 +150,7 @@
   left: 50%;
   margin-left: -40px;
   transition: opacity 0.5s;
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
   transform: rotate(180deg);
-  -moz-animation: 2s bounce 1s infinite;
-  -ms-animation: 2s bounce 1s infinite;
-  -webkit-animation: 2s bounce 1s infinite;
   animation: 2s bounce 1s infinite;
 
   &:after {
@@ -173,8 +168,6 @@
 }
 
 .bounce {
-  -webkit-animation-name: bounce;
-  -moz-animation-name: bounce;
   animation-name: bounce;
 }
 
@@ -184,12 +177,12 @@
   30% {-webkit-transform: translateY(-5px) rotate(180deg);}
 }
 @-moz-keyframes bounce {
-  0%, 10%, 25%, 40%, 100% {-moz-transform: translateY(0);}
+  0%, 10%, 25%, 40%, 100% {-moz-transform: translateY(0) rotate(180deg);}
   20% {-moz-transform: translateY(-10px) rotate(180deg);}
   30% {-moz-transform: translateY(-5px) rotate(180deg);}
 }
 @keyframes bounce {
-  0%, 10%, 25%, 40%, 100% {transform: translateY(0);}
+  0%, 10%, 25%, 40%, 100% {transform: translateY(0) rotate(180deg);}
   20% {transform: translateY(-10px) rotate(180deg);}
   30% {transform: translateY(-5px) rotate(180deg);}
 }
