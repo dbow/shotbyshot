@@ -711,8 +711,10 @@ function ScrollService(ShotVideoService) {
         if (path.$el[0] === slide.$inner[0] && !_.has(css, 'opacity')) {
           css.opacity = 1;
         }
+        var transformCss = 'translate3d(' + transformX + ', ' + transformY + ', 0)' + scale;
         path.$el.css({
-          'transform': 'translate3d(' + transformX + ', ' + transformY + ', 0)' + scale,
+          '-webkit-transform': transformCss,
+          'transform': transformCss,
           'display': 'block',
           'opacity': css['opacity']
         });
