@@ -386,7 +386,7 @@ function ScrollService(ShotVideoService) {
     var videoPercentOfScreen = shotVideoWidth / windowWidth;
     var videoOffsetPercent = ((windowWidth - shotVideoWidth) / 2) / windowWidth;
 
-    if (this.slides.length < 1 || this.$slides.length < 1) {
+    if (!this.slides || this.slides.length < 1 || this.$slides.length < 1) {
       return;
     }
 
