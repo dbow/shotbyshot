@@ -66,7 +66,7 @@ function ShotVideoService() {
    * @param {Function} onComplete callback when this play ends.
    */
   this.play = function(onComplete) {
-    if (self.video.readyState !== 4) {
+    if (self.video.readyState < 2) {
       return;
     }
     playing = true;
@@ -85,7 +85,7 @@ function ShotVideoService() {
    * Restores slow motion, muted playback of shot video.
    */
   this.resumeLoop = function() {
-    if (self.video.readyState !== 4) {
+    if (self.video.readyState < 2) {
       return;
     }
     playing = false;
