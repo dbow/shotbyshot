@@ -2,7 +2,7 @@
 
 function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
                   AnnotationParserService, ShotVideoService, ScrollService,
-                  AnalyticsService) {
+                  AnalyticsService, AutoScrollerService) {
   var self = this;
 
 
@@ -24,7 +24,10 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
   this.play = function() {
     self.backgroundOpacity = 0;
     self.playing = true;
-    ShotVideoService.play(self.stop);
+    ShotVideoService.play(function() {
+      self.stop();
+      AutoScrollerService.autoScroll();
+    });
   };
 
   this.stop = function() {
