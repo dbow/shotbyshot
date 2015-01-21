@@ -24,11 +24,8 @@ function ShotService($rootScope, $http, $filter, $stateParams, $q,
 
   /**
    * Max number of shots that exist.
-   * TODO(dbow): Either set it to the actual value, or call a category API
-   * to figure it out.
-   * @const
    */
-  var MAX = 300;
+  var max = 300;
 
   /**
    * Get the next shot, if there is one.
@@ -36,7 +33,7 @@ function ShotService($rootScope, $http, $filter, $stateParams, $q,
    */
   this.getNext = function() {
     var next = this.current + 1;
-    return next <= MAX ? next : null;
+    return next <= max ? next : null;
   };
 
   /**
@@ -94,6 +91,8 @@ function ShotService($rootScope, $http, $filter, $stateParams, $q,
     }).success(function(data) {
       if (data.status === 'ok') {
         deferred.resolve(data.categories);
+        // Set max to last thumbnail's slug.
+        max = parseInt(_.last(data.categories).slug, 10);
       } else {
         deferred.reject('Error fetching shots');
       }
@@ -152,7 +151,7 @@ function ShotService($rootScope, $http, $filter, $stateParams, $q,
   $rootScope.$on('$stateChangeStart',
       function(event, toState, toParams, fromState, fromParams) {
         var shotNumber = parseInt(toParams.shot, 10);
-        if (!isNaN(shotNumber) && shotNumber >= 0 && shotNumber <= MAX) {
+        if (!isNaN(shotNumber) && shotNumber >= 0 && shotNumber <= max) {
           self.current = shotNumber;
         }
       });
