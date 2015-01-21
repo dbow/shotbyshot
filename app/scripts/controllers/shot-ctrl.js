@@ -42,10 +42,9 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
         nav: 'introduction',
         onEnter: function() {
           $scope.inView = true;
-          if (!self.played) {
+          if (!self.ready) {
             $timeout(function() {
-              self.play();
-              self.played = true;
+              self.ready = true;
             }, 3000);
           }
           $scope.$apply();
