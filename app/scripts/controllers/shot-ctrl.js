@@ -108,9 +108,12 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
   });
 
   ShotService.getTags(0).then(function(tags) {
-    self.tags = _.sortBy(tags, function (tag) {
+    self.tags = _.map(_.sortBy(tags, function (tag) {
       return -tag.post_count;
-    }).slice(0, 30);
+    }).slice(0, 30), function(sortedTag) {
+      sortedTag.title = sortedTag.title.replace(/\s/g, '&nbsp;');
+      return sortedTag;
+    });
   });
 
   $scope.isHeaderSlide = function(slide) {

@@ -18,6 +18,14 @@
     transition: opacity 0.3s ease-in-out, height 0s 0.3s;
   }
 
+  .nav-menu {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: $nav-height;
+    bottom: 0px;
+  }
+
   .top-nav-current-slide, .top-nav-shot {
     transition: opacity 0.3s;
   }
@@ -26,9 +34,8 @@
     height: 100%;
 
     .nav-menu {
-      height: 100%;
+      height: auto;
       opacity: 1;
-      overflow-y: auto;
       transition: opacity 0.3s ease-in-out;
     }
 

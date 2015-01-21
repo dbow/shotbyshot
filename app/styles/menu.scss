@@ -11,7 +11,7 @@
 }
 
 .nav-menu-controls {
-  margin: $nav-height 58px 0;
+  margin: 4px 58px 0;
   border-bottom: 1px solid white;
 }
   .nav-menu-tabs {
@@ -38,7 +38,8 @@
 $shot-thumb-height: 235px;
 $shot-thumb-width: 400px;
 .nav-menu-shots {
-  padding: 0 (58px - 15px);
+  left: 43px;
+  right: 43px;
   line-height: 0;
   font-size: 0;
 }
@@ -85,8 +86,9 @@ $shot-thumb-width: 400px;
     }
 
 .nav-menu-tags {
-  padding: 20px 58px;
   word-wrap: break-word;
+  right: 58px;
+  left: 58px;
 }
   .nav-menu-tag {
     margin-right: 70px;
@@ -100,3 +102,14 @@ $shot-thumb-width: 400px;
       text-decoration: underline;
     }
   }
+
+.nav-menu-shots, .nav-menu-tags {
+  position: absolute;
+  top: 45px;
+  bottom: 45px;
+  overflow-y: scroll;
+}
+
+.nav-menu-scrollable {
+  padding: 20px 0px;
+}

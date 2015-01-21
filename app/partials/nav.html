@@ -20,13 +20,17 @@
       </div>
 
       <div class="nav-menu-shots" ng-show="showMenuTab === 'shots'">
-        <a class="nav-menu-shot" ng-repeat="shot in thumbs" ui-sref="shot({ shot: shot.slug })" ng-style="{'background-image': 'url(' + thumbnailForShot(shot) + ')'}">
-          <div class="nav-menu-shot-number">{{ shot.slug | number }}</div>
-        </a>
+        <div class="nav-menu-scrollable">
+          <a class="nav-menu-shot" ng-repeat="shot in thumbs" ui-sref="shot({ shot: shot.slug })" ng-style="{'background-image': 'url(' + thumbnailForShot(shot) + ')'}">
+            <div class="nav-menu-shot-number">{{ shot.slug | number }}</div>
+          </a>
+        </div>
       </div>
 
       <div class="nav-menu-tags" ng-show="showMenuTab === 'tags'">
-        <a class="nav-menu-tag" ng-repeat="tag in shot.tags" ng-bind="tag.title" ng-click="$parent.filterShots(tag); $parent.showMenuTab = 'shots';"></a>
+        <div class="nav-menu-scrollable">
+          <a class="nav-menu-tag" ng-repeat="tag in shot.tags" ng-bind-html="tag.title" ng-click="$parent.filterShots(tag); $parent.showMenuTab = 'shots';"></a>
+        </div>
       </div>
     </div>
 
