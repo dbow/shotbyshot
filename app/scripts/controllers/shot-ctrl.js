@@ -105,6 +105,16 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
   // angular enought to know how.
   ShotService.getThumbnails(0).then(function(thumbs) {
     $scope.thumbs = self.thumbs = thumbs;
+
+    // Scroll the shot menu to approximately the location of this shot.
+    var thisShotIndex = _.findIndex(thumbs, function(thumb) {
+      return parseInt(thumb.slug, 10) === self.id;
+    });
+    var thumbnailRowHeight = 275; // constant px height from CSS...
+    var scrollTarget = thumbnailRowHeight * Math.floor(thisShotIndex / 2);
+    $timeout(function() { // Scroll 300ms later to allow for rendering.
+      document.querySelector('.nav-menu-shots').scrollTop = scrollTarget;
+    }, 300);
   });
 
   ShotService.getTags(0).then(function(tags) {
