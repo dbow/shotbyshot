@@ -98,7 +98,7 @@ $shot-thumb-width: 400px;
     transition: color 0.2s, text-decoration 0.2s;
 
     &:hover {
-      color: rgb(254, 212, 97);
+      color: $nav-highlight-color;
       text-decoration: underline;
     }
   }

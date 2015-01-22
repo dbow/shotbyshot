@@ -42,6 +42,13 @@
     .top-nav-shots-button {
       transform: rotate(180deg);
     }
+    .top-nav-index-label {
+      opacity: 1;
+    }
+    .top-nav-author {
+      opacity: 0;
+    }
+
   }
 
   &.global {
@@ -105,13 +112,33 @@
   font-size: 20px;
   line-height: $nav-height;
   overflow: hidden;
+
+  &:hover {
+    .top-nav-index-label {
+      opacity: 1;
+    }
+    .top-nav-author {
+      opacity: 0;
+    }
+  }
 }
+  .top-nav-index-label {
+    color: $nav-highlight-color;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.5s;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+  }
+
   .top-nav-author {
     position: absolute;
-    transition: transform 1s, opacity 1s;
+    transition: transform 1s, opacity 0.5s;
     text-transform: capitalize;
     width: 100%;
     text-align: center;
+    cursor: pointer;
 
     &.up {
       transform: translate3d(0, -$nav-height, 0);
