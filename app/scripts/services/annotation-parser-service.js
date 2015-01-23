@@ -169,7 +169,7 @@ function AnnotationParserService($sce, $rootScope, Annotation) {
         var NON_AUTHOR_TYPES = {
           photo: 'photos',
           video: 'video',
-          streetview: 'Now & Then'
+          streetview: 'Then & Now'
         };
 
         // If first detected slide is not one of the non-author ones, add an
