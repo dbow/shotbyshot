@@ -101,6 +101,13 @@ function AnnotationParserService($sce, $rootScope, Annotation) {
         // Assemble a map of attributes and optional values.
         var attributeMap = {};
 
+        // Replace smart double quotes and double prime.
+        attributes = attributes.replace(/&#8220;|&#8221;|&#8243;/g, '"');
+        // Replace smart single quotes and prime.
+        attributes = attributes.replace(/&#8216;|&#8217;|&#8242;/g, '\'');
+        // Replace en dash and em dash.
+        attributes = attributes.replace(/&#8211;|&#8212;/g, '-');
+
         // Find all the key/value attributes e.g. caption="blah"
         var keyValAttributeRegex = /(\w+)=("[^"]*"|'[^']*'|\w+)/g;
         var match;
