@@ -381,10 +381,15 @@ function ScrollService(ShotVideoService) {
     var headerIndex = 0;
     var navIndex = 0;
 
-    var shotVideoWidth = 1075; // TODO(dbow): Should not be hard coded.
+    var shotVideoWidth = document.querySelector('.shot-video-directive').clientWidth;
     var windowWidth = window.innerWidth;
     var videoPercentOfScreen = shotVideoWidth / windowWidth;
     var videoOffsetPercent = ((windowWidth - shotVideoWidth) / 2) / windowWidth;
+    // shot video is only centered if there is room in the window. Otherwise
+    // it is left aligned (e.g. offset 0).
+    if (videoOffsetPercent < 0) {
+      videoOffsetPercent = 0;
+    }
 
     if (!this.slides || this.slides.length < 1 || this.$slides.length < 1) {
       return;
@@ -418,10 +423,11 @@ function ScrollService(ShotVideoService) {
       }
 
       if (slide.type === 'highlight') {
-        var top = slide.annotation.highlight.y / 100;
         var left = slide.annotation.highlight.x / 100;
-        top = videoOffsetPercent + top * videoPercentOfScreen;
         left = videoOffsetPercent + left * videoPercentOfScreen;
+        var top = slide.annotation.highlight.y / 100;
+        // Top always starts from 0 (no offset) because shot video fills 100%
+        // of screen.
         slide.keyFrames = slide.keyFrames.concat([
           {
             key: 0,

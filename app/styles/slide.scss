@@ -239,6 +239,15 @@
   margin-left: -125px;
   margin-top: -125px;
 }
+@media (max-height: 615px) {
+  .slide-highlight-spotlight {
+    height: 130px;
+    width: 130px;
+    border-radius: 130px;
+    margin-left: -65px;
+    margin-top: -65px;
+  }
+}
 
 .slide-streetview {
   border-top: 2px solid white;
