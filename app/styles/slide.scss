@@ -20,10 +20,20 @@
 
 .slide-center {
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+  .slide-center h3 {
+    font-weight: 400;
+    font-size: 0.85em;
+    position: absolute;
+    width: 400px;
+    left: 50%;
+    margin-left: -200px;
+    top: -80px;
+  }
 
 .slide-text {
   font-size: 24px;
