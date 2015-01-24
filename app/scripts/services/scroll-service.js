@@ -381,8 +381,10 @@ function ScrollService(ShotVideoService) {
     var headerIndex = 0;
     var navIndex = 0;
 
-    var shotVideoWidth = document.querySelector('.shot-video-directive').clientWidth;
     var windowWidth = window.innerWidth;
+    var shotVideoContainer = document.querySelector('.shot-video-directive');
+    var shotVideoWidth = shotVideoContainer ? shotVideoContainer.clientWidth :
+        windowWidth;
     var videoPercentOfScreen = shotVideoWidth / windowWidth;
     var videoOffsetPercent = ((windowWidth - shotVideoWidth) / 2) / windowWidth;
     // shot video is only centered if there is room in the window. Otherwise
