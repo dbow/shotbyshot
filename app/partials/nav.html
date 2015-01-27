@@ -9,7 +9,7 @@
     </div>
     <div class="top-nav-shot" ng-show="shot.id">
         <a ng-show="shot.previous" ui-sref="shot({ shot: shot.previous })" class="top-nav-shot-down"></a>
-        <div class="top-nav-shot-current">{{ shot.id | shot }}</div>
+        <div class="top-nav-shot-current">{{ shot.id }}</div>
         <a ng-show="shot.next" ui-sref="shot({ shot: shot.next })" class="top-nav-shot-up"></a>
     </div>
 

@@ -77,6 +77,10 @@
   width: 100%;
 }
 
+.slide-photo .fit-to-window-directive {
+  background: rgba(0, 0, 0, 0.75);
+}
+
 .meta-text {
   position: absolute;
   bottom: 0px;
@@ -92,7 +96,7 @@
 }
 
 .slide-outer-photo {
-  height: 200%;
+  height: 225%;
 }
 
 .slide-author {
@@ -225,6 +229,7 @@
   background-image: url(../images/Shot_by_Shot_Icon.svg);
   text-align: center;
   display: inline-block;
+  font-size: 40px;
 }
 
 .slide-inner.slide-highlight {

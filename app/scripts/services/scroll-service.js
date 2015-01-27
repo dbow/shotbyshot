@@ -192,8 +192,8 @@ function ScrollService(ShotVideoService) {
       {
         key: 1.5,
         top: -0.3,
-        left: -0.4,
-        scale: 0.2
+        left: -0.41,
+        scale: 0.45
       }
     ],
     'background': [
@@ -478,18 +478,18 @@ function ScrollService(ShotVideoService) {
       if (author && slide.annotation !== author.annotation) {
         author.keyFrames = author.keyFrames.concat([
           {
-            key: i - author.index - 1.5,
+            key: i - author.index + 0.5,
             opacity: 1,
             top: -0.3,
-            left: -0.4,
-            scale: 0.2
+            left: -0.41,
+            scale: 0.45
           },
           {
-            key: i - author.index - 1,
+            key: i - author.index + 1,
             opacity: 0,
             top: -0.3,
-            left: -0.4,
-            scale: 0.2
+            left: -0.41,
+            scale: 0.45
           }
         ]);
         author = null;
@@ -505,13 +505,13 @@ function ScrollService(ShotVideoService) {
       if (bg && slide.annotation !== bg.annotation) {
         bg.keyFrames = bg.keyFrames.concat([
           {
-            key: i - bg.index - 0.5,
+            key: i - bg.index - 1,
             opacity: 1,
             top: 0,
             metaOpacity: 0
           },
           {
-            key: i - bg.index,
+            key: i - bg.index - 0.5,
             opacity: 0,
             top: -1,
             metaOpacity: 0
