@@ -15,7 +15,7 @@ function AutoScrollerService() {
    * The amount to scroll by each time.
    * @const
    */
-  var SCROLL_AMOUNT = 10;
+  var SCROLL_AMOUNT = 5;
 
   /**
    * Scrolls down by SCROLL_AMOUNT until user interacts with the page or it
@@ -53,6 +53,9 @@ function AutoScrollerService() {
    * Start auto-scrolling.
    */
   this.autoScroll = function() {
+    // Start halfway through the video slide.
+    window.scrollTo(0, window.innerHeight / 2);
+
     scrollDown();
   };
 }
