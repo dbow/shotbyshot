@@ -5,20 +5,14 @@ angular
           ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ui.router'])
   .config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider) {
     $stateProvider
-      .state('home', {
-        url: '/',
-        templateUrl: 'partials/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
-      })
       .state('shot', {
-        url: '/shot/:shot',
+        url: '/:shot',
         templateUrl: 'partials/shot.html',
         controller: 'ShotCtrl',
         controllerAs: 'shot'
       });
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/0001');
 
      $sceDelegateProvider.resourceUrlWhitelist([
        // Allow same origin resource loads.
