@@ -20,6 +20,10 @@ body.noscroll {
   overflow: hidden;
 }
 
+#preload {
+  display: none;
+}
+
 .content {
   padding-top: $nav-height;
   height: 100%;
