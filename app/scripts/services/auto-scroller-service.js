@@ -29,8 +29,14 @@ function AutoScrollerService() {
     var currentScroll = window.pageYOffset;
 
     if (scrollTarget !== null) {
-      // Stop if user action changed the page's scroll value.
-      if (currentScroll !== scrollTarget) {
+      // Stop if user action changed the page's scroll value from what we
+      // expect.
+      //
+      // Check against the last scroll target too because Safari sometimes
+      // doesn't synchronously update the scroll with window.scrollTo before
+      // the requestAnimationFrame method is invoked.
+      if (currentScroll !== scrollTarget &&
+          currentScroll !== scrollTarget - SCROLL_AMOUNT) {
         scrollTarget = null;
         return;
       }
