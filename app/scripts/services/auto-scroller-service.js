@@ -37,7 +37,9 @@ function AutoScrollerService() {
     }
 
     // Stop if we reach the bottom.
-    if (currentScroll + window.innerHeight >= document.body.scrollHeight) {
+    var scrollHeight = Math.max(document.body.scrollHeight, // Chrome, Safari
+                                document.documentElement.scrollHeight); // FF
+    if (currentScroll + window.innerHeight >= scrollHeight) {
       scrollTarget = null;
       return;
     }
