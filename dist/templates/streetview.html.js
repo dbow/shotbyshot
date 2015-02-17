@@ -1,0 +1,4 @@
+angular.module('shotbyshot').run(['$templateCache', function($templateCache) {
+    $templateCache.put('templates/streetview.html',
+        "<div>\n  <div ng-show=\"oneUp\" class=\"street-view-comparison\">\n    <canvas video-frame target=\"{{ startFrame }}\"></canvas>\n  </div>\n  <div class=\"street-view-container background-cover-directive\" ng-class=\"{'one-up': oneUp}\">\n    <img ng-src=\"{{ streetViewImageUrl }}\" />\n  </div>\n  <div ng-if=\"oneUp\" class=\"street-view-meta\">\n    <div class=\"street-view-title\">{{ title }}</div>\n    <div class=\"street-view-caption\">{{ caption }}</div>\n  </div>\n</div>\n");
+}]);

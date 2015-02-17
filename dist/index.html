@@ -1,0 +1,48 @@
+<!doctype html>
+<html class="no-js" ng-app="shotbyshot">
+  <head>
+    <meta charset="utf-8">
+    <title>Shot By Shot</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link rel="stylesheet" href="styles/vendor-d41d8cd9.css">
+
+    <link rel="stylesheet" href="styles/main-11eaf707.css">
+
+    <script src="scripts/modernizr-c1ff1650.js"></script>
+  </head>
+  <body>
+    <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div ui-view></div>
+
+    <!-- Assets to manually preload -->
+    <div id="preload">
+        <img src="../images/play-button.svg" />
+    </div>
+
+    <!-- Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-28389804-5', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    <script src="scripts/vendor-5fac5c56.js"></script>
+
+    <script src="scripts/main-d5328b69.js"></script>
+
+    <!-- inject:templates -->
+    <script src="templates/slide.html.js"></script>
+    <script src="templates/streetview.html.js"></script>
+    <!-- endinject -->
+
+  </body>
+</html>
