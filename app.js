@@ -1,3 +1,5 @@
+var port = (process.env.PORT || 8080);
+
 var url = require('url');
 var proxy = require('proxy-middleware');
 
@@ -67,4 +69,4 @@ var directory = 'dist';
     var cssDirectory = __dirname.replace('gulp', '.tmp/styles');
     app.use('/styles', express.static(cssDirectory));
   }
-  app.listen(8080);
+  app.listen(port);
