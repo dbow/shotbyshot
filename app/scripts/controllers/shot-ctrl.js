@@ -1,6 +1,6 @@
 'use strict';
 
-function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
+function ShotCtrl($scope, $sce, $filter, $timeout, $state, ShotService,
                   AnnotationParserService, ShotVideoService, ScrollService,
                   AnalyticsService, AutoScrollerService) {
   var self = this;
@@ -21,7 +21,12 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
 
   angular.element(document.body).removeClass('noscroll');
 
+  // Duration to wait before auto-play and moving to the next shot at end.
+  var AUTO_ACTION_DURATION = 30 * 1000;
+  this.played = false;
+
   this.play = function() {
+    this.played = true;
     self.backgroundOpacity = 0;
     self.playing = true;
     ShotVideoService.play(function() {
@@ -37,8 +42,20 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
     $scope.$apply();
   };
 
+  var outroShouldMoveOn = true;
+
   if (this.id) {
     ShotService.getShot(this.id).then(function(annotations) {
+      if (window.location.search.indexOf('installation') >= 0) {
+        // If in installation mode and video has not been played after some time,
+        // auto-play.
+        $timeout(function() {
+          if (!self.played) {
+            self.play();
+          }
+        }, AUTO_ACTION_DURATION);
+      }
+
       var intro = [{
         type: 'introduction',
         shot: self.id,
@@ -60,7 +77,22 @@ function ShotCtrl($scope, $sce, $filter, $timeout, ShotService,
       var outro = [{
         shot: self.id,
         type: 'outro',
-        next: self.next
+        next: self.next,
+        onEnter: function() {
+          if (window.location.search.indexOf('installation') >= 0) {
+            // If in installation mode and outro slide is still in focus after
+            // some duration, move to next shot.
+            $timeout(function() {
+              if (outroShouldMoveOn) {
+                ScrollService.scrollToSlide(self.slides[0]);
+                $state.go('shot', {'shot': self.next || 1});
+              }
+            }, AUTO_ACTION_DURATION);
+          }
+        },
+        onExit: function() {
+          outroShouldMoveOn = false;
+        }
       }];
       var slides = intro.concat(AnnotationParserService.parse(annotations), outro);
       self.annotations = annotations;
