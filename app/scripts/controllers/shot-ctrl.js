@@ -26,7 +26,7 @@ function ShotCtrl($scope, $sce, $filter, $timeout, $state, ShotService,
   this.played = false;
 
   this.play = function() {
-    this.played = true;
+    self.played = true;
     self.backgroundOpacity = 0;
     self.playing = true;
     ShotVideoService.play(function() {
