@@ -60,6 +60,10 @@
     $ gulp serve:4RealDist
     ```
 
+# Installation Mode
+
+If you navigate to the app with the `?installation` query param, it operates in "installation mode".
+This means that the video will auto-play after 30 seconds, then auto-scroll to the bottom, and automatically move to the next shot after another 30 seconds.
 
 # But, wait, how did we get here? Where did all these files come from?
 
