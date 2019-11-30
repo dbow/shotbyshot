@@ -6,6 +6,9 @@ var browserSync = require('browser-sync');
 var url = require('url');
 var proxy = require('proxy-middleware');
 
+const { watch } = require('./watch.js');
+const { styles, build } = require('./build.js');
+
 // Use proxy-middleware instead of http-proxy because http-proxy was causing
 // an issue with the dreamhost server and I couldn't figure it out :/
 // Probably something with specific headers. proxy-middleware just works though.
@@ -27,7 +30,7 @@ function browserSyncInit(baseDir, files, browser) {
 
 }
 
-gulp.task('serve', ['watch'], function () {
+exports.serve = gulp.series(watch, function serve (cb) {
   browserSyncInit([
     'app',
     '.tmp'
@@ -38,6 +41,7 @@ gulp.task('serve', ['watch'], function () {
     'app/partials/**/*.html',
     'app/images/**/*'
   ]);
+  cb();
 });
 
 
@@ -104,22 +108,17 @@ function expressProxyCacheSetup(directory) {
   app.listen(8080);
 }
 
-gulp.task('serve:4Real', ['styles'], function() {
+exports['serve:4Real'] = gulp.series(styles, function serve4Real(cb) {
   expressProxyCacheSetup();
+  cb();
 });
 
-gulp.task('serve:4RealDist', ['build'], function() {
+exports['serve:4RealDist'] = gulp.series(build, function serve4RealDist(cb) {
   expressProxyCacheSetup('dist');
+  cb();
 });
 
-gulp.task('serve:dist', ['build'], function () {
+exports['serve:dist'] = gulp.series(build, function serveDist(cb) {
   browserSyncInit('dist');
-});
-
-gulp.task('serve:e2e', function () {
-  browserSyncInit(['app', '.tmp'], null, []);
-});
-
-gulp.task('serve:e2e-dist', ['watch'], function () {
-  browserSyncInit('dist', null, []);
+  cb();
 });

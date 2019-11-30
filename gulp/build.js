@@ -2,56 +2,56 @@
 
 var gulp = require('gulp');
 
-var angularTemplates = require('gulp-angular-templates');
+var templateCache = require('gulp-angular-templatecache');
+const htmlmin = require('gulp-htmlmin');
+
+const sass = require('gulp-sass');
+sass.compiler = require('node-sass');
 
 var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license']
 });
 
-gulp.task('styles', function () {
+function styles() {
   return gulp.src('app/styles/*.scss')
-    .pipe($.plumber())
-    .pipe($.rubySass({style: 'expanded'}))
+    .pipe(sass().on('error', sass.logError))
     .pipe($.autoprefixer('last 1 version'))
     .pipe(gulp.dest('.tmp/styles'))
     .pipe($.size());
-});
+}
 
-gulp.task('scripts', function () {
+function scripts () {
   return gulp.src('app/scripts/**/*.js')
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
     .pipe($.size());
-});
+}
 
-gulp.task('partials', function () {
+function partials() {
   return gulp.src('app/partials/**/*.html')
-    .pipe($.minifyHtml({
-      empty: true,
-      spare: true,
-      quotes: true
-    }))
+    .pipe(htmlmin())
     .pipe($.ngHtml2js({
       moduleName: 'shotbyshot',
       prefix: 'partials/'
     }))
     .pipe(gulp.dest('.tmp/partials'))
     .pipe($.size());
-});
+}
 
-gulp.task('templates', function() {
-  gulp.src('app/templates/**/*.html')
-      .pipe(angularTemplates({
-        basePath: 'templates/',
-        module: 'shotbyshot'
+function templates() {
+  return gulp.src('app/templates/**/*.html')
+      .pipe(templateCache({
+        module: 'shotbyshot',
+        root: 'templates/',
       }))
       .pipe(gulp.dest('dist/templates'));
 
-});
+}
 
-gulp.task('html', ['styles', 'scripts', 'partials', 'templates'], function () {
-  var jsFilter = $.filter('**/*.js');
-  var cssFilter = $.filter('**/*.css');
+const html = gulp.series(gulp.parallel(styles, scripts, partials, templates), function html () {
+  var jsFilter = $.filter('**/*.js', { restore: true });
+  var cssFilter = $.filter('**/*.css', { restore: true });
+  var htmlFilter = $.filter(['**/*', '!**/*.html'], { restore: true });
 
   return gulp.src('app/*.html')
     .pipe($.inject(gulp.src('.tmp/partials/**/*.js'), {
@@ -66,24 +66,24 @@ gulp.task('html', ['styles', 'scripts', 'partials', 'templates'], function () {
       ignorePath: 'dist',
       addRootSlash: false
     }))
-    .pipe($.useref.assets())
-    .pipe($.rev())
+    .pipe($.useref())
     .pipe(jsFilter)
     .pipe($.ngAnnotate())
     .pipe($.uglify({preserveComments: $.uglifySaveLicense}))
-    .pipe(jsFilter.restore())
+    .pipe(jsFilter.restore)
     .pipe(cssFilter)
     .pipe($.replace('bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap','fonts'))
     .pipe($.csso())
-    .pipe(cssFilter.restore())
-    .pipe($.useref.restore())
-    .pipe($.useref())
+    .pipe(cssFilter.restore)
+    .pipe(htmlFilter)
+    .pipe($.rev())
+    .pipe(htmlFilter.restore)
     .pipe($.revReplace())
     .pipe(gulp.dest('dist'))
     .pipe($.size());
 });
 
-gulp.task('images', function () {
+function images() {
   return gulp.src('app/images/**/*')
     .pipe($.cache($.imagemin({
       optimizationLevel: 3,
@@ -92,13 +92,13 @@ gulp.task('images', function () {
     })))
     .pipe(gulp.dest('dist/images'))
     .pipe($.size());
-});
+}
 
-gulp.task('clear', function () {
+function clear () {
     return $.cache.clearAll();
-});
+}
 
-gulp.task('fonts', function () {
+function fonts() {
   var fontPaths = $.mainBowerFiles();
   fontPaths.push('app/fonts/**/*');
   return gulp.src(fontPaths)
@@ -106,10 +106,20 @@ gulp.task('fonts', function () {
     .pipe($.flatten())
     .pipe(gulp.dest('dist/fonts'))
     .pipe($.size());
-});
+}
 
-gulp.task('clean', function () {
-  return gulp.src(['.tmp', 'dist'], { read: false }).pipe($.rimraf());
-});
+function clean () {
+  return gulp.src(['.tmp', 'dist'], { read: false, allowEmpty: true }).pipe($.rimraf());
+}
 
-gulp.task('build', ['html', 'partials', 'images', 'fonts']);
+exports.clean = clean;
+exports.styles = styles;
+exports.scripts = scripts;
+exports.images = images;
+
+exports.build = gulp.parallel(
+  html,
+  images,
+  fonts
+);
+
