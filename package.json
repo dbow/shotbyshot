@@ -36,7 +36,7 @@
     "karma-jasmine": "^0.1.6",
     "karma-phantomjs-launcher": "^0.1.4",
     "main-bower-files": "^1.0",
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "protractor": "^1.0.0",
     "require-dir": "^0.1",
     "uglify-save-license": "^0.4.1",
