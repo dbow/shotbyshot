@@ -1,6 +1,9 @@
 {
   "name": "shotbyshot",
   "version": "0.0.1",
+  "engines": {
+    "node": "12.x"
+  },
   "dependencies": {
     "express": "4.x",
     "http-proxy": "^1.18.0",
